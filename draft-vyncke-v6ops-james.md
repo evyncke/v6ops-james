@@ -5,16 +5,16 @@ category: info
 
 docname: draft-vyncke-v6ops-james-latest
 ipr: trust200902
-area: OPS
-workgroup: V6OPS
+area: "Operations and Management"
+workgroup: "IPv6 Operations"
 keyword: Internet-Draft
 venue:
-  group: IPv6 Operations (V6OPS)
-  type: Working Group
-  mail: WG@example.com
-  arch: https://datatracker.ietf.org/wg/v6ops/about/
-  github: https://github.com/evyncke/v6ops-james
-  latest: https://example.com/LATEST
+  group: "IPv6 Operations"
+  type: "Working Group"
+  mail: "v6ops@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/v6ops/"
+  github: "evyncke/v6ops-james"
+  latest: "https://evyncke.github.io/v6ops-james/draft-vyncke-v6ops-james.html"
 
 stand_alone: yes
 smart_quotes: no
