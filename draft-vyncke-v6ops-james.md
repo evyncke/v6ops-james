@@ -19,21 +19,21 @@
 # Change the file extension to match the format (.xml for XML, etc...)
 #
 ###
-title: "TODO - Your title"
-abbrev: "TODO - Abbreviation"
+title: "Just Another Measurement of Extension header Survavibility"
+abbrev: "JAMES"
 category: info
 
-docname: draft-todo-yourname-protocol-latest
+docname: draft-vyncke-v6ops-james-latest
 ipr: trust200902
-area: AREA
-workgroup: WG Working Group
+area: OPS
+workgroup: V6OPS
 keyword: Internet-Draft
 venue:
-  group: WG
+  group: IPv6 Operations (V6OPS)
   type: Working Group
   mail: WG@example.com
-  arch: https://example.com/WG
-  github: USER/REPO
+  arch: https://datatracker.ietf.org/wg/v6ops/about/
+  github: https://github.com/evyncke/v6ops-james
   latest: https://example.com/LATEST
 
 stand_alone: yes
@@ -42,9 +42,14 @@ pi: [toc, sortrefs, symrefs]
 
 author:
  -
-    name: Your Name Here
-    organization: Your Organization Here
-    email: your.email@example.com
+    ins: E. Vyncke
+    name: Ëric Vyncke
+    organization: Cisco
+    street: De Kleetlaan 64
+    code: 1831
+    city: Diegem
+    country: Belgium
+    email: evyncke@cisco.com
 
 normative:
 
@@ -83,4 +88,4 @@ This document has no IANA actions.
 # Acknowledgments
 {:numbered="false"}
 
-TODO acknowledge.
+The authors want to thank Sander Steffann and Jan Zorz for allowing the use of their labs.
