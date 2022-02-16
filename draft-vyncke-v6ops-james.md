@@ -58,7 +58,7 @@ In 2016, {{?RFC7872}} has measured the drop of packets with IPv6 extension heade
 
 # Methodology
 
-In a first step, the measurement is done between collaborating IPv6 nodes spread over the Internet and multiple Autonomous Systems (ASs). As seen in {{analyzed_as}}, the source/destination/transit ASs include some "tier-1" providers per {{TIER1}}, so, they are probably representative of the global Internet core.
+In a first step, the measurement is done between collaborating IPv6 nodes spread over the Internet and multiple Autonomous Systems (ASs). As seen in {{analysed_as}}, the source/destination/transit ASs include some "tier-1" providers per {{TIER1}}, so, they are probably representative of the global Internet core.
 
 Relying on collaborating nodes has some benefits:
 

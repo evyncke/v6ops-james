@@ -1,17 +1,16 @@
-{
-NA: {'asn': 'NA', 'asn_cidr': 'NA', 'asn_country_code': 'US', 'asn_date': '2013-04-11', 'asn_description': 'NA', 'asn_registry': 'arin'}
-4755: {'asn': '4755', 'asn_cidr': '2403::/32', 'asn_country_code': 'IN', 'asn_date': '2006-11-17', 'asn_description': 'TATACOMM-AS TATA Communications formerly VSNL is Leading ISP, IN', 'asn_registry': 'apnic'}
-6453: {'asn': '6453', 'asn_cidr': '2405:2000::/32', 'asn_country_code': 'IN', 'asn_date': '2007-06-19', 'asn_description': 'AS6453, US', 'asn_registry': 'apnic'}
-2914: {'asn': '2914', 'asn_cidr': '2001:218::/32', 'asn_country_code': 'JP', 'asn_date': '1999-09-22', 'asn_description': 'NTT-COMMUNICATIONS-2914, US', 'asn_registry': 'apnic'}
-14061: {'asn': '14061', 'asn_cidr': '2400:6180::/48', 'asn_country_code': 'SG', 'asn_date': '2013-11-19', 'asn_description': 'DIGITALOCEAN-ASN, US', 'asn_registry': 'apnic'}
-9498: {'asn': '9498', 'asn_cidr': '2404:a800::/32', 'asn_country_code': 'IN', 'asn_date': '2008-10-02', 'asn_description': 'BBIL-AP BHARTI Airtel Ltd., IN', 'asn_registry': 'apnic'}
-6939: {'asn': '6939', 'asn_cidr': '2001:470::/32', 'asn_country_code': 'US', 'asn_date': '2001-03-22', 'asn_description': 'HURRICANE, US', 'asn_registry': 'arin'}
-5603: {'asn': '5603', 'asn_cidr': '2a00:ee0::/32', 'asn_country_code': 'SI', 'asn_date': '2008-11-20', 'asn_description': 'SIOL-NET Telekom Slovenije d.d., SI', 'asn_registry': 'ripencc'}
-198644: {'asn': '198644', 'asn_cidr': '2001:67c:27e4::/48', 'asn_country_code': 'SI', 'asn_date': '2012-04-02', 'asn_description': 'GO6, SI', 'asn_registry': 'ripencc'}
-12414: {'asn': '12414', 'asn_cidr': '2001:9e0::/29', 'asn_country_code': 'NL', 'asn_date': '2002-11-08', 'asn_description': 'NL-SOLCON SOLCON, NL', 'asn_registry': 'ripencc'}
-4637: {'asn': '4637', 'asn_cidr': '2403:e800::/32', 'asn_country_code': 'HK', 'asn_date': '2008-09-04', 'asn_description': 'ASN-TELSTRA-GLOBAL Telstra Global, HK', 'asn_registry': 'apnic'}
-1299: {'asn': '1299', 'asn_cidr': '2001:2000:3000::/40', 'asn_country_code': 'SE', 'asn_date': '2004-05-10', 'asn_description': 'TWELVE99 Twelve99, Telia Carrier, SE', 'asn_registry': 'ripencc'}
-34779: {'asn': '34779', 'asn_cidr': '2a01:260::/32', 'asn_country_code': 'SI', 'asn_date': '2006-12-01', 'asn_description': 'T-2-AS AS set propagated by T-2 d.o.o., SI', 'asn_registry': 'ripencc'}
-3356: {'asn': '3356', 'asn_cidr': '2001:1900::/32', 'asn_country_code': 'US', 'asn_date': '2004-01-07', 'asn_description': 'LEVEL3, US', 'asn_registry': 'arin'}
-3320: {'asn': '3320', 'asn_cidr': '2003::/19', 'asn_country_code': 'DE', 'asn_date': '2005-01-13', 'asn_description': 'DTAG Internet service provider operations, DE', 'asn_registry': 'ripencc'}
-}
+[
+{"asn": "4755", "asn_cidr": "2403::/32", "asn_country_code": "IN", "asn_date": "2006-11-17", "asn_description": "TATACOMM-AS TATA Communications formerly VSNL is Leading ISP, IN", "asn_registry": "apnic"},
+{"asn": "6453", "asn_cidr": "2405:2000::/32", "asn_country_code": "IN", "asn_date": "2007-06-19", "asn_description": "AS6453, US", "asn_registry": "apnic"},
+{"asn": "2914", "asn_cidr": "2001:218::/32", "asn_country_code": "JP", "asn_date": "1999-09-22", "asn_description": "NTT-COMMUNICATIONS-2914, US", "asn_registry": "apnic"},
+{"asn": "14061", "asn_cidr": "2400:6180::/48", "asn_country_code": "SG", "asn_date": "2013-11-19", "asn_description": "DIGITALOCEAN-ASN, US", "asn_registry": "apnic"},
+{"asn": "9498", "asn_cidr": "2404:a800::/32", "asn_country_code": "IN", "asn_date": "2008-10-02", "asn_description": "BBIL-AP BHARTI Airtel Ltd., IN", "asn_registry": "apnic"},
+{"asn": "6939", "asn_cidr": "2001:470::/32", "asn_country_code": "US", "asn_date": "2001-03-22", "asn_description": "HURRICANE, US", "asn_registry": "arin"},
+{"asn": "5603", "asn_cidr": "2a00:ee0::/32", "asn_country_code": "SI", "asn_date": "2008-11-20", "asn_description": "SIOL-NET Telekom Slovenije d.d., SI", "asn_registry": "ripencc"},
+{"asn": "198644", "asn_cidr": "2001:67c:27e4::/48", "asn_country_code": "SI", "asn_date": "2012-04-02", "asn_description": "GO6, SI", "asn_registry": "ripencc"},
+{"asn": "12414", "asn_cidr": "2001:9e0::/29", "asn_country_code": "NL", "asn_date": "2002-11-08", "asn_description": "NL-SOLCON SOLCON, NL", "asn_registry": "ripencc"},
+{"asn": "4637", "asn_cidr": "2403:e800::/32", "asn_country_code": "HK", "asn_date": "2008-09-04", "asn_description": "ASN-TELSTRA-GLOBAL Telstra Global, HK", "asn_registry": "apnic"},
+{"asn": "1299", "asn_cidr": "2001:2000:3000::/40", "asn_country_code": "SE", "asn_date": "2004-05-10", "asn_description": "TWELVE99 Twelve99, Telia Carrier, SE", "asn_registry": "ripencc"},
+{"asn": "34779", "asn_cidr": "2a01:260::/32", "asn_country_code": "SI", "asn_date": "2006-12-01", "asn_description": "T-2-AS AS set propagated by T-2 d.o.o., SI", "asn_registry": "ripencc"},
+{"asn": "3356", "asn_cidr": "2001:1900::/32", "asn_country_code": "US", "asn_date": "2004-01-07", "asn_description": "LEVEL3, US", "asn_registry": "arin"},
+{"asn": "3320", "asn_cidr": "2003::/19", "asn_country_code": "DE", "asn_date": "2005-01-13", "asn_description": "DTAG Internet service provider operations, DE", "asn_registry": "ripencc"}
+]
