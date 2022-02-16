@@ -44,6 +44,9 @@ informative:
   TIER1:
     title: Tier 1 network
     target: https://en.wikipedia.org/wiki/Tier_1_network
+  ALEXA:
+    title: The top 500 sites on the web
+    target: https://www.alexa.com/topsites
 
 
 --- abstract
@@ -58,13 +61,15 @@ In 2016, {{?RFC7872}} has measured the drop of packets with IPv6 extension heade
 
 # Methodology
 
-In a first step, the measurement is done between collaborating IPv6 nodes spread over the Internet and multiple Autonomous Systems (ASs). As seen in {{analysed_as}}, the source/destination/transit ASs include some "tier-1" providers per {{TIER1}}, so, they are probably representative of the global Internet core.
+In a first phase, the measurement is done between collaborating IPv6 nodes spread over the Internet and multiple Autonomous Systems (ASs). As seen in {{analysed_as}}, the source/destination/transit ASs include some "tier-1" providers per {{TIER1}}, so, they are probably representative of the global Internet core.
 
 Relying on collaborating nodes has some benefits:
 
-- traffic timing can be measured accurately to answer the question whether extension headers are slower than plain IP6 packets;
+- traffic timing can be measured accurately to answer whether extension headers are slower than plain IP6 packets;
 
-- traffic can be capture into pcap at the source and at the destination for later analysis.
+- traffic can be capture into .pcap file at the source and at the destination for later analysis.
+
+Future phases will send probes to non-collaborating nodes with a much reduce probing speed. The destination will include {{ALEXA}} top-n web sites, popular CDN, as well as random prefix from the IPv6 global routing table. A revision of this IETF draft will describe those experiments.
 
 # Measurements
 
@@ -77,7 +82,7 @@ Several servers were used worldwide (albeit missing South America and Africa as 
 
 ### Tested Autonomous Systems {#analysed_as}
 
-During first step (traffic among fully meshed collaborative nodes), our probes have collected data on the following ASs:
+During first phase (traffic among fully meshed collaborative nodes), our probes have collected data on the following ASs:
 
 {::include ./analysed_as.inc}
 {: #table_analysed_as title="All AS (source/destination/transit)"}
