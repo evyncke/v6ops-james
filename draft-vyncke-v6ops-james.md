@@ -2,7 +2,7 @@
 title: "Just Another Measurement of Extension header Survavibility"
 abbrev: "JAMES"
 category: info
-
+submissiontype: IETF
 docname: draft-vyncke-v6ops-james-latest
 ipr: trust200902
 area: "Operations and Management"
@@ -23,45 +23,67 @@ pi: [toc, sortrefs, symrefs]
 author:
  -
     ins: E. Vyncke
-    name: Ëric Vyncke
+    name: Éric Vyncke
     organization: Cisco
     street: De Kleetlaan 64
     code: 1831
     city: Diegem
     country: Belgium
     email: evyncke@cisco.com
+ -
+    ins: R. Léas
+    name: Raphaël Léas
+    organization: Université de Liège
+    city: Liège
+    country: Belgium
+    email: raphael.leas@student.uliege.be
 
 normative:
 
 informative:
+  TIER1:
+    title: Tier 1 network
+    target: https://en.wikipedia.org/wiki/Tier_1_network
 
 
 --- abstract
-
-TODO Abstract
-
+In 2016, {{?RFC7872}} has measured the drop of packets with IPv6 extension headers. This document presents a slightly different methodology with more recent results.
 
 --- middle
 
 # Introduction
 
-TODO Introduction
+In 2016, {{?RFC7872}} has measured the drop of packets with IPv6 extension headers. This document presents a slightly different methodology with more recent results.
 
 
-# Conventions and Definitions
+# Methodology
 
-{::boilerplate bcp14-tagged}
+# Measurements
 
+## Vantage Points
+
+Several servers were used worldwide (albeit missing South America and Africa as authors were unable to have IPv6 servers in these regions). Table {{table_vantage}} lists all the vantage points together with their AS number and country.
+
+{::include ./vantage_as.inc}
+{: #table_vantage title="All vantage AS"}
+
+### Tested Autonomous Systems
+
+
+## Results
+
+### AS dropping transit traffic
+
+### Most dropped extension headers
 
 # Security Considerations
 
-TODO Security
+While active probing of the Internet may be considered as an attack, this measurement was done among collaborating parties and using the probe attribution technique described in I-D.draft-vyncke-opsec-probe-attribution.
 
 
 # IANA Considerations
 
 This document has no IANA actions.
-
 
 --- back
 
@@ -69,3 +91,5 @@ This document has no IANA actions.
 {:numbered="false"}
 
 The authors want to thank Sander Steffann and Jan Zorz for allowing the use of their labs.
+
+Special thanks as well to professor Benoît Donnet and research assistant Justin Iurman for their support and advices. This document would not have existed without their support.
