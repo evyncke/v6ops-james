@@ -1,5 +1,5 @@
 ---
-title: "Just Another Measurement of Extension header Survavibility"
+title: "Just Another Measurement of Extension header Survavibility (JAMES)"
 abbrev: "JAMES"
 category: info
 submissiontype: IETF
@@ -53,22 +53,36 @@ In 2016, {{?RFC7872}} has measured the drop of packets with IPv6 extension heade
 
 # Introduction
 
-In 2016, {{?RFC7872}} has measured the drop of packets with IPv6 extension headers. This document presents a slightly different methodology with more recent results.
+In 2016, {{?RFC7872}} has measured the drop of packets with IPv6 extension headers on their transit over the global Internet. This document presents a slightly different methodology with more recent results.
 
 
 # Methodology
+
+In a first step, the measurement is done between collaborating IPv6 nodes spread over the Internet and multiple Autonomous Systems (ASs). As seen in {{analyzed_as}}, the source/destination/transit ASs include some "tier-1" providers per {{TIER1}}, so, they are probably representative of the global Internet core.
+
+Relying on collaborating nodes has some benefits:
+
+- traffic timing can be measured accurately to answer the question whether extension headers are slower than plain IP6 packets;
+
+- traffic can be capture into pcap at the source and at the destination for later analysis.
 
 # Measurements
 
 ## Vantage Points
 
-Several servers were used worldwide (albeit missing South America and Africa as authors were unable to have IPv6 servers in these regions). Table {{table_vantage}} lists all the vantage points together with their AS number and country.
+Several servers were used worldwide (albeit missing South America and Africa as authors were unable to have IPv6 servers in these regions). {{table_vantage}} lists all the vantage points together with their AS number and country.
 
 {::include ./vantage_as.inc}
 {: #table_vantage title="All vantage AS"}
 
-### Tested Autonomous Systems
+### Tested Autonomous Systems {#analysed_as}
 
+During first step (traffic among fully meshed collaborative nodes), our probes have collected data on the following ASs:
+
+{::include ./analysed_as.inc}
+{: #table_analysed_as title="All AS (source/destination/transit)"}
+
+### Tested Extension Headers
 
 ## Results
 
