@@ -69,7 +69,7 @@ Relying on collaborating nodes has some benefits:
 
 - traffic can be capture into .pcap file at the source and at the destination for later analysis.
 
-Future phases will send probes to non-collaborating nodes with a much reduce probing speed. The destination will include {{ALEXA}} top-n web sites, popular CDN, as well as random prefix from the IPv6 global routing table. A revision of this IETF draft will describe those experiments.
+Future phases will send probes to non-collaborating nodes with a much reduce probing speed. The destination will include {{ALEXA}} top-n websites, popular CDN, as well as random prefix from the IPv6 global routing table. A revision of this IETF draft will describe those experiments.
 
 # Measurements
 
@@ -105,9 +105,9 @@ In the above, length is the length of the extension header itself except for the
 
 Next phases will also include packets without UDP/TCP but with Next-Header being:
 
-- 59, "no next header" see section 4.7 of {{!RFC8200}}
+- 59, "no next header" see section 4.7 of {{!RFC8200}};
 
-- 143, "ethernet" see section 4.9 of {{!RFC8986}}
+- 143, "ethernet" see section 4.9 of {{!RFC8986}}.
 
 ## Results
 
@@ -115,13 +115,16 @@ This section presents the current results out of phase 1 testing.
 
 ### About extension headers
 
-Packes with some extension headers were never dropped over the Internet: packets with authentication, fragmentation, and routing (type != 0) headers can freely traverse the global Internet.
+Packets with some extension headers were never dropped over the Internet: packets with authentication, fragmentation, and routing (type different from 0) headers can freely traverse the global Internet.
 
-Some AS drops packets with the routing header type 0, possibly a strict implementation of {{?RFC5095}}.
+The table below lists the few AS that drops packets with the routing header type 0.
+
 {::include ./drop_rh0_as.inc}
-{: #table_drop_rh0_as title="AS dropping RH-0 (source/destination/transit)"}
 
-### AS dropping transit traffic
+It is possibly due to a strict implementation of {{?RFC5095}} but it is expected that no packet with routing header type 0 would be transmitted anymore. Other routing header types (mobile IPv6 {{?RFC6275}}, RPL {{?RFC6554}}, SRH {{?RFC8754}}, and even CRH-16 and CRH-32{{?I-D.draft-bonica-6man-comp-rtg-hdr}}) can be transmitted over the global Internet.
+
+### AS dropping transit traffic {#dropping_as}
+
 
 # Security Considerations
 
