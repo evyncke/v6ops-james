@@ -89,6 +89,26 @@ During first phase (traffic among fully meshed collaborative nodes), our probes 
 
 ### Tested Extension Headers
 
+In the first phase, packets always contain either a UDP payload or a TCP payload, the latter is sent with only the SYN flag set and with data as permitted by section 3.4 of {{!RFC793}} (2nd paragraph). A usual traceroute is done with only the UDP/TCP payload without any extension header with varying hop-limit in order to learn the traversed routers and ASs. Then, several UDP/TCP probes are sent by with a set of extension headers:
+
+- destination options header containing either an unknown option with the "skip" bits or an unknown option with the "discard" bits of varying extension header length: 8, 256, and 512 octets;
+
+- hop-by-hop options header containing either an unknown option with the "skip" bits or an unknown option with the "discard" bits of varying extension header length: 8, 256, and 512 octets;
+
+- routing header with routing types from 0 to 6 inclusive ;
+
+- atomic fragment header (i.e., more flag = 0 and offset = 0) or varying frame length 512, 1280, and 1492 octets;
+
+- authentication header with dummy SPI followed by UDP/TCP header and a 38 octets payload.
+
+In the above, length is the length of the extension header itself except for the fragmentation header where the length is the frame length (i.e., including the Ethernet, IPv6, and TCP/UDP headers + payload).
+
+Next phases will also include packets without UDP/TCP but with Next-Header being:
+
+- 59, "no next header" see section 4.7 of {{!RFC8200}}
+
+- 143, "ethernet" see section 4.9 of {{!RFC8986}}
+
 ## Results
 
 ### AS dropping transit traffic
