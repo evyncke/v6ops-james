@@ -50,13 +50,13 @@ informative:
 
 
 --- abstract
-In 2016, {{?RFC7872}} has measured the drop of packets with IPv6 extension headers. This document presents a slightly different methodology with more recent results.
+In 2016, {{?RFC7872}} has measured the drop of packets with IPv6 extension headers. This document presents a slightly different methodology with more recent results. It is still work in progress.
 
 --- middle
 
 # Introduction
 
-In 2016, {{?RFC7872}} has measured the drop of packets with IPv6 extension headers on their transit over the global Internet. This document presents a slightly different methodology with more recent results.
+In 2016, {{?RFC7872}} has measured the drop of packets with IPv6 extension headers on their transit over the global Internet. This document presents a slightly different methodology with more recent results. It is still work in progress but the authors wanted to present some results at IETF-113 (March 2022).
 
 
 # Methodology
@@ -111,9 +111,17 @@ Next phases will also include packets without UDP/TCP but with Next-Header being
 
 ## Results
 
-### AS dropping transit traffic
+This section presents the current results out of phase 1 testing.
 
-### Most dropped extension headers
+### About extension headers
+
+Packes with some extension headers were never dropped over the Internet: packets with authentication, fragmentation, and routing (type != 0) headers can freely traverse the global Internet.
+
+Some AS drops packets with the routing header type 0, possibly a strict implementation of {{?RFC5095}}.
+{::include ./drop_rh0_as.inc}
+{: #table_drop_rh0_as title="AS dropping RH-0 (source/destination/transit)"}
+
+### AS dropping transit traffic
 
 # Security Considerations
 
