@@ -1,5 +1,5 @@
 ---
-title: "Just Another Measurement of Extension header Survavibility (JAMES)"
+title: "Just Another Measurement of Extension header Survivability (JAMES)"
 abbrev: "JAMES"
 category: info
 submissiontype: IETF
@@ -56,7 +56,9 @@ In 2016, {{?RFC7872}} has measured the drop of packets with IPv6 extension heade
 
 # Introduction
 
-In 2016, {{?RFC7872}} has measured the drop of packets with IPv6 extension headers on their transit over the global Internet. This document presents a slightly different methodology with more recent results. It is still work in progress but the authors wanted to present some results at IETF-113 (March 2022).
+In 2016, {{?RFC7872}} has measured the drop of packets with IPv6 extension headers on their transit over the global Internet. This document presents a slightly different methodology with more recent results. Since then, {{?I-D.draft-ietf-opsec-ipv6-eh-filtering}} provides some recommendations for filtering transit traffic.
+
+It is still work in progress, but the authors wanted to present some results at IETF-113 (March 2022).
 
 
 # Methodology
@@ -113,18 +115,23 @@ Next phases will also include packets without UDP/TCP but with Next-Header being
 
 This section presents the current results out of phase 1 testing.
 
-### About extension headers
-
 Packets with some extension headers were never dropped over the Internet: packets with authentication, fragmentation, and routing (type different from 0) headers can freely traverse the global Internet.
 
 The table below lists the few AS that drops packets with the routing header type 0.
 
 {::include ./drop_rh0_as.inc}
 
-It is possibly due to a strict implementation of {{?RFC5095}} but it is expected that no packet with routing header type 0 would be transmitted anymore. Other routing header types (mobile IPv6 {{?RFC6275}}, RPL {{?RFC6554}}, SRH {{?RFC8754}}, and even CRH-16 and CRH-32{{?I-D.draft-bonica-6man-comp-rtg-hdr}}) can be transmitted over the global Internet.
+It is possibly due to a strict implementation of {{?RFC5095}} but it is expected that no packet with routing header type 0 would be transmitted anymore. Other routing header types (mobile IPv6 {{?RFC6275}}, RPL {{?RFC6554}}, SRH {{?RFC8754}}, and even CRH-16 and CRH-32{{?I-D.draft-bonica-6man-comp-rtg-hdr}}) can be transmitted over the global Internet without being dropped.
 
-### AS dropping transit traffic {#dropping_as}
+Some ASs drop packets with hop-by-hop or destination options extension headers, see the following table:
 
+{::include ./drop_hbh_dest_as.inc}
+
+The above list seems to include only access providers and no major tier providers.
+
+Finally, some ASs do not drop transit traffic (except for routing header type 0) and follow the recommendations of {{?I-D.draft-ietf-opsec-ipv6-eh-filtering}}. This list includes tier-1 transit providers (using the "regional" tag per {{TIER1}}):
+
+{::include ./no_drop.inc}
 
 # Security Considerations
 
