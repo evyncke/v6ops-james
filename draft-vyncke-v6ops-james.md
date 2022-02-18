@@ -37,6 +37,12 @@ author:
     city: Liège
     country: Belgium
     email: raphael.leas@student.uliege.be
+ -
+    ins: J. Iurman
+    name: Justin Iurman
+    organization: Université de Liège
+    country: Belgium
+    email: justin.iurman@uliege.be
 
 normative:
 
