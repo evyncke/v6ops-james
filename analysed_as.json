@@ -1,6 +1,6 @@
 [
 {"asn": "4755", "asn_cidr": "2403::/32", "asn_country_code": "IN", "asn_date": "2006-11-17", "asn_description": "TATACOMM-AS TATA Communications formerly VSNL is Leading ISP, IN", "asn_registry": "apnic"},
-{"asn": "6453", "asn_cidr": "2405:2000::/32", "asn_country_code": "IN", "asn_date": "2007-06-19", "asn_description": "AS6453, US", "asn_registry": "apnic"},
+ {"asn": "6453", "asn_cidr": "2405:2000::/32", "asn_country_code": "IN", "asn_date": "2007-06-19", "asn_description": "Tata Communication", "asn_registry": "apnic"},
 {"asn": "2914", "asn_cidr": "2001:218::/32", "asn_country_code": "JP", "asn_date": "1999-09-22", "asn_description": "NTT-COMMUNICATIONS-2914, US", "asn_registry": "apnic"},
 {"asn": "14061", "asn_cidr": "2400:6180::/48", "asn_country_code": "SG", "asn_date": "2013-11-19", "asn_description": "DIGITALOCEAN-ASN, US", "asn_registry": "apnic"},
 {"asn": "9498", "asn_cidr": "2404:a800::/32", "asn_country_code": "IN", "asn_date": "2008-10-02", "asn_description": "BBIL-AP BHARTI Airtel Ltd., IN", "asn_registry": "apnic"},
@@ -12,5 +12,11 @@
 {"asn": "1299", "asn_cidr": "2001:2000:3000::/40", "asn_country_code": "SE", "asn_date": "2004-05-10", "asn_description": "TWELVE99 Twelve99, Telia Carrier, SE", "asn_registry": "ripencc"},
 {"asn": "34779", "asn_cidr": "2a01:260::/32", "asn_country_code": "SI", "asn_date": "2006-12-01", "asn_description": "T-2-AS AS set propagated by T-2 d.o.o., SI", "asn_registry": "ripencc"},
 {"asn": "3356", "asn_cidr": "2001:1900::/32", "asn_country_code": "US", "asn_date": "2004-01-07", "asn_description": "LEVEL3, US", "asn_registry": "arin"},
-{"asn": "3320", "asn_cidr": "2003::/19", "asn_country_code": "DE", "asn_date": "2005-01-13", "asn_description": "DTAG Internet service provider operations, DE", "asn_registry": "ripencc"}
+{"asn": "3320", "asn_cidr": "2003::/19", "asn_country_code": "DE", "asn_date": "2005-01-13", "asn_description": "DTAG Internet service provider operations, DE", "asn_registry": "ripencc"},
+{"asn": "60011", "asn_cidr": "2a04:ad80:2::/48", "asn_country_code": "GB", "asn_date": "2014-02-07", "asn_description": "MYTHIC-BEASTS-USA, GB", "asn_registry": "ripencc"},
+{"asn": "44684", "asn_cidr": "2a00:1098::/32", "asn_country_code": "GB", "asn_date": "2009-07-06", "asn_description": "MYTHIC Mythic Beasts Ltd, GB", "asn_registry": "ripencc"},
+{"asn": "6762", "asn_cidr": "2001:41a8::/32", "asn_country_code": "IT", "asn_date": "2004-11-04", "asn_description": "SEABONE-NET TELECOM ITALIA SPARKLE S.p.A., IT", "asn_registry": "ripencc"},
+{"asn": "8447", "asn_cidr": "2001:850::/29", "asn_country_code": "AT", "asn_date": "2002-07-25", "asn_description": "A1TELEKOM-AT A1 Telekom Austria AG, AT", "asn_registry": "ripencc"},
+{"asn": "21283", "asn_cidr": "2001:15c0::/29", "asn_country_code": "SI", "asn_date": "2003-10-02", "asn_description": "A1SI-AS A1 Slovenija, SI", "asn_registry": "ripencc"},
+{"asn": "174", "asn_cidr": "2001:550::/32", "asn_country_code": "US", "asn_date": "2002-12-17", "asn_description": "COGENT-174, US", "asn_registry": "arin"}
 ]

@@ -5,7 +5,7 @@
 | 3356 |yes| LEVEL3, US ||
 |4637|regional|ASN-TELSTRA-GLOBAL Telstra Global, HK|drop|
 | 4755 ||TATACOMM-AS TATA Communications formerly VSNL is Leading ISP, IN ||
-| 6453 |yes| AS6453, US ||
+| 6453 |yes| Tata Communications ||
 |6939|regional|HURRICANE, US|drop|
 | 9498 || BBIL-AP BHARTI Airtel Ltd., IN ||
 | 14061 || DIGITALOCEAN-ASN, US ||
