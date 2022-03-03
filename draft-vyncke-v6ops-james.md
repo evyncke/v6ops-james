@@ -74,15 +74,15 @@ Relying on collaborating nodes has some benefits:
 
 - traffic timing can be measured accurately to answer whether extension headers are slower than plain IP6 packets;
 
-- traffic can be capture into .pcap file at the source and at the destination for later analysis.
+- traffic can be captured into .pcap file at the source and at the destination for later analysis.
 
-Future phases will send probes to non-collaborating nodes with a much reduce probing speed. The destination will include {{ALEXA}} top-n websites, popular CDN, as well as random prefix from the IPv6 global routing table. A revision of this IETF draft will describe those experiments.
+Future phases will send probes to non-collaborating nodes with a much reduced probing speed. The destination will include {{ALEXA}} top-n websites, popular CDN, as well as random prefix from the IPv6 global routing table. A revision of this IETF draft will describe those experiments.
 
 # Measurements
 
 ## Vantage Points
 
-Several servers were used worldwide (albeit missing South America and Africa as authors were unable to have IPv6 servers in these regions). {{table_vantage}} lists all the vantage points together with their AS number and country.
+Several servers were used worldwide (albeit missing Africa as authors were unable to find IPv6 servers in these regions). {{table_vantage}} lists all the vantage points together with their AS number and country.
 
 {::include ./vantage_as.inc}
 {: #table_vantage title="All vantage AS"}
@@ -96,7 +96,7 @@ During first phase (traffic among fully meshed collaborative nodes), our probes 
 
 ### Tested Extension Headers
 
-In the first phase, packets always contain either a UDP payload or a TCP payload, the latter is sent with only the SYN flag set and with data as permitted by section 3.4 of {{!RFC793}} (2nd paragraph). A usual traceroute is done with only the UDP/TCP payload without any extension header with varying hop-limit in order to learn the traversed routers and ASs. Then, several UDP/TCP probes are sent by with a set of extension headers:
+In the first phase among collaborating vantage points, packets always contained either a UDP payload or a TCP payload, the latter is sent with only the SYN flag set and with data as permitted by section 3.4 of {{!RFC793}} (2nd paragraph). A usual traceroute is done with only the UDP/TCP payload without any extension header with varying hop-limit in order to learn the traversed routers and ASs. Then, several UDP/TCP probes are sent by with a set of extension headers:
 
 - destination options header containing either an unknown option with the "skip" bits or an unknown option with the "discard" bits of varying extension header length: 8, 256, and 512 octets;
 
@@ -109,6 +109,8 @@ In the first phase, packets always contain either a UDP payload or a TCP payload
 - authentication header with dummy SPI followed by UDP/TCP header and a 38 octets payload.
 
 In the above, length is the length of the extension header itself except for the fragmentation header where the length is the frame length (i.e., including the Ethernet, IPv6, and TCP/UDP headers + payload).
+
+For hop-by-hop and destination options headers, when required multiple PadN options were used in order to bypass some Linux kernels that consider a PadN larger than 8 bytes is an attack, see section 5.3 of {{?BCP220}}, even if multiple PadN options violates section 2.1.9.5 of {{?RFC4942}}.
 
 Next phases will also include packets without UDP/TCP but with Next-Header being:
 
@@ -140,7 +142,7 @@ Finally, some ASs do not drop transit traffic (except for routing header type 0)
 
 # Security Considerations
 
-While active probing of the Internet may be considered as an attack, this measurement was done among collaborating parties and using the probe attribution technique described in I-D.draft-vyncke-opsec-probe-attribution.
+While active probing of the Internet may be considered as an attack, this measurement was done among collaborating parties and using the probe attribution technique described in {{?I-D.draft-vyncke-opsec-probe-attribution}}.
 
 
 # IANA Considerations
@@ -152,6 +154,6 @@ This document has no IANA actions.
 # Acknowledgments
 {:numbered="false"}
 
-The authors want to thank Sander Steffann and Jan Zorz for allowing the use of their labs.
+The authors want to thank Sander Steffann and Jan Zorz for allowing the use of their labs. Other to Fernando Gont who indicated a nice IPv6 hosting provider in South America.
 
-Special thanks as well to professor Benoît Donnet and research assistant Justin Iurman for their support and advices. This document would not have existed without their support.
+Special thanks as well to professor Benoît Donnet for his support and advices. This document would not have existed without their support.
