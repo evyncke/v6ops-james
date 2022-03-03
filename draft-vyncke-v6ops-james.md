@@ -118,11 +118,22 @@ Next phases will also include packets without UDP/TCP but with Next-Header being
 
 - 143, "ethernet" see section 4.9 of {{!RFC8986}}.
 
+### Drop attribution to AS
+Comparing the traceroutes without extension headers and with extension headers allow the attribution of a packet drop to one AS. But, this is not an easy task as inter-AS links often use IPv6 address of only one AS (if not using link-local per {{?RFC7704}}). This document uses the following algorithm to attribute the drop to one AS for packet sourced in one AS and then having a path traversing AS#foo just before AS#bar:
+
+- if the packet drop happens at the first router (i.e., hop limit == 1 does not trigger an ICMP hop-limit exceeded), then the drop is assumed to this AS as it is probably an ingress filter on the first router (i.e., the hosting provider in most of the cases - except if colocated with an IXP)
+
+- if the packet drop happens in AS#foo after one or more hop(s) in AS#bar, then the drop is assumed to be in AS#foo ingress filter on a router with an interface address in AS#foo
+
+- if the packet drop happens in AS#bar after one or more hop(s) in AS#bar before going to AS#foo, then the drop is assumed to be in AS#foo ingress filter on a router with an interface address in AS#bar
+
+In several cases, the above algorithm was not possible (e.g., some intermediate routers do not generate an ICMP unreachable hop limit exceeded), then the drop is not attributed. Please also note that the goal of this document is to 'point fingers to operators' but more to evaluate the potential impact. I.e., a tier-1 provider dropping packets with extension headers has a much bigger impact on the Internet traffic than an access provider.
+
 ## Results
 
-This section presents the current results out of phase 1 testing.
+This section presents the current results out of phase 1 (collaborating vanytage points) testing.
 
-Packets with some extension headers were never dropped over the Internet: packets with authentication, fragmentation, and routing (type different from 0) headers can freely traverse the global Internet.
+Packets with some extension headers were never dropped over the Internet: packets with authentication, fragmentation (non-atomic fragments), and routing (type different from 0 and 4) headers can freely traverse the global Internet without being dropped.
 
 The table below lists the few AS that drops packets with the routing header type 0.
 
@@ -156,4 +167,4 @@ This document has no IANA actions.
 
 The authors want to thank Sander Steffann and Jan Zorz for allowing the use of their labs. Other to Fernando Gont who indicated a nice IPv6 hosting provider in South America.
 
-Special thanks as well to professor Benoît Donnet for his support and advices. This document would not have existed without their support.
+Special thanks as well to professor Benoît Donnet for his support and advices. This document would not have existed without his support.
