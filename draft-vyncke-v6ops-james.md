@@ -163,7 +163,9 @@ The table below lists the few ASs that drop packets with the routing header type
 
 This is to be expected as SRv6 is specified to run only in a limited domain.
 
-Other routing header types (1 == deprecated NIMROD {{?RFC1753}} , 2 == mobile IPv6 {{?RFC6275}},  and even 4 == CRH-16 and 5 == CRH-32{{?I-D.draft-bonica-6man-comp-rtg-hdr}}) can be transmitted over the global Internet without being dropped.
+Other routing header types (1 == deprecated NIMROD {{?RFC1753}}, 2 == mobile IPv6 {{?RFC6275}},  and even 5 == CRH-16 and 6 == CRH-32{{?I-D.draft-bonica-6man-comp-rtg-hdr}}) can be transmitted over the global Internet without being dropped.
+
+*** below yet to be reviewed without naming AS ? ***
 
 Some ASs drop packets with hop-by-hop or destination options extension headers, see the following table:
 
@@ -189,6 +191,6 @@ This document has no IANA actions.
 # Acknowledgments
 {:numbered="false"}
 
-The authors want to thank Sander Steffann and Jan Zorz for allowing the use of their labs. Other to Fernando Gont who indicated a nice IPv6 hosting provider in South America.
+The authors want to thank Sander Steffann and Jan Zorz for allowing the free use of their labs. Other thanks to Fernando Gont who indicated a nice IPv6 hosting provider in South America.
 
 Special thanks as well to professor Benoît Donnet for his support and advices. This document would not have existed without his support.
