@@ -68,13 +68,13 @@ It is still work in progress, but the authors wanted to present some results at 
 
 # Methodology
 
-In a first phase, the measurement is done between collaborating IPv6 nodes spread over the Internet and multiple Autonomous Systems (ASs). As seen in {{analysed_as}}, the source/destination/transit ASs include some "tier-1" providers per {{TIER1}}, so, they are probably representative of the global Internet core.
+In a first phase, the measurement is done between collaborating IPv6 nodes, a.k.a. vantage points, spread over the Internet and multiple Autonomous Systems (ASs). As seen in {{analysed_as}}, the source/destination/transit ASs include some "tier-1" providers per {{TIER1}}, so, they are probably representative of the global Internet core.
 
 Relying on collaborating nodes has some benefits:
 
 - traffic timing can be measured accurately to answer whether extension headers are slower than plain IP6 packets;
 
-- traffic can be captured into .pcap file at the source and at the destination for later analysis.
+- traffic can be captured into .pcap {{?I-D.draft-ietf-opsawg-pcap}} file at the source and at the destination for later analysis.
 
 Future phases will send probes to non-collaborating nodes with a much reduced probing speed. The destination will include {{ALEXA}} top-n websites, popular CDN, as well as random prefix from the IPv6 global routing table. A revision of this IETF draft will describe those experiments.
 
@@ -82,7 +82,7 @@ Future phases will send probes to non-collaborating nodes with a much reduced pr
 
 ## Vantage Points
 
-Several servers were used worldwide (albeit missing Africa as authors were unable to find IPv6 servers in these regions). {{table_vantage}} lists all the vantage points together with their AS number and country.
+Several servers were used worldwide (albeit missing Africa and China as authors were unable to find IPv6 servers in these regions). {{table_vantage}} lists all the vantage points together with their AS number and country.
 
 {::include ./vantage_as.inc}
 {: #table_vantage title="All vantage AS"}
@@ -94,7 +94,9 @@ During first phase (traffic among fully meshed collaborative nodes), our probes 
 {::include ./analysed_as.inc}
 {: #table_analysed_as title="All AS (source/destination/transit)"}
 
-### Tested Extension Headers
+While this document lists some operators, the intent if not to build a wall of fame or a wall of shame but more to get a idea about which kind of providers drop packets with extension headers and how widespread the drop policy is enforced.
+
+### Tested Extension Headers {#tested_eh}
 
 In the first phase among collaborating vantage points, packets always contained either a UDP payload or a TCP payload, the latter is sent with only the SYN flag set and with data as permitted by section 3.4 of {{!RFC793}} (2nd paragraph). A usual traceroute is done with only the UDP/TCP payload without any extension header with varying hop-limit in order to learn the traversed routers and ASs. Then, several UDP/TCP probes are sent by with a set of extension headers:
 
@@ -104,7 +106,9 @@ In the first phase among collaborating vantage points, packets always contained 
 
 - routing header with routing types from 0 to 6 inclusive ;
 
-- atomic fragment header (i.e., more flag = 0 and offset = 0) or varying frame length 512, 1280, and 1492 octets;
+- atomic fragment header (i.e., more flag = 0 and offset = 0) or varying frame length 512, 1280, and 1500 octets;
+
+- non-atomic fragment header (i.e., more flag = 1 and offset = 0) or varying frame length 512, 1280, and 1500 octets;
 
 - authentication header with dummy SPI followed by UDP/TCP header and a 38 octets payload.
 
@@ -119,9 +123,10 @@ Next phases will also include packets without UDP/TCP but with Next-Header being
 - 143, "ethernet" see section 4.9 of {{!RFC8986}}.
 
 ### Drop attribution to AS
+
 Comparing the traceroutes without extension headers and with extension headers allow the attribution of a packet drop to one AS. But, this is not an easy task as inter-AS links often use IPv6 address of only one AS (if not using link-local per {{?RFC7704}}). This document uses the following algorithm to attribute the drop to one AS for packet sourced in one AS and then having a path traversing AS#foo just before AS#bar:
 
-- if the packet drop happens at the first router (i.e., hop limit == 1 does not trigger an ICMP hop-limit exceeded), then the drop is assumed to this AS as it is probably an ingress filter on the first router (i.e., the hosting provider in most of the cases - except if colocated with an IXP)
+- if the packet drop happens at the first router (i.e., hop limit == 1 does not trigger an ICMP hop-limit exceeded), then the drop is assumed to this AS as it is probably an ingress filter on the first router (i.e., the hosting provider in most of the cases - except if colocated with an IXP).
 
 - if the packet drop happens in AS#foo after one or more hop(s) in AS#bar, then the drop is assumed to be in AS#foo ingress filter on a router with an interface address in AS#foo
 
@@ -131,15 +136,34 @@ In several cases, the above algorithm was not possible (e.g., some intermediate 
 
 ## Results
 
-This section presents the current results out of phase 1 (collaborating vanytage points) testing.
+This section presents the current results out of phase 1 (collaborating vantage points) testing. About 4860 experiments were run, one experiment being defined by sending packets between 2 vantage points with hop-limit varying from 1 to the number of hops between the two vantage points and for all the extension headers described in {{tested_eh}}.
 
-Packets with some extension headers were never dropped over the Internet: packets with authentication, fragmentation (non-atomic fragments), and routing (type different from 0 and 4) headers can freely traverse the global Internet without being dropped.
+Packets with some extension headers were never dropped over the Internet: packets with authentication, fragmentation (non-atomic fragments), and routing (routing type different from 0 and 4) headers can freely traverse the global Internet without being dropped.
 
-The table below lists the few AS that drops packets with the routing header type 0.
+The following table lists all routing header type and the percentage of experiments that were successful, i.e., packets with routing header reaching their destination:
+
+|Routing Header Type|%-age of experiments reaching destination]
+| 0 | 80.9% |
+| 1 | 99.5% |
+| 2 | 99.5% |
+| 3 | not tested |
+| 4 | 69.0% |
+| 5 | 99.5% |
+| 6 | 99.3% |
+
+The table below lists the few ASs that drop packets with the routing header type 0 (the original source routing header, which is now deprecated).
 
 {::include ./drop_rh0_as.inc}
 
-It is possibly due to a strict implementation of {{?RFC5095}} but it is expected that no packet with routing header type 0 would be transmitted anymore. Other routing header types (mobile IPv6 {{?RFC6275}}, RPL {{?RFC6554}}, SRH {{?RFC8754}}, and even CRH-16 and CRH-32{{?I-D.draft-bonica-6man-comp-rtg-hdr}}) can be transmitted over the global Internet without being dropped.
+It is possibly due to a strict implementation of {{?RFC5095}} but it is expected that no packet with routing header type 0 would be transmitted anymore. So, this is not surprizing.
+
+The table below lists the few ASs that drop packets with the routing header type 4 (RH {{?RFC8754}}).
+
+{::include ./drop_rh4_as.inc}
+
+This is to be expected as SRv6 is specified to run only in a limited domain.
+
+Other routing header types (1 == deprecated NIMROD {{?RFC1753}} , 2 == mobile IPv6 {{?RFC6275}},  and even 4 == CRH-16 and 5 == CRH-32{{?I-D.draft-bonica-6man-comp-rtg-hdr}}) can be transmitted over the global Internet without being dropped.
 
 Some ASs drop packets with hop-by-hop or destination options extension headers, see the following table:
 
