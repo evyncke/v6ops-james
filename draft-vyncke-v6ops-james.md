@@ -115,7 +115,7 @@ During first phase (traffic among fully meshed collaborative nodes), our probes 
 {::include ./analysed_as.inc}
 {: #table_analysed_as title="All AS (source/destination/transit)"}
 
-The table attributes some tier qualification to some ASs based on the Wikipedia page {{TIER1}}, but there are no common way to decide who is a tier-1. Based on some CAIDA research, all the above (except GO6, which is a stub network) are transit providers.
+The table attributes some tier qualification to some ASs based on the Wikipedia page {{TIER1}}, but there is no common way to decide who is a tier-1. Based on some CAIDA research, all the above (except GO6, which is a stub network) are transit providers.
 
 While this document lists some operators, the intent is not to build a wall of fame or a wall of shame but more to get an idea about which kind of providers drop packets with extension headers and how widespread the drop policy is enforced and where, i.e., in the access provider or in the core of the Internet.
 
@@ -152,7 +152,7 @@ Next phases will also include packets without UDP/TCP transport header but with 
 
 Comparing the traceroutes with and without extension headers allows the attribution of a packet drop to one AS. But, this is not an easy task as inter-AS links often use IPv6 address of only one AS (if not using link-local per {{?RFC7704}}). This document uses the following algorithm to attribute the drop to one AS for packet sourced in one AS and then having a path traversing AS#foo just before AS#bar:
 
-- if the packet drop happens at the first router (i.e., hop limit == 1 does not trigger an ICMP hop-limit exceeded), then the drop is assumed to this AS as it is probably an ingress filter on the first router (i.e., the hosting provider in most of the cases - except if colocated with an IXP).
+- if the packet drop happens at the first router (i.e., hop limit == 1 does not trigger an ICMP hop-limit exceeded), then the drop is assumed to this AS as it is probably an ingress filter on the first router (i.e., the hosting provider in most of the cases - except if collocated with an IXP).
 
 - if the packet drop happens in AS#foo after one or more hop(s) in AS#bar, then the drop is assumed to be in AS#foo ingress filter on a router with an interface address in AS#foo
 
@@ -266,4 +266,4 @@ This document has no IANA actions.
 
 The authors want to thank Sander Steffann and Jan Zorz for allowing the free use of their labs. Other thanks to Fernando Gont who indicated a nice IPv6 hosting provider in South America.
 
-Special thanks as well to professor Benoît Donnet for his support and advices. This document would not have existed without his support.
+Special thanks as well to Professor Benoît Donnet for his support and advices. This document would not have existed without his support.
