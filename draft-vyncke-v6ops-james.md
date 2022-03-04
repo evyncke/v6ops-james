@@ -53,6 +53,25 @@ informative:
   ALEXA:
     title: The top 500 sites on the web
     target: https://www.alexa.com/topsites
+  MLAT_PEERING:
+    title: Inferring Multilateral Peering
+    target: https://catalog.caida.org/details/paper/2013_inferring_multilateral_peering/
+    seriesinfo:
+      DOI: 10.1145/2535372.2535390
+    date: 2013-12
+    author:
+      -
+        name: Vasileios Giotsas
+        org: University College London
+      -
+        name: Shi Zhou
+        org: University College London
+      -
+        name: Matthew Luckie
+        org: CAIDA, San Diego Supercomputer Center, University Of California San Diego
+      -
+        name: Kc Claffy
+        org: CAIDA, San Diego Supercomputer Center, University Of California San Diego
 
 
 --- abstract
@@ -96,29 +115,32 @@ During first phase (traffic among fully meshed collaborative nodes), our probes 
 {::include ./analysed_as.inc}
 {: #table_analysed_as title="All AS (source/destination/transit)"}
 
-While this document lists some operators, the intent if not to build a wall of fame or a wall of shame but more to get a idea about which kind of providers drop packets with extension headers and how widespread the drop policy is enforced.
+While this document lists some operators, the intent is not to build a wall of fame or a wall of shame but more to get an idea about which kind of providers drop packets with extension headers and how widespread the drop policy is enforced.
 
 ### Tested Extension Headers {#tested_eh}
 
-In the first phase among collaborating vantage points, packets always contained either a UDP payload or a TCP payload, the latter is sent with only the SYN flag set and with data as permitted by section 3.4 of {{!RFC793}} (2nd paragraph). A usual traceroute is done with only the UDP/TCP payload without any extension header with varying hop-limit in order to learn the traversed routers and ASs. Then, several UDP/TCP probes are sent by with a set of extension headers:
+In the first phase among collaborating vantage points, packets always contained either a UDP payload or a TCP payload, the latter is sent with only the SYN flag set and with data as permitted by section 3.4 of {{!RFC793}} (2nd paragraph). A usual traceroute is done with only the UDP/TCP payload without any extension header with varying hop-limit in order to learn the traversed routers and ASs. Then, several UDP/TCP probes are sent with a set of extension headers:
 
-- destination options header containing either an unknown option with the "skip" bits or an unknown option with the "discard" bits of varying extension header length: 8, 256, and 512 octets;
-
-- hop-by-hop options header containing either an unknown option with the "skip" bits or an unknown option with the "discard" bits of varying extension header length: 8, 256, and 512 octets;
+- hop-by-hop and destination options header containing:
+  * one PadN option for an extension header length of 8 octets,
+  * one unknown option with the "discard" bits for an extension header length of 8 octes,
+  * several PaDN options for an extension header length of 256 octets,
+  * one unknown option (two sets with "discard" and "skip" bits) for an extension header length of 256 octets,
+  * one unknown option (two sets with "discard" and "skip" bits) for an extension header length of 512 octets.
 
 - routing header with routing types from 0 to 6 inclusive (except for type 3);
 
-- atomic fragment header (i.e., M-flag = 0 and offset = 0) or varying frame length 512, 1280, and 1500 octets;
+- atomic fragment header (i.e., M-flag = 0 and offset = 0) of varying frame length 512, 1280, and 1500 octets;
 
-- non-atomic first fragment header (i.e., M-flag = 1 and offset = 0) or varying frame length 512, 1280, and 1500 octets;
+- non-atomic first fragment header (i.e., M-flag = 1 and offset = 0) of varying frame length 512, 1280, and 1500 octets;
 
 - authentication header with dummy SPI followed by UDP/TCP header and a 38 octets payload.
 
-In the above, length is the length of the extension header itself except for the fragmentation header where the length is the frame length (i.e., including the Ethernet, IPv6, and TCP/UDP headers + payload).
+In the above, length is the length of the extension header itself except for the fragmentation header where the length is the IP packet length (i.e., including the IPv6, and TCP/UDP headers + payload).
 
 For hop-by-hop and destination options headers, when required multiple PadN options were used in order to bypass some Linux kernels that consider a PadN larger than 8 bytes is an attack, see section 5.3 of {{?BCP220}}, even if multiple PadN options violates section 2.1.9.5 of {{?RFC4942}}.
 
-Next phases will also include packets without UDP/TCP but with Next-Header being:
+Next phases will also include packets without UDP/TCP transport header but with Next-Header being:
 
 - 59, "no next header" see section 4.7 of {{!RFC8200}};
 
@@ -126,7 +148,7 @@ Next phases will also include packets without UDP/TCP but with Next-Header being
 
 ### Drop attribution to AS
 
-Comparing the traceroutes without extension headers and with extension headers allow the attribution of a packet drop to one AS. But, this is not an easy task as inter-AS links often use IPv6 address of only one AS (if not using link-local per {{?RFC7704}}). This document uses the following algorithm to attribute the drop to one AS for packet sourced in one AS and then having a path traversing AS#foo just before AS#bar:
+Comparing the traceroutes with and without extension headers allows the attribution of a packet drop to one AS. But, this is not an easy task as inter-AS links often use IPv6 address of only one AS (if not using link-local per {{?RFC7704}}). This document uses the following algorithm to attribute the drop to one AS for packet sourced in one AS and then having a path traversing AS#foo just before AS#bar:
 
 - if the packet drop happens at the first router (i.e., hop limit == 1 does not trigger an ICMP hop-limit exceeded), then the drop is assumed to this AS as it is probably an ingress filter on the first router (i.e., the hosting provider in most of the cases - except if colocated with an IXP).
 
@@ -136,13 +158,15 @@ Comparing the traceroutes without extension headers and with extension headers a
 
 In several cases, the above algorithm was not possible (e.g., some intermediate routers do not generate an ICMP unreachable hop limit exceeded even in the absence of any extension headers), then the drop is not attributed. Please also note that the goal of this document is not to 'point fingers to operators' but more to evaluate the potential impact. I.e., a tier-1 provider dropping packets with extension headers has a much bigger impact on the Internet traffic than an access provider.
 
+Future revision of this document will use the work of {{MLAT_PEERING}}.
+
 ## Results
 
 This section presents the current results out of phase 1 (collaborating vantage points) testing. About 4860 experiments were run, one experiment being defined by sending packets between 2 vantage points with hop-limit varying from 1 to the number of hops between the two vantage points and for all the extension headers described in {{tested_eh}}.
 
 ### Routing Header
 
-The following table lists all routing header type and the percentage of experiments that were successful, i.e., packets with routing header reaching their destination:
+The following table lists all routing header types and the percentage of experiments that were successful, i.e., packets with routing header reaching their destination:
 
 |Routing Header Type|%-age of experiments reaching destination|
 | 0 | 80.9% |
@@ -180,7 +204,7 @@ Many ASs drop packets containing either hop-by-hop options headers per table bel
 | Skip | 512 | 1.9% |
 | Discard | 512 | 0.0% |
 
-It appears that hop-by-hop options headers cannot reliably traverse the global Internet only small headers with 'skippable' options have some chances. If the hop-by-hop options has the 'discard' bits, it is dropped per specification.
+It appears that hop-by-hop options headers cannot reliably traverse the global Internet; only small headers with 'skippable' options have some chances. If the hop-by-hop option has the 'discard' bits, it is dropped per specification.
 
 ### Destination Options Headers
 
@@ -216,11 +240,11 @@ While the analysis has areas of improvement (geographical distribution and impac
 
 - authentication and non-atomic fragmentation headers can traverse the Internet;
 
-- only routing header types 0 and 4 experiment problems over the Internet, other types have no problems;
+- only routing headers types 0 and 4 experiment problems over the Internet, other types have no problems;
 
-- hop-by-hop options header does not traverse the Internet;
+- hop-by-hop options headers do not traverse the Internet;
 
-- destination options header is not reliable enough especially large size ones.
+- destination options headers are not reliable enough especially large size ones.
 
 Of course, the next phase of measurement with non-collaborating parties will probably give another view.
 
