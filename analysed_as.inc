@@ -1,5 +1,5 @@
 |AS Number|AS Description|Comment|
-| 174 | COGENT-174, US | Regional Tier |
+| 174 | COGENT-174, US | Tier-1 |
 | 1299 | TWELVE99 Twelve99, Telia Carrier, SE | Tier-1 |
 | 2914 | NTT-COMMUNICATIONS-2914, US | Tier-1 |
 | 3320 | DTAG Internet service provider operations, DE | Tier-1 |
