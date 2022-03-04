@@ -115,7 +115,7 @@ During first phase (traffic among fully meshed collaborative nodes), our probes 
 {::include ./analysed_as.inc}
 {: #table_analysed_as title="All AS (source/destination/transit)"}
 
-The table attributes some tier qualification to some AS based on the Wikipedia page {{?TIER1}}, there are no common way to decide who is a tier-1. Based on some CAIDA research, all the above (except GO6, which is a stub network) are transit providers.
+The table attributes some tier qualification to some ASs based on the Wikipedia page {{TIER1}}, but there are no common way to decide who is a tier-1. Based on some CAIDA research, all the above (except GO6, which is a stub network) are transit providers.
 
 While this document lists some operators, the intent is not to build a wall of fame or a wall of shame but more to get an idea about which kind of providers drop packets with extension headers and how widespread the drop policy is enforced and where, i.e., in the access provider or in the core of the Internet.
 
@@ -125,7 +125,7 @@ In the first phase among collaborating vantage points, packets always contained 
 
 - hop-by-hop and destination options header containing:
   * one PadN option for an extension header length of 8 octets,
-  * one unknown option with the "discard" bits for an extension header length of 8 octes,
+  * one unknown option with the "discard" bits for an extension header length of 8 octets,
   * several PaDN options for an extension header length of 256 octets,
   * one unknown option (two sets with "discard" and "skip" bits) for an extension header length of 256 octets,
   * one unknown option (two sets with "discard" and "skip" bits) for an extension header length of 512 octets.
