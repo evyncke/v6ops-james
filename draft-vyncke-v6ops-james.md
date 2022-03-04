@@ -106,9 +106,9 @@ In the first phase among collaborating vantage points, packets always contained 
 
 - routing header with routing types from 0 to 6 inclusive ;
 
-- atomic fragment header (i.e., more flag = 0 and offset = 0) or varying frame length 512, 1280, and 1500 octets;
+- atomic fragment header (i.e., M-flag = 0 and offset = 0) or varying frame length 512, 1280, and 1500 octets;
 
-- non-atomic fragment header (i.e., more flag = 1 and offset = 0) or varying frame length 512, 1280, and 1500 octets;
+- non-atomic first fragment header (i.e., M-flag = 1 and offset = 0) or varying frame length 512, 1280, and 1500 octets;
 
 - authentication header with dummy SPI followed by UDP/TCP header and a 38 octets payload.
 
@@ -140,9 +140,11 @@ This section presents the current results out of phase 1 (collaborating vantage 
 
 Packets with some extension headers were never dropped over the Internet: packets with authentication, fragmentation (non-atomic fragments), and routing (routing type different from 0 and 4) headers can freely traverse the global Internet without being dropped.
 
+### Routing Header
+
 The following table lists all routing header type and the percentage of experiments that were successful, i.e., packets with routing header reaching their destination:
 
-|Routing Header Type|%-age of experiments reaching destination]
+|Routing Header Type|%-age of experiments reaching destination|
 | 0 | 80.9% |
 | 1 | 99.5% |
 | 2 | 99.5% |
@@ -155,23 +157,35 @@ The table below lists the few ASs that drop packets with the routing header type
 
 {::include ./drop_rh0_as.inc}
 
-It is possibly due to a strict implementation of {{?RFC5095}} but it is expected that no packet with routing header type 0 would be transmitted anymore. So, this is not surprizing.
+It is possibly due to a strict implementation of {{?RFC5095}} but it is expected that no packet with routing header type 0 would be transmitted anymore. So, this is not surprising.
 
-The table below lists the few ASs that drop packets with the routing header type 4 (RH {{?RFC8754}}).
+The table below lists the few ASs that drop packets with the routing header type 4 (Segment Routing Header {{?RFC8754}}).
 
 {::include ./drop_rh4_as.inc}
 
-This is to be expected as SRv6 is specified to run only in a limited domain.
+This drop of SRH was to be expected as SRv6 is specified to run only in a limited domain.
 
-Other routing header types (1 == deprecated NIMROD {{?RFC1753}}, 2 == mobile IPv6 {{?RFC6275}},  and even 5 == CRH-16 and 6 == CRH-32{{?I-D.draft-bonica-6man-comp-rtg-hdr}}) can be transmitted over the global Internet without being dropped.
+Other routing header types (1 == deprecated NIMROD {{?RFC1753}}, 2 == mobile IPv6 {{?RFC6275}},  and even 5 == CRH-16 and 6 == CRH-32{{?I-D.draft-bonica-6man-comp-rtg-hdr}}) can be transmitted over the global Internet without being dropped (assuming that the 0.5% of dropped packets are within the measurement error).
 
-*** below yet to be reviewed without naming AS ? ***
+### Hop-by-Hop and Destination Options Headers
 
 Some ASs drop packets with hop-by-hop or destination options extension headers, see the following table:
 
 {::include ./drop_hbh_dest_as.inc}
 
 The above list seems to include only access providers and no major tier providers.
+
+### Fragmentation Header
+
+The propagation of two kinds of fragmentation headers was analysed: atomic fragment (offset == 0 and M-flag == 0) and plain first fragment (offset == 0 and M-flag == 1). The table below displays the propagation differences.
+
+| M-flag | %-age of experiments reaching destination |
+| 0 (atomic) | 70.2% |
+| 1 | 99%|
+
+The size of the overall IP packets (512, 1280, and 1500 octets) does not have any impact on the propagation.
+
+### No drop at all
 
 Finally, some ASs do not drop transit traffic (except for routing header type 0) and follow the recommendations of {{?I-D.draft-ietf-opsec-ipv6-eh-filtering}}. This list includes tier-1 transit providers (using the "regional" tag per {{TIER1}}):
 
