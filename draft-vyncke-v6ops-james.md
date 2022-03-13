@@ -174,7 +174,7 @@ The following table lists all routing header types and the percentage of experim
 | 0 | 80.9% |
 | 1 | 99.5% |
 | 2 | 99.5% |
-| 3 | not tested |
+| 3 | 99.5% |
 | 4 | 69.0% |
 | 5 | 99.5% |
 | 6 | 99.3% |
@@ -191,7 +191,7 @@ The table below lists the few ASs that drop packets with the routing header type
 
 This drop of SRH was to be expected as SRv6 is specified to run only in a limited domain.
 
-Other routing header types (1 == deprecated NIMROD {{?RFC1753}}, 2 == mobile IPv6 {{?RFC6275}},  and even 5 == CRH-16 and 6 == CRH-32{{?I-D.draft-bonica-6man-comp-rtg-hdr}}) can be transmitted over the global Internet without being dropped (assuming that the 0.5% of dropped packets are within the measurement error).
+Other routing header types (1 == deprecated NIMROD {{?RFC1753}}, 2 == mobile IPv6 {{?RFC6275}}, 3 == RPL {{?RFC6554}}, and even 5 == CRH-16 and 6 == CRH-32{{?I-D.draft-bonica-6man-comp-rtg-hdr}}) can be transmitted over the global Internet without being dropped (assuming that the 0.5% of dropped packets are within the measurement error).
 
 ### Hop-by-Hop Options Headers
 
