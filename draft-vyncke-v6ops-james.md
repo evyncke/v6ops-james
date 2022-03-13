@@ -22,7 +22,7 @@ pi: [toc, sortrefs, symrefs]
 
 author:
  -
-    ins: E. Vyncke
+    ins: É. Vyncke
     name: Éric Vyncke
     organization: Cisco
     street: De Kleetlaan 64
@@ -75,13 +75,13 @@ informative:
 
 
 --- abstract
-In 2016, {{?RFC7872}} has measured the drop of packets with IPv6 extension headers. This document presents a slightly different methodology with more recent results. It is still work in progress.
+In 2016, RFC7872 has measured the drop of packets with IPv6 extension headers. This document presents a slightly different methodology with more recent results. It is still work in progress.
 
 --- middle
 
 # Introduction
 
-In 2016, {{?RFC7872}} has measured the drop of packets with IPv6 extension headers on their transit over the global Internet. This document presents a slightly different methodology with more recent results. Since then, {{?I-D.draft-ietf-opsec-ipv6-eh-filtering}} has provided some recommendations for filtering transit traffic, there may be some changes in providers policies.
+In 2016, {{?RFC7872}} has measured the drop of packets with IPv6 extension headers on their transit over the global Internet. This document presents a slightly different methodology with more recent results. Since then, {{?I-D.draft-ietf-opsec-ipv6-eh-filtering}} has provided some recommendations for filtering transit traffic, so there may be some changes in providers policies.
 
 It is still work in progress, but the authors wanted to present some results at IETF-113 (March 2022).
 
@@ -130,7 +130,7 @@ In the first phase among collaborating vantage points, packets always contained 
   * one unknown option (two sets with "discard" and "skip" bits) for an extension header length of 256 octets,
   * one unknown option (two sets with "discard" and "skip" bits) for an extension header length of 512 octets.
 
-- routing header with routing types from 0 to 6 inclusive (except for type 3);
+- routing header with routing types from 0 to 6 inclusive;
 
 - atomic fragment header (i.e., M-flag = 0 and offset = 0) of varying frame length 512, 1280, and 1500 octets;
 
@@ -142,11 +142,11 @@ In the above, length is the length of the extension header itself except for the
 
 For hop-by-hop and destination options headers, when required multiple PadN options were used in order to bypass some Linux kernels that consider a PadN larger than 8 bytes is an attack, see section 5.3 of {{?BCP220}}, even if multiple PadN options violates section 2.1.9.5 of {{?RFC4942}}.
 
-Next phases will also include packets without UDP/TCP transport header but with Next-Header being:
+In addition to the above extension headers, other probes were sent with next header field of IPv6 header set to:
 
-- 59, "no next header" see section 4.7 of {{!RFC8200}};
+- 59, which is "no next header", especially whether extra octets after the no next header as section 4.7 {{!RFC8200}} requires that "those octets must be ignored and passed on unchanged if the packet is forwarded";
 
-- 143, "ethernet" see section 4.9 of {{!RFC8986}}.
+- 143, which is Ethernet payload (see section 10.1 of {{?RFC8986}}).
 
 ### Drop attribution to AS
 
