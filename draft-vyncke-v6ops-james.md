@@ -103,7 +103,7 @@ Future phases will send probes to non-collaborating nodes with a much reduced pr
 
 ## Vantage Points
 
-Several servers were used worldwide (albeit missing Africa and China as authors were unable to find IPv6 servers in these regions). {{table_vantage}} lists all the vantage points together with their AS number and country.
+Several servers were used worldwide (albeit missing Africa and China as the authors were unable to find IPv6 servers in these regions). {{table_vantage}} lists all the vantage points together with their AS number and country.
 
 {::include ./vantage_as.inc}
 {: #table_vantage title="All vantage AS"}
@@ -230,11 +230,21 @@ The propagation of two kinds of fragmentation headers was analysed: atomic fragm
 
 The size of the overall IP packets (512, 1280, and 1500 octets) does not have any impact on the propagation.
 
-### No drop at all
+### No extension headers drop at all
 
 Finally, some ASs do not drop transit traffic (except for routing header type 0) and follow the recommendations of {{?I-D.draft-ietf-opsec-ipv6-eh-filtering}}. This list includes tier-1 transit providers (using the "regional" tag per {{TIER1}}):
 
 {::include ./no_drop.inc}
+
+### Special Next Header
+
+Measurements also include two protocol numbers that are mainly new use of IPv6. The table below indicates the percentage of packets reaching  the destination.
+
+| Next Header |  %-age of experiments reaching destination |
+| NoNextHeader (59) | 99.7% |
+| Ethernet (143) | 99.2% |
+
+The above indicates that those IP protocols can be transmitted over the global Internet without being dropped (assuming that the 0.2-0.8% of dropped packets are within the measurement error).
 
 ## Summary of the collaborating parties measurements
 
