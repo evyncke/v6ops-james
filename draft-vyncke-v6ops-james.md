@@ -53,6 +53,14 @@ informative:
   ALEXA:
     title: The top 500 sites on the web
     target: https://www.alexa.com/topsites
+  GITHUB:
+    title: james
+    target: https://gitlab.uliege.be/Benoit.Donnet/james
+    author:
+      -
+        name: Raphaël Léas
+        org: Université de Liège
+
   MLAT_PEERING:
     title: Inferring Multilateral Peering
     target: https://catalog.caida.org/details/paper/2013_inferring_multilateral_peering/
@@ -213,7 +221,7 @@ It appears that hop-by-hop options headers cannot reliably traverse the global I
 Many ASs drop packets containing destination options headers per table below:
 
 | Length | Multiple PadN |  %-age of experiments reaching destination |
-| 8 | No | 99.2%|
+| 8 | No | 99.3%|
 | 256 | No | 2.6% |
 | 256 | Yes | 2.6% |
 | 512 | No | 2.6% |
@@ -236,7 +244,11 @@ Finally, some ASs do not drop transit traffic (except for routing header type 0)
 
 {::include ./no_drop.inc}
 
-### Special Next Header
+Some ASs also drop only large (more than 8 octets) destination options headers:
+
+{::include ./drop_large_do.inc}
+
+### Special Next Headers
 
 Measurements also include two protocol numbers that are mainly new use of IPv6. The table below indicates the percentage of packets reaching  the destination.
 
