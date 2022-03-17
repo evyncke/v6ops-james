@@ -118,7 +118,7 @@ Several servers were used worldwide (albeit missing Africa and China as the auth
 
 ### Tested Autonomous Systems {#analysed_as}
 
-During first phase (traffic among fully meshed collaborative nodes), our probes have collected data on the following ASs:
+During first phase (traffic among fully-meshed collaborative nodes), {{table_analysed_as}} show the ASs for which our probes have collected data.
 
 {::include ./analysed_as.inc}
 {: #table_analysed_as title="All AS (source/destination/transit)"}
@@ -176,9 +176,9 @@ This section presents the current results out of phase 1 (collaborating vantage 
 
 ### Routing Header
 
-The following table lists all routing header types and the percentage of experiments that were successful, i.e., packets with routing header reaching their destination:
+{{table_rh_types}} lists all routing header types and the percentage of experiments that were successful, i.e., packets with routing header reaching their destination:
 
-|Routing Header Type|%-age of experiments reaching destination|
+|Routing Header Type|%-age of packets reaching destination|
 | 0 | 80.9% |
 | 1 | 99.5% |
 | 2 | 99.5% |
@@ -186,16 +186,19 @@ The following table lists all routing header types and the percentage of experim
 | 4 | 69.0% |
 | 5 | 99.5% |
 | 6 | 99.3% |
+{: #table_rh_types title="Per Routing Header Types Transmission"}
 
-The table below lists the few ASs that drop packets with the routing header type 0 (the original source routing header, which is now deprecated).
+{{table_drop_rh0}} lists the few ASs that drop packets with the routing header type 0 (the original source routing header, which is now deprecated).
 
 {::include ./drop_rh0_as.inc}
+{: #table_drop_rh0 title="AS Dropping Routing Header Type 0"}
 
 It is possibly due to a strict implementation of {{?RFC5095}} but it is expected that no packet with routing header type 0 would be transmitted anymore. So, this is not surprising.
 
-The table below lists the few ASs that drop packets with the routing header type 4 (Segment Routing Header {{?RFC8754}}).
+{{table_drop_rh4}} lists the few ASs that drop packets with the routing header type 4 (Segment Routing Header {{?RFC8754}}).
 
 {::include ./drop_rh4_as.inc}
+{: #table_drop_rh4 title="AS Dropping Routing Header Type 0"}
 
 This drop of SRH was to be expected as SRv6 is specified to run only in a limited domain.
 
