@@ -41,6 +41,11 @@ author:
     ins: J. Iurman
     name: Justin Iurman
     organization: Université de Liège
+    street:
+    - Institut Montefiore B28
+    - Allée de la Découverte 10
+    code: 4000
+    city: Liège
     country: Belgium
     email: justin.iurman@uliege.be
 
@@ -206,9 +211,9 @@ Other routing header types (1 == deprecated NIMROD {{?RFC1753}}, 2 == mobile IPv
 
 ### Hop-by-Hop Options Headers
 
-Many ASs drop packets containing either hop-by-hop options headers per table below:
+Many ASs drop packets containing either hop-by-hop options headers per {{table_drop_hbh}} below:
 
-| Option Type | Length |  %-age of experiments reaching destination |
+| Option Type | Length |  %-age of packets reaching destination |
 | Skip | 8 | 5.8% |
 | Discard | 8 | 0.0% |
 | Skip one large PadN | 256 | 1.9% |
@@ -216,48 +221,54 @@ Many ASs drop packets containing either hop-by-hop options headers per table bel
 | Discard | 256 | 0.0% |
 | Skip | 512 | 1.9% |
 | Discard | 512 | 0.0% |
+{: #table_drop_hbh title="Hop-by-hop Transmission"}
 
-It appears that hop-by-hop options headers cannot reliably traverse the global Internet; only small headers with 'skippable' options have some chances. If the hop-by-hop option has the 'discard' bits, it is dropped per specification.
+It appears that hop-by-hop options headers cannot reliably traverse the global Internet; only small headers with 'skippable' options have some chances. If the unknown hop-by-hop option has the 'discard' bits, it is dropped per specification.
 
 ### Destination Options Headers
 
-Many ASs drop packets containing destination options headers per table below:
+Many ASs drop packets containing destination options headers per {{table_drop_do}}:
 
-| Length | Multiple PadN |  %-age of experiments reaching destination |
+| Length | Multiple PadN |  %-age of packets reaching destination |
 | 8 | No | 99.3%|
 | 256 | No | 2.6% |
 | 256 | Yes | 2.6% |
 | 512 | No | 2.6% |
+{: #table_drop_do title="Hop-by-hop Transmission"}
 
 The measurement did not find any impact of the discard/skip bits in the destination headers options, probably because the routers do not look inside the extension headers into the options. The use of a single large PadN or multiple 8-octet PadN options does not influence the result.
 
 ### Fragmentation Header
 
-The propagation of two kinds of fragmentation headers was analysed: atomic fragment (offset == 0 and M-flag == 0) and plain first fragment (offset == 0 and M-flag == 1). The table below displays the propagation differences.
+The propagation of two kinds of fragmentation headers was analyzed: atomic fragment (offset == 0 and M-flag == 0) and plain first fragment (offset == 0 and M-flag == 1). The {{table_drop_frag}} displays the propagation differences.
 
-| M-flag | %-age of experiments reaching destination |
+| M-flag | %-age of packets reaching destination |
 | 0 (atomic) | 70.2% |
 | 1 | 99.0%|
+{: #table_drop_frag title="IPv6 Fragments Transmission"}
 
 The size of the overall IP packets (512, 1280, and 1500 octets) does not have any impact on the propagation.
 
 ### No extension headers drop at all
 
-Finally, some ASs do not drop transit traffic (except for routing header type 0) and follow the recommendations of {{?I-D.draft-ietf-opsec-ipv6-eh-filtering}}. This list includes tier-1 transit providers (using the "regional" tag per {{TIER1}}):
+{{table_no_drop}} lists some ASs that do not drop transit traffic (except for routing header type 0) and follow the recommendations of {{?I-D.draft-ietf-opsec-ipv6-eh-filtering}}. This list includes tier-1 transit providers (using the "regional" tag per {{TIER1}}):
 
 {::include ./no_drop.inc}
+{: #table_no_drop title="ASs Not Dropping Packets with Extension Headers"}
 
-Some ASs also drop only large (more than 8 octets) destination options headers:
+Some ASs also drop only large (more than 8 octets) destination options headers, see {{table_large_do}}:
 
 {::include ./drop_large_do.inc}
+{: #table_large_do title="ASs Only Dropping Packets with Large Destination Options Headers"}
 
 ### Special Next Headers
 
-Measurements also include two protocol numbers that are mainly new use of IPv6. The table below indicates the percentage of packets reaching  the destination.
+Measurements also include two protocol numbers that are mainly new use of IPv6. {{table_special_next_header}} indicates the percentage of packets reaching  the destination.
 
-| Next Header |  %-age of experiments reaching destination |
+| Next Header |  %-age of packets reaching destination |
 | NoNextHeader (59) | 99.7% |
 | Ethernet (143) | 99.2% |
+{: #table_special_next_header title="Transmission of Special IP Protocols"}
 
 The above indicates that those IP protocols can be transmitted over the global Internet without being dropped (assuming that the 0.3-0.8% of dropped packets are within the measurement error).
 
