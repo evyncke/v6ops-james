@@ -223,7 +223,7 @@ Many ASs drop packets containing either hop-by-hop options headers per {{table_d
 | Discard | 512 | 0.0% |
 {: #table_drop_hbh title="Hop-by-hop Transmission"}
 
-It appears that hop-by-hop options headers cannot reliably traverse the global Internet; only small headers with 'skippable' options have some chances. If the unknown hop-by-hop option has the 'discard' bits, it is dropped per specification.
+It appears that hop-by-hop options headers cannot reliably traverse the global Internet; only small headers with 'skipable' options have some chances. If the unknown hop-by-hop option has the 'discard' bits, it is dropped per specification.
 
 ### Destination Options Headers
 
@@ -240,7 +240,7 @@ The measurement did not find any impact of the discard/skip bits in the destinat
 
 ### Fragmentation Header
 
-The propagation of two kinds of fragmentation headers was analyzed: atomic fragment (offset == 0 and M-flag == 0) and plain first fragment (offset == 0 and M-flag == 1). The {{table_drop_frag}} displays the propagation differences.
+The propagation of two kinds of fragmentation headers was analysed: atomic fragment (offset == 0 and M-flag == 0) and plain first fragment (offset == 0 and M-flag == 1). The {{table_drop_frag}} displays the propagation differences.
 
 | M-flag | %-age of packets reaching destination |
 | 0 (atomic) | 70.2% |
@@ -263,7 +263,7 @@ Some ASs also drop only large (more than 8 octets) destination options headers, 
 
 ### Special Next Headers
 
-Measurements also include two protocol numbers that are mainly new use of IPv6. {{table_special_next_header}} indicates the percentage of packets reaching  the destination.
+Measurements also include two protocol numbers that are mainly new use of IPv6. {{table_special_next_header}} indicates the percentage of packets reaching the destination.
 
 | Next Header |  %-age of packets reaching destination |
 | NoNextHeader (59) | 99.7% |
