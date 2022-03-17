@@ -256,7 +256,7 @@ Measurements also include two protocol numbers that are mainly new use of IPv6. 
 | NoNextHeader (59) | 99.7% |
 | Ethernet (143) | 99.2% |
 
-The above indicates that those IP protocols can be transmitted over the global Internet without being dropped (assuming that the 0.2-0.8% of dropped packets are within the measurement error).
+The above indicates that those IP protocols can be transmitted over the global Internet without being dropped (assuming that the 0.3-0.8% of dropped packets are within the measurement error).
 
 ## Summary of the collaborating parties measurements
 
