@@ -139,8 +139,8 @@ In the first phase among collaborating vantage points, packets always contained 
 - hop-by-hop and destination options header containing:
   * one PadN option for an extension header length of 8 octets,
   * one unknown option with the "discard" bits for an extension header length of 8 octets,
-  * several PaDN options for an extension header length of 256 octets,
-  * on unknown option (two sets with "discard" and "skip" bit) for the destination options header length of 16, 32, and 64 octets,
+  * multiple PadN options for an extension header length of 256 octets,
+  * one unknown option (two sets with "discard" and "skip" bits) for the destination options header length of 16, 32, 64 and 128 octets,
   * one unknown option (two sets with "discard" and "skip" bits) for an extension header length of 256 and 512 octets.
 
 - routing header with routing types from 0 to 6 inclusive;
