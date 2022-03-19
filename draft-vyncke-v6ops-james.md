@@ -140,8 +140,8 @@ In the first phase among collaborating vantage points, packets always contained 
   * one PadN option for an extension header length of 8 octets,
   * one unknown option with the "discard" bits for an extension header length of 8 octets,
   * several PaDN options for an extension header length of 256 octets,
-  * one unknown option (two sets with "discard" and "skip" bits) for an extension header length of 256 octets,
-  * one unknown option (two sets with "discard" and "skip" bits) for an extension header length of 512 octets.
+  * on unknown option (two sets with "discard" and "skip" bit) for the destination options header length of 16, 32, and 64 octets,
+  * one unknown option (two sets with "discard" and "skip" bits) for an extension header length of 256 and 512 octets.
 
 - routing header with routing types from 0 to 6 inclusive;
 
@@ -230,13 +230,19 @@ It appears that hop-by-hop options headers cannot reliably traverse the global I
 Many ASs drop packets containing destination options headers per {{table_drop_do}}:
 
 | Length | Multiple PadN |  %-age of packets reaching destination |
-| 8 | No | 99.3%|
+| 8 | No | 99.3% |
+| 16 | No | 99.3% |
+| 32 | No | 93.3% |
+| 64 | No | 41.6% |
+| 128 | No | 4.5% |
 | 256 | No | 2.6% |
 | 256 | Yes | 2.6% |
 | 512 | No | 2.6% |
 {: #table_drop_do title="Hop-by-hop Transmission"}
 
 The measurement did not find any impact of the discard/skip bits in the destination headers options, probably because the routers do not look inside the extension headers into the options. The use of a single large PadN or multiple 8-octet PadN options does not influence the result.
+
+The size of the destination options header has a major impact on the drop probability. It appears that extension header larger than 16 octets already causes major drops. It may be because the 40 octets of the IPv6 header + the 16 octets of the extension header (total 56 octets) is still below some router hardware lookup mechanisms while the next measured size (extension header size of 64 octets for a total of 104 octets) is beyond the hardware limit and some AS has a policy to drop packets where the TCP/UDP ports are uknown...
 
 ### Fragmentation Header
 
@@ -282,7 +288,7 @@ While the analysis has areas of improvement (geographical distribution and impac
 
 - hop-by-hop options headers do not traverse the Internet;
 
-- destination options headers are not reliable enough especially large size ones.
+- destination options headers are not reliable enough when it exceeds 16 octets.
 
 Of course, the next phase of measurement with non-collaborating parties will probably give another view.
 
