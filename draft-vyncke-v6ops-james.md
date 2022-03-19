@@ -121,7 +121,7 @@ Several servers were used worldwide (albeit missing Africa and China as the auth
 {::include ./vantage_as.inc}
 {: #table_vantage title="All vantage AS"}
 
-### Tested Autonomous Systems {#analysed_as}
+## Tested Autonomous Systems {#analysed_as}
 
 During first phase (traffic among fully-meshed collaborative nodes), {{table_analysed_as}} show the ASs for which our probes have collected data.
 
@@ -132,7 +132,21 @@ The table attributes some tier qualification to some ASs based on the Wikipedia 
 
 While this document lists some operators, the intent is not to build a wall of fame or a wall of shame but more to get an idea about which kind of providers drop packets with extension headers and how widespread the drop policy is enforced and where, i.e., in the access provider or in the core of the Internet.
 
-### Tested Extension Headers {#tested_eh}
+### Drop attribution to AS
+
+Comparing the traceroutes with and without extension headers allows the attribution of a packet drop to one AS. But, this is not an easy task as inter-AS links often use IPv6 address of only one AS (if not using link-local per {{?RFC7704}}). This document uses the following algorithm to attribute the drop to one AS for packet sourced in one AS and then having a path traversing AS#foo just before AS#bar:
+
+- if the packet drop happens at the first router (i.e., hop limit == 1 does not trigger an ICMP hop-limit exceeded), then the drop is assumed to this AS as it is probably an ingress filter on the first router (i.e., the hosting provider in most of the cases - except if collocated with an IXP).
+
+- if the packet drop happens in AS#foo after one or more hop(s) in AS#bar, then the drop is assumed to be in AS#foo ingress filter on a router with an interface address in AS#foo
+
+- if the packet drop happens in AS#bar after one or more hop(s) in AS#bar before going to AS#foo, then the drop is assumed to be in AS#foo ingress filter on a router with an interface address in AS#bar
+
+In several cases, the above algorithm was not possible (e.g., some intermediate routers do not generate an ICMP unreachable hop limit exceeded even in the absence of any extension headers), then the drop is not attributed. Please also note that the goal of this document is not to 'point fingers to operators' but more to evaluate the potential impact. I.e., a tier-1 provider dropping packets with extension headers has a much bigger impact on the Internet traffic than an access provider.
+
+Future revision of this document will use the work of {{MLAT_PEERING}}.
+
+## Tested Extension Headers {#tested_eh}
 
 In the first phase among collaborating vantage points, packets always contained either a UDP payload or a TCP payload, the latter is sent with only the SYN flag set and with data as permitted by section 3.4 of {{!RFC793}} (2nd paragraph). A usual traceroute is done with only the UDP/TCP payload without any extension header with varying hop-limit in order to learn the traversed routers and ASs. Then, several UDP/TCP probes are sent with a set of extension headers:
 
@@ -161,25 +175,11 @@ In addition to the above extension headers, other probes were sent with next hea
 
 - 143, which is Ethernet payload (see section 10.1 of {{?RFC8986}}).
 
-### Drop attribution to AS
-
-Comparing the traceroutes with and without extension headers allows the attribution of a packet drop to one AS. But, this is not an easy task as inter-AS links often use IPv6 address of only one AS (if not using link-local per {{?RFC7704}}). This document uses the following algorithm to attribute the drop to one AS for packet sourced in one AS and then having a path traversing AS#foo just before AS#bar:
-
-- if the packet drop happens at the first router (i.e., hop limit == 1 does not trigger an ICMP hop-limit exceeded), then the drop is assumed to this AS as it is probably an ingress filter on the first router (i.e., the hosting provider in most of the cases - except if collocated with an IXP).
-
-- if the packet drop happens in AS#foo after one or more hop(s) in AS#bar, then the drop is assumed to be in AS#foo ingress filter on a router with an interface address in AS#foo
-
-- if the packet drop happens in AS#bar after one or more hop(s) in AS#bar before going to AS#foo, then the drop is assumed to be in AS#foo ingress filter on a router with an interface address in AS#bar
-
-In several cases, the above algorithm was not possible (e.g., some intermediate routers do not generate an ICMP unreachable hop limit exceeded even in the absence of any extension headers), then the drop is not attributed. Please also note that the goal of this document is not to 'point fingers to operators' but more to evaluate the potential impact. I.e., a tier-1 provider dropping packets with extension headers has a much bigger impact on the Internet traffic than an access provider.
-
-Future revision of this document will use the work of {{MLAT_PEERING}}.
-
-## Results
+# Results
 
 This section presents the current results out of phase 1 (collaborating vantage points) testing. About 4860 experiments were run, one experiment being defined by sending packets between 2 vantage points with hop-limit varying from 1 to the number of hops between the two vantage points and for all the extension headers described in {{tested_eh}}.
 
-### Routing Header
+## Routing Header
 
 {{table_rh_types}} lists all routing header types and the percentage of experiments that were successful, i.e., packets with routing header reaching their destination:
 
@@ -209,7 +209,7 @@ This drop of SRH was to be expected as SRv6 is specified to run only in a limite
 
 Other routing header types (1 == deprecated NIMROD {{?RFC1753}}, 2 == mobile IPv6 {{?RFC6275}}, 3 == RPL {{?RFC6554}}, and even 5 == CRH-16 and 6 == CRH-32{{?I-D.draft-bonica-6man-comp-rtg-hdr}}) can be transmitted over the global Internet without being dropped (assuming that the 0.5% of dropped packets are within the measurement error).
 
-### Hop-by-Hop Options Headers
+## Hop-by-Hop Options Header
 
 Many ASs drop packets containing either hop-by-hop options headers per {{table_drop_hbh}} below:
 
@@ -225,7 +225,7 @@ Many ASs drop packets containing either hop-by-hop options headers per {{table_d
 
 It appears that hop-by-hop options headers cannot reliably traverse the global Internet; only small headers with 'skipable' options have some chances. If the unknown hop-by-hop option has the 'discard' bits, it is dropped per specification.
 
-### Destination Options Headers
+## Destination Options Header
 
 Many ASs drop packets containing destination options headers per {{table_drop_do}}:
 
@@ -244,7 +244,7 @@ The measurement did not find any impact of the discard/skip bits in the destinat
 
 The size of the destination options header has a major impact on the drop probability. It appears that extension header larger than 16 octets already causes major drops. It may be because the 40 octets of the IPv6 header + the 16 octets of the extension header (total 56 octets) is still below some router hardware lookup mechanisms while the next measured size (extension header size of 64 octets for a total of 104 octets) is beyond the hardware limit and some AS has a policy to drop packets where the TCP/UDP ports are uknown...
 
-### Fragmentation Header
+## Fragmentation Header
 
 The propagation of two kinds of fragmentation headers was analysed: atomic fragment (offset == 0 and M-flag == 0) and plain first fragment (offset == 0 and M-flag == 1). The {{table_drop_frag}} displays the propagation differences.
 
@@ -255,7 +255,7 @@ The propagation of two kinds of fragmentation headers was analysed: atomic fragm
 
 The size of the overall IP packets (512, 1280, and 1500 octets) does not have any impact on the propagation.
 
-### No extension headers drop at all
+## No extension headers drop at all
 
 {{table_no_drop}} lists some ASs that do not drop transit traffic (except for routing header type 0) and follow the recommendations of {{?I-D.draft-ietf-opsec-ipv6-eh-filtering}}. This list includes tier-1 transit providers (using the "regional" tag per {{TIER1}}):
 
@@ -267,7 +267,7 @@ Some ASs also drop only large (more than 8 octets) destination options headers, 
 {::include ./drop_large_do.inc}
 {: #table_large_do title="ASs Only Dropping Packets with Large Destination Options Headers"}
 
-### Special Next Headers
+## Special Next Headers
 
 Measurements also include two protocol numbers that are mainly new use of IPv6. {{table_special_next_header}} indicates the percentage of packets reaching the destination.
 
@@ -278,7 +278,7 @@ Measurements also include two protocol numbers that are mainly new use of IPv6. 
 
 The above indicates that those IP protocols can be transmitted over the global Internet without being dropped (assuming that the 0.3-0.8% of dropped packets are within the measurement error).
 
-## Summary of the collaborating parties measurements
+# Summary of the collaborating parties measurements
 
 While the analysis has areas of improvement (geographical distribution and impact on latency), it appears that:
 
