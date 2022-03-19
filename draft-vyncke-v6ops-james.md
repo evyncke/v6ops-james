@@ -96,7 +96,7 @@ In 2016, RFC7872 has measured the drop of packets with IPv6 extension headers. T
 
 In 2016, {{?RFC7872}} has measured the drop of packets with IPv6 extension headers on their transit over the global Internet. This document presents a slightly different methodology with more recent results. Since then, {{?I-D.draft-ietf-opsec-ipv6-eh-filtering}} has provided some recommendations for filtering transit traffic, so there may be some changes in providers policies.
 
-It is still work in progress, but the authors wanted to present some results at IETF-113 (March 2022).
+It is still work in progress, but the authors wanted to present some results at IETF-113 (March 2022). The code is open source and is available at {{GITHUB}}.
 
 # Methodology
 
@@ -140,7 +140,7 @@ In the first phase among collaborating vantage points, packets always contained 
   * one PadN option for an extension header length of 8 octets,
   * one unknown option with the "discard" bits for an extension header length of 8 octets,
   * multiple PadN options for an extension header length of 256 octets,
-  * one unknown option (two sets with "discard" and "skip" bits) for the destination options header length of 16, 32, 64 and 128 octets,
+  * one unknown option (two sets with "discard" and "skip" bits) for the destination options header length of 16, 32, 64, and 128 octets,
   * one unknown option (two sets with "discard" and "skip" bits) for an extension header length of 256 and 512 octets.
 
 - routing header with routing types from 0 to 6 inclusive;
@@ -294,7 +294,7 @@ Of course, the next phase of measurement with non-collaborating parties will pro
 
 # Security Considerations
 
-While active probing of the Internet may be considered as an attack, this measurement was done among collaborating parties and using the probe attribution technique described in {{?I-D.draft-vyncke-opsec-probe-attribution}}.
+While active probing of the Internet may be considered as an attack, this measurement was done among collaborating parties and using the probe attribution technique described in {{?I-D.draft-vyncke-opsec-probe-attribution}} to allow external parties to identify the source of the probes if required.
 
 
 # IANA Considerations
