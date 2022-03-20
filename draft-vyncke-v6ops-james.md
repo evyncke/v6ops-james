@@ -242,7 +242,7 @@ Many ASs drop packets containing destination options headers per {{table_drop_do
 
 The measurement did not find any impact of the discard/skip bits in the destination headers options, probably because the routers do not look inside the extension headers into the options. The use of a single large PadN or multiple 8-octet PadN options does not influence the result.
 
-The size of the destination options header has a major impact on the drop probability. It appears that extension header larger than 16 octets already causes major drops. It may be because the 40 octets of the IPv6 header + the 16 octets of the extension header (total 56 octets) is still below some router hardware lookup mechanisms while the next measured size (extension header size of 64 octets for a total of 104 octets) is beyond the hardware limit and some AS has a policy to drop packets where the TCP/UDP ports are uknown...
+The size of the destination options header has a major impact on the drop probability. It appears that extension header larger than 16 octets already causes major drops. It may be because the 40 octets of the IPv6 header + the 16 octets of the extension header (total 56 octets) is still below some router hardware lookup mechanisms while the next measured size (extension header size of 64 octets for a total of 104 octets) is beyond the hardware limit and some AS has a policy to drop packets where the TCP/UDP ports are unknown...
 
 ## Fragmentation Header
 
