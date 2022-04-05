@@ -238,7 +238,7 @@ Many ASs drop packets containing destination options headers per {{table_drop_do
 | 256 | No | 2.6% |
 | 256 | Yes | 2.6% |
 | 512 | No | 2.6% |
-{: #table_drop_do title="Hop-by-hop Transmission"}
+{: #table_drop_do title="Destination Transmission"}
 
 The measurement did not find any impact of the discard/skip bits in the destination headers options, probably because the routers do not look inside the extension headers into the options. The use of a single large PadN or multiple 8-octet PadN options does not influence the result.
 
