@@ -1,24 +1,41 @@
-[
-{"asn": "7195", "asn_cidr": "2800:1e0:1020::/48", "asn_country_code": "CO", "asn_date": "2007-12-13", "asn_description": "EDGEUNO SAS, CO", "asn_registry": "lacnic"},
-{"asn": "4755", "asn_cidr": "2403::/32", "asn_country_code": "IN", "asn_date": "2006-11-17", "asn_description": "TATACOMM-AS TATA Communications formerly VSNL is Leading ISP, IN", "asn_registry": "apnic"},
-{"asn": "16276", "asn_cidr": "2001:41d0::/32", "asn_country_code": "FR", "asn_date": "2004-11-15", "asn_description": "OVH, FR", "asn_registry": "ripencc"},
-{"asn": "6453", "asn_cidr": "2405:2000::/32", "asn_country_code": "IN", "asn_date": "2007-06-19", "asn_description": "Tata Communication", "asn_registry": "apnic"},
-{"asn": "2914", "asn_cidr": "2001:218::/32", "asn_country_code": "JP", "asn_date": "1999-09-22", "asn_description": "NTT-COMMUNICATIONS-2914, US", "asn_registry": "apnic"},
-{"asn": "14061", "asn_cidr": "2400:6180::/48", "asn_country_code": "SG", "asn_date": "2013-11-19", "asn_description": "DIGITALOCEAN-ASN, US", "asn_registry": "apnic"},
-{"asn": "9498", "asn_cidr": "2404:a800::/32", "asn_country_code": "IN", "asn_date": "2008-10-02", "asn_description": "BBIL-AP BHARTI Airtel Ltd., IN", "asn_registry": "apnic"},
-{"asn": "6939", "asn_cidr": "2001:470::/32", "asn_country_code": "US", "asn_date": "2001-03-22", "asn_description": "HURRICANE, US", "asn_registry": "arin"},
-{"asn": "5603", "asn_cidr": "2a00:ee0::/32", "asn_country_code": "SI", "asn_date": "2008-11-20", "asn_description": "SIOL-NET Telekom Slovenije d.d., SI", "asn_registry": "ripencc"},
-{"asn": "198644", "asn_cidr": "2001:67c:27e4::/48", "asn_country_code": "SI", "asn_date": "2012-04-02", "asn_description": "GO6, SI", "asn_registry": "ripencc"},
-{"asn": "12414", "asn_cidr": "2001:9e0::/29", "asn_country_code": "NL", "asn_date": "2002-11-08", "asn_description": "NL-SOLCON SOLCON, NL", "asn_registry": "ripencc"},
-{"asn": "4637", "asn_cidr": "2403:e800::/32", "asn_country_code": "HK", "asn_date": "2008-09-04", "asn_description": "ASN-TELSTRA-GLOBAL Telstra Global, HK", "asn_registry": "apnic"},
-{"asn": "1299", "asn_cidr": "2001:2000:3000::/40", "asn_country_code": "SE", "asn_date": "2004-05-10", "asn_description": "TWELVE99 Twelve99, Telia Carrier, SE", "asn_registry": "ripencc"},
-{"asn": "34779", "asn_cidr": "2a01:260::/32", "asn_country_code": "SI", "asn_date": "2006-12-01", "asn_description": "T-2-AS AS set propagated by T-2 d.o.o., SI", "asn_registry": "ripencc"},
-{"asn": "3356", "asn_cidr": "2001:1900::/32", "asn_country_code": "US", "asn_date": "2004-01-07", "asn_description": "LEVEL3, US", "asn_registry": "arin"},
-{"asn": "3320", "asn_cidr": "2003::/19", "asn_country_code": "DE", "asn_date": "2005-01-13", "asn_description": "DTAG Internet service provider operations, DE", "asn_registry": "ripencc"},
-{"asn": "60011", "asn_cidr": "2a04:ad80:2::/48", "asn_country_code": "GB", "asn_date": "2014-02-07", "asn_description": "MYTHIC-BEASTS-USA, GB", "asn_registry": "ripencc"},
-{"asn": "44684", "asn_cidr": "2a00:1098::/32", "asn_country_code": "GB", "asn_date": "2009-07-06", "asn_description": "MYTHIC Mythic Beasts Ltd, GB", "asn_registry": "ripencc"},
-{"asn": "6762", "asn_cidr": "2001:41a8::/32", "asn_country_code": "IT", "asn_date": "2004-11-04", "asn_description": "SEABONE-NET TELECOM ITALIA SPARKLE S.p.A., IT", "asn_registry": "ripencc"},
-{"asn": "8447", "asn_cidr": "2001:850::/29", "asn_country_code": "AT", "asn_date": "2002-07-25", "asn_description": "A1TELEKOM-AT A1 Telekom Austria AG, AT", "asn_registry": "ripencc"},
-{"asn": "21283", "asn_cidr": "2001:15c0::/29", "asn_country_code": "SI", "asn_date": "2003-10-02", "asn_description": "A1SI-AS A1 Slovenija, SI", "asn_registry": "ripencc"},
-{"asn": "174", "asn_cidr": "2001:550::/32", "asn_country_code": "US", "asn_date": "2002-12-17", "asn_description": "COGENT-174, US", "asn_registry": "arin"}
-]
+    7195: {'asn': '7195', 'asn_cidr': '2800:1e0:1030::/48', 'asn_country_code': 'CO', 'asn_date': '2007-12-13', 'asn_description': 'EDGEUNO SAS, CO', 'asn_registry': 'lacnic'}
+    3356: {'asn': '3356', 'asn_cidr': '2001:13b2::/31', 'asn_country_code': 'AR', 'asn_date': '2005-08-04', 'asn_description': 'LEVEL3, US', 'asn_registry': 'lacnic'}
+    1299: {'asn': '1299', 'asn_cidr': '2001:2000::/20', 'asn_country_code': 'SE', 'asn_date': '2004-05-10', 'asn_description': 'TWELVE99 Arelion, fka Telia Carrier, SE', 'asn_registry': 'ripencc'}
+    20473: {'asn': '20473', 'asn_cidr': '2001:19f0::/32', 'asn_country_code': 'US', 'asn_date': '2004-11-08', 'asn_description': 'AS-CHOOPA, US', 'asn_registry': 'arin'}
+    267: {'asn': '267', 'asn_cidr': '2602:fe55::/36', 'asn_country_code': 'US', 'asn_date': '2018-07-09', 'asn_description': 'NETHER-NET, US', 'asn_registry': 'arin'}
+    12129: {'asn': '12129', 'asn_cidr': '2607:f790::/32', 'asn_country_code': 'US', 'asn_date': '2009-01-22', 'asn_description': '123NET, US', 'asn_registry': 'arin'}
+    2497: {'asn': '2497', 'asn_cidr': '2001:240::/32', 'asn_country_code': 'JP', 'asn_date': '2000-03-08', 'asn_description': 'IIJ Internet Initiative Japan Inc., JP', 'asn_registry': 'apnic'}
+    44684: {'asn': '44684', 'asn_cidr': '2a00:1098::/32', 'asn_country_code': 'GB', 'asn_date': '2009-07-06', 'asn_description': 'MYTHIC Mythic Beasts Ltd, GB', 'asn_registry': 'ripencc'}
+    2914: {'asn': '2914', 'asn_cidr': '2001:728::/32', 'asn_country_code': 'GB', 'asn_date': '2001-07-17', 'asn_description': 'NTT-LTD-2914, US', 'asn_registry': 'ripencc'}
+    14061: {'asn': '14061', 'asn_cidr': '2604:a880:ffff::/48', 'asn_country_code': 'US', 'asn_date': '2013-04-11', 'asn_description': 'DIGITALOCEAN-ASN, US', 'asn_registry': 'arin'}
+    16276: {'asn': '16276', 'asn_cidr': '2001:41d0::/32', 'asn_country_code': 'FR', 'asn_date': '2004-11-15', 'asn_description': 'OVH, FR', 'asn_registry': 'ripencc'}
+    60011: {'asn': '60011', 'asn_cidr': '2a04:ad80:2::/48', 'asn_country_code': 'GB', 'asn_date': '2014-02-07', 'asn_description': 'MYTHIC-BEASTS-USA, GB', 'asn_registry': 'ripencc'}
+    12414: {'asn': '12414', 'asn_cidr': '2001:9e0::/29', 'asn_country_code': 'NL', 'asn_date': '2002-11-08', 'asn_description': 'NL-SOLCON SOLCON, NL', 'asn_registry': 'ripencc'}
+    37708: {'asn': '37708', 'asn_cidr': '2001:43f8:90::/48', 'asn_country_code': 'MU', 'asn_date': '2008-12-18', 'asn_description': 'AFRINIC-MAIN, MU', 'asn_registry': 'afrinic'}
+    23889: {'asn': '23889', 'asn_cidr': '2001:4290::/32', 'asn_country_code': 'MU', 'asn_date': '2006-11-03', 'asn_description': 'MauritiusTelecom, MU', 'asn_registry': 'afrinic'}
+    4788: {'asn': '4788', 'asn_cidr': '2001:e68::/32', 'asn_country_code': 'MY', 'asn_date': '2004-02-24', 'asn_description': 'TMNET-AS-AP TM Net, Internet Service Provider, MY', 'asn_registry': 'apnic'}
+    6939: {'asn': '6939', 'asn_cidr': '2001:470::/32', 'asn_country_code': 'US', 'asn_date': '2001-03-22', 'asn_description': 'HURRICANE, US', 'asn_registry': 'arin'}
+    4755: {'asn': '4755', 'asn_cidr': '2403::/32', 'asn_country_code': 'IN', 'asn_date': '2006-11-17', 'asn_description': 'TATACOMM-AS TATA Communications formerly VSNL is Leading ISP, IN', 'asn_registry': 'apnic'}
+    6453: {'asn': '6453', 'asn_cidr': '2405:2000::/32', 'asn_country_code': 'IN', 'asn_date': '2007-06-19', 'asn_description': 'AS6453, US', 'asn_registry': 'apnic'}
+    198644: {'asn': '198644', 'asn_cidr': '2001:67c:27e4::/48', 'asn_country_code': 'SI', 'asn_date': '2012-04-02', 'asn_description': 'GO6, SI', 'asn_registry': 'ripencc'}
+    5603: {'asn': '5603', 'asn_cidr': '2a00:ee0::/32', 'asn_country_code': 'SI', 'asn_date': '2008-11-20', 'asn_description': 'SIOL-NET Telekom Slovenije d.d., SI', 'asn_registry': 'ripencc'}
+    33764: {'asn': '33764', 'asn_cidr': '2001:42d0::/40', 'asn_country_code': 'ZA', 'asn_date': '2007-06-21', 'asn_description': 'AFRINIC-ZA-JNB-AS, MU', 'asn_registry': 'afrinic'}
+    37684: {'asn': '37684', 'asn_cidr': '2c0f:f408:2::/48', 'asn_country_code': 'KE', 'asn_date': '2015-02-26', 'asn_description': 'ANGANI-AS, KE', 'asn_registry': 'afrinic'}
+    328578: {'asn': '328578', 'asn_cidr': '2001:43f8:1440::/48', 'asn_country_code': 'KE', 'asn_date': '2019-11-20', 'asn_description': 'KEMNET-TECHNOLOGIES-AS, KE', 'asn_registry': 'afrinic'}
+    9498: {'asn': '9498', 'asn_cidr': '2404:a800::/32', 'asn_country_code': 'IN', 'asn_date': '2008-10-02', 'asn_description': 'BBIL-AP BHARTI Airtel Ltd., IN', 'asn_registry': 'apnic'}
+    34779: {'asn': '34779', 'asn_cidr': '2a01:260::/32', 'asn_country_code': 'SI', 'asn_date': '2006-12-01', 'asn_description': 'T-2-AS AS set propagated by T-2 d.o.o., SI', 'asn_registry': 'ripencc'}
+    4637: {'asn': '4637', 'asn_cidr': '2403:e800::/32', 'asn_country_code': 'HK', 'asn_date': '2008-09-04', 'asn_description': 'ASN-TELSTRA-GLOBAL Telstra Global, HK', 'asn_registry': 'apnic'}
+    6461: {'asn': '6461', 'asn_cidr': '2001:7f8:17::193d:1', 'asn_country_code': 'US', 'asn_date': '2000-09-25', 'asn_description': 'ZAYO-6461 (LONAP)', 'asn_registry': 'arin'}
+    14103: {'asn': '14103', 'asn_cidr': '2607:fd80::/32', 'asn_country_code': 'US', 'asn_date': '2009-10-01', 'asn_description': 'ACDNET-ASN1, US', 'asn_registry': 'arin'}
+    2828: {'asn': '2828', 'asn_cidr': '2610:18::/32', 'asn_country_code': 'US', 'asn_date': '2006-01-17', 'asn_description': 'XO-AS15, US', 'asn_registry': 'arin'}
+    6895: {'asn': '6895', 'asn_cidr': '2001:7f8:f::/48', 'asn_country_code': 'ES', 'asn_date': '2003-01-20', 'asn_description': 'ESPANIX Neutral Interconect Exchange for Spain, ES', 'asn_registry': 'ripencc'}
+    6762: {'asn': '6762', 'asn_cidr': '2001:41a8::/32', 'asn_country_code': 'IT', 'asn_date': '2004-11-04', 'asn_description': 'SEABONE-NET TELECOM ITALIA SPARKLE S.p.A., IT', 'asn_registry': 'ripencc'}
+    3491: {'asn': '3491', 'asn_cidr': '2400:8800::/35', 'asn_country_code': 'HK', 'asn_date': '2009-02-12', 'asn_description': 'BTN-ASN, US', 'asn_registry': 'apnic'}
+    3257: {'asn': '3257', 'asn_cidr': '2001:668::/32', 'asn_country_code': 'US', 'asn_date': '2000-04-03', 'asn_description': 'GTT-BACKBONE GTT, US', 'asn_registry': 'ripencc'}
+    37100: {'asn': '37100', 'asn_cidr': '2c0f:feb0::/32', 'asn_country_code': 'MU', 'asn_date': '2010-10-13', 'asn_description': 'SEACOM-AS, MU', 'asn_registry': 'afrinic'}
+    174: {'asn': '174', 'asn_cidr': '2001:978::/32', 'asn_country_code': 'US', 'asn_date': '2002-10-25', 'asn_description': 'COGENT-174, US', 'asn_registry': 'ripencc'}
+    5511: {'asn': '5511', 'asn_cidr': '2001:688::/32', 'asn_country_code': 'FR', 'asn_date': '2000-06-23', 'asn_description': 'OPENTRANSIT, FR', 'asn_registry': 'ripencc'}
+    8447: {'asn': '8447', 'asn_cidr': '2001:850::/29', 'asn_country_code': 'AT', 'asn_date': '2002-07-25', 'asn_description': 'A1TELEKOM-AT A1 Telekom Austria AG, AT', 'asn_registry': 'ripencc'}
+    21283: {'asn': '21283', 'asn_cidr': '2001:15c0::/29', 'asn_country_code': 'SI', 'asn_date': '2003-10-02', 'asn_description': 'A1SI-AS A1 Slovenija, SI', 'asn_registry': 'ripencc'}
+    37271: {'asn': '37271', 'asn_cidr': '2001:7f8:17::9197:1', 'asn_country_code': 'ZA', 'asn_date': '2011-10-25', 'asn_description': 'Workonline (LONAP), ZA', 'asn_registry': 'afrinic'}
+    211722: {'asn': '211722', 'asn_cidr': '2001::/32', 'asn_country_code': 'NA', 'asn_date': 'NA', 'asn_description': 'Nullroute', 'asn_registry': 'NA'}

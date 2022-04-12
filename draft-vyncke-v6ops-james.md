@@ -144,7 +144,7 @@ Comparing the traceroutes with and without extension headers allows the attribut
 
 In several cases, the above algorithm was not possible (e.g., some intermediate routers do not generate an ICMP unreachable hop limit exceeded even in the absence of any extension headers), then the drop is not attributed. Please also note that the goal of this document is not to 'point fingers to operators' but more to evaluate the potential impact. I.e., a tier-1 provider dropping packets with extension headers has a much bigger impact on the Internet traffic than an access provider.
 
-Future revision of this document will use the work of {{MLAT_PEERING}}.
+Future revision of this document will use the work of {{MLAT_PEERING}}. Readers are urged not to rely on the AS attribution in this document version.
 
 ## Tested Extension Headers {#tested_eh}
 
@@ -154,8 +154,9 @@ In the first phase among collaborating vantage points, packets always contained 
   * one PadN option for an extension header length of 8 octets,
   * one unknown option with the "discard" bits for an extension header length of 8 octets,
   * multiple PadN options for an extension header length of 256 octets,
-  * one unknown option (two sets with "discard" and "skip" bits) for the destination options header length of 16, 32, 64, and 128 octets,
-  * one unknown option (two sets with "discard" and "skip" bits) for an extension header length of 256 and 512 octets.
+  * one unknown option (two sets: with "discard" and "skip" bits) for the destination options header length of 16, 32, 64, and 128 octets,
+  * one unknown option (with "skip" bits) for the destination options header length of 24, 32, 40, 48 octets,
+  * one unknown option (two sets: with "discard" and "skip" bits) for an extension header length of 256 and 512 octets.
 
 - routing header with routing types from 0 to 6 inclusive;
 
@@ -163,7 +164,9 @@ In the first phase among collaborating vantage points, packets always contained 
 
 - non-atomic first fragment header (i.e., M-flag = 1 and offset = 0) of varying frame length 512, 1280, and 1500 octets;
 
-- authentication header with dummy SPI followed by UDP/TCP header and a 38 octets payload.
+- encapsulation security payload (ESP) header with dummy SPI followed by UDP/TCP header and a 38 octets payload;
+
+- authentication header (AH) with dummy SPI followed by UDP/TCP header and a 38 octets payload.
 
 In the above, length is the length of the extension header itself except for the fragmentation header where the length is the IP packet length (i.e., including the IPv6, and TCP/UDP headers + payload).
 
@@ -177,20 +180,20 @@ In addition to the above extension headers, other probes were sent with next hea
 
 # Results
 
-This section presents the current results out of phase 1 (collaborating vantage points) testing. About 4860 experiments were run, one experiment being defined by sending packets between 2 vantage points with hop-limit varying from 1 to the number of hops between the two vantage points and for all the extension headers described in {{tested_eh}}.
+This section presents the current results out of phase 1 (collaborating vantage points) testing. About 11,400 packets were sent between all pairs of vantage points with a hop-limit between from 1 to the number of hops between the two vantage points and for all the extension headers described in {{tested_eh}}.
 
 ## Routing Header
 
 {{table_rh_types}} lists all routing header types and the percentage of experiments that were successful, i.e., packets with routing header reaching their destination:
 
 |Routing Header Type|%-age of packets reaching destination|
-| 0 | 80.9% |
-| 1 | 99.5% |
-| 2 | 99.5% |
-| 3 | 99.5% |
-| 4 | 69.0% |
-| 5 | 99.5% |
-| 6 | 99.3% |
+| 0 | 71.6% |
+| 1 | 88.7% |
+| 2 | 98.7% |
+| 3 | 99.0% |
+| 4 | 78.3% |
+| 5 | 98.9% |
+| 6 | 98.8% |
 {: #table_rh_types title="Per Routing Header Types Transmission"}
 
 {{table_drop_rh0}} lists the few ASs that drop packets with the routing header type 0 (the original source routing header, which is now deprecated).
@@ -230,32 +233,40 @@ It appears that hop-by-hop options headers cannot reliably traverse the global I
 Many ASs drop packets containing destination options headers per {{table_drop_do}}:
 
 | Length | Multiple PadN |  %-age of packets reaching destination |
-| 8 | No | 99.3% |
-| 16 | No | 99.3% |
-| 32 | No | 93.3% |
-| 64 | No | 41.6% |
-| 128 | No | 4.5% |
-| 256 | No | 2.6% |
-| 256 | Yes | 2.6% |
-| 512 | No | 2.6% |
+| 8   | No | 99.1% |
+| 16  | No | 99.1% |
+| 24  | No | 98.8% |
+| 32  | No | 94.8% |
+| 40  | No | 94.8% |
+| 48  | No | 94.8% |
+| 56  | No | 77.5% |
+| 64  | No | 43.8% |
+| 128 | No | 13.1% |
+| 256 | No | 5.5% |
+| 256 | Yes | 5.5% |
+| 512 | No | 3.9% |
 {: #table_drop_do title="Destination Transmission"}
 
 The measurement did not find any impact of the discard/skip bits in the destination headers options, probably because the routers do not look inside the extension headers into the options. The use of a single large PadN or multiple 8-octet PadN options does not influence the result.
 
-The size of the destination options header has a major impact on the drop probability. It appears that extension header larger than 16 octets already causes major drops. It may be because the 40 octets of the IPv6 header + the 16 octets of the extension header (total 56 octets) is still below some router hardware lookup mechanisms while the next measured size (extension header size of 64 octets for a total of 104 octets) is beyond the hardware limit and some AS has a policy to drop packets where the TCP/UDP ports are unknown...
+The size of the destination options header has a major impact on the drop probability. It appears that extension header larger than 24 octets already causes major drops. It may be because the 40 octets of the IPv6 header + the 24 octets of the extension header (total 64 octets) is still in the limits of some router hardware lookup mechanisms while the next measured size (extension header size of 32 octets for a total of 72 octets) is beyond the hardware limit and some AS has a policy to drop packets where the TCP/UDP ports are unknown...
 
 ## Fragmentation Header
 
 The propagation of two kinds of fragmentation headers was analysed: atomic fragment (offset == 0 and M-flag == 0) and plain first fragment (offset == 0 and M-flag == 1). The {{table_drop_frag}} displays the propagation differences.
 
 | M-flag | %-age of packets reaching destination |
-| 0 (atomic) | 70.2% |
-| 1 | 99.0%|
+| 0 (atomic) | 54.5% |
+| 1 | 97.0%|
 {: #table_drop_frag title="IPv6 Fragments Transmission"}
 
-The size of the overall IP packets (512, 1280, and 1500 octets) does not have any impact on the propagation.
+The size of the overall IP packets (512, 1280, and 1500 octets) has only a marginal impact on the propagation (not shown on the table).
+
+**TODO** two dimensional matrix as the frag size has an impact
 
 ## No extension headers drop at all
+
+**TODO** results are really inconsistent due to AS attribution :-(
 
 {{table_no_drop}} lists some ASs that do not drop transit traffic (except for routing header type 0) and follow the recommendations of {{?I-D.draft-ietf-opsec-ipv6-eh-filtering}}. This list includes tier-1 transit providers (using the "regional" tag per {{TIER1}}):
 
@@ -267,13 +278,15 @@ Some ASs also drop only large (more than 8 octets) destination options headers, 
 {::include ./drop_large_do.inc}
 {: #table_large_do title="ASs Only Dropping Packets with Large Destination Options Headers"}
 
-## Special Next Headers
+## Other Next Headers
 
-Measurements also include two protocol numbers that are mainly new use of IPv6. {{table_special_next_header}} indicates the percentage of packets reaching the destination.
+Measurements also include two protocol numbers that are mainly new use of IPv6 as well as AH and ESP. {{table_special_next_header}} indicates the percentage of packets reaching the destination.
 
 | Next Header |  %-age of packets reaching destination |
-| NoNextHeader (59) | 99.7% |
-| Ethernet (143) | 99.2% |
+| NoNextHeader (59)  | 99.2% |
+| Ethernet (143)     | 99.1% |
+| Authentication (AH)| 98.8% |
+| ESP                | 98.8% |
 {: #table_special_next_header title="Transmission of Special IP Protocols"}
 
 The above indicates that those IP protocols can be transmitted over the global Internet without being dropped (assuming that the 0.3-0.8% of dropped packets are within the measurement error).
@@ -282,7 +295,7 @@ The above indicates that those IP protocols can be transmitted over the global I
 
 While the analysis has areas of improvement (geographical distribution and impact on latency), it appears that:
 
-- authentication and non-atomic fragmentation headers can traverse the Internet;
+- AH, ESP, and non-atomic fragmentation headers can traverse the Internet;
 
 - only routing headers types 0 and 4 experiment problems over the Internet, other types have no problems;
 
@@ -306,6 +319,6 @@ This document has no IANA actions.
 # Acknowledgments
 {:numbered="false"}
 
-The authors want to thank AfriNIC, Jared Mauch, Sander Steffann and Jan Zorz for allowing the free use of their labs. Other thanks to Fernando Gont who indicated a nice IPv6 hosting provider in South America.
+The authors want to thank AfriNIC, Angani, Jared Mauch, Sander Steffann and Jan Zorz for allowing the free use of their labs. Other thanks to Fernando Gont who indicated a nice IPv6 hosting provider in South America.
 
 Special thanks as well to Professor Benoît Donnet for his support and advices. This document would not have existed without his support.
