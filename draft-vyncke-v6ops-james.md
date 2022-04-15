@@ -186,7 +186,7 @@ In addition to the above extension headers, other probes were sent with next hea
 
 # Results
 
-This section presents the current results out of phase 1 (collaborating vantage points) testing. About 11,400 packets were sent between all pairs of vantage points with a hop-limit between from 1 to the number of hops between the two vantage points and for all the extension headers described in {{tested_eh}}.
+This section presents the current results out of phase 1 (collaborating vantage points) testing. Probe packets were sent between all pairs of vantage points with a hop-limit between from 1 to the number of hops between the two vantage points and for all the extension headers described in {{tested_eh}}.
 
 ## Routing Header
 
