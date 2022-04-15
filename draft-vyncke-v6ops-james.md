@@ -319,6 +319,6 @@ This document has no IANA actions.
 # Acknowledgments
 {:numbered="false"}
 
-The authors want to thank AfriNIC, Angani, Jared Mauch, Sander Steffann and Jan Zorz for allowing the free use of their labs. Other thanks to Fernando Gont who indicated a nice IPv6 hosting provider in South America.
+The authors want to thank AfriNIC, Angani, China Telecom, Jared Mauch, Sander Steffann, XiPeng Xiao, and Jan Zorz for allowing the free use of their labs. Other thanks to Ben Campbell and Fernando Gont who indicated a nice IPv6 hosting provider in Africa and South America.
 
 Special thanks as well to Professor Benoît Donnet for his support and advices. This document would not have existed without his support.
