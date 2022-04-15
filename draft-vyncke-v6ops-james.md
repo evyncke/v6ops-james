@@ -116,7 +116,7 @@ Future phases will send probes to non-collaborating nodes with a much reduced pr
 
 ## Vantage Points
 
-Several servers were used worldwide (albeit missing Africa and China as the authors were unable to find IPv6 servers in these regions). {{table_vantage}} lists all the vantage points together with their AS number and country.
+Several servers were used worldwide. {{table_vantage}} lists all the vantage points together with their AS number and country.
 
 {::include ./vantage_as.inc}
 {: #table_vantage title="All vantage AS"}
