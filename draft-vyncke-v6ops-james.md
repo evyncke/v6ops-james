@@ -223,12 +223,12 @@ Other routing header types (1 == deprecated NIMROD {{?RFC1753}}, 2 == mobile IPv
 Many ASs drop packets containing either hop-by-hop options headers per {{table_drop_hbh}} below:
 
 | Option Type | Length |  %-age of packets reaching destination |
-| Skip | 8 | 5.8% |
+| Skip | 8 | 9.5% |
 | Discard | 8 | 0.0% |
-| Skip one large PadN | 256 | 1.9% |
-| Skip multiple PadN| 256 | 0.0% |
+| Skip | 256 | 2.9% |
+| Skip multiple PadN| 256 | 0.5% |
 | Discard | 256 | 0.0% |
-| Skip | 512 | 1.9% |
+| Skip | 512 | 1.6% |
 | Discard | 512 | 0.0% |
 {: #table_drop_hbh title="Hop-by-hop Transmission"}
 
@@ -244,8 +244,8 @@ Many ASs drop packets containing destination options headers per {{table_drop_do
 | 24  | No | 98.8% |
 | 32  | No | 94.8% |
 | 40  | No | 94.8% |
-| 48  | No | 94.8% |
-| 56  | No | 77.5% |
+| 48  | No | 94.9% |
+| 56  | No | 76.5% |
 | 64  | No | 43.8% |
 | 128 | No | 13.1% |
 | 256 | No | 5.5% |
@@ -253,7 +253,9 @@ Many ASs drop packets containing destination options headers per {{table_drop_do
 | 512 | No | 3.9% |
 {: #table_drop_do title="Destination Transmission"}
 
-The measurement did not find any impact of the discard/skip bits in the destination headers options, probably because the routers do not look inside the extension headers into the options. The use of a single large PadN or multiple 8-octet PadN options does not influence the result.
+**TODO** 56 (specifically) and 64 have variations between UDP and TCP: report it?
+
+The measurement did not find any impact of the discard/skip bits in the destination headers options, probably because the routers do not look inside the extension headers into the options.
 
 The size of the destination options header has a major impact on the drop probability. It appears that extension header larger than 24 octets already causes major drops. It may be because the 40 octets of the IPv6 header + the 24 octets of the extension header (total 64 octets) is still in the limits of some router hardware lookup mechanisms while the next measured size (extension header size of 32 octets for a total of 72 octets) is beyond the hardware limit and some AS has a policy to drop packets where the TCP/UDP ports are unknown...
 
