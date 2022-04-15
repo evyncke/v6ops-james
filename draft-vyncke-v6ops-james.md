@@ -50,6 +50,9 @@ author:
     email: justin.iurman@uliege.be
 
 normative:
+  IANA_IPV6_PARAMS:
+    title: Internet Protocol Version 6 (IPv6) Parameters, Destination Options and Hop-by-Hop Options
+    target: https://www.iana.org/assignments/ipv6-parameters/ipv6-parameters.xhtml#ipv6-parameters-2
 
 informative:
   TIER1:
@@ -116,7 +119,7 @@ Future phases will send probes to non-collaborating nodes with a much reduced pr
 
 ## Vantage Points
 
-Several servers were used worldwide (albeit missing Africa and China as the authors were unable to find IPv6 servers in these regions). {{table_vantage}} lists all the vantage points together with their AS number and country.
+Several servers were used worldwide. {{table_vantage}} lists all the vantage points together with their AS number and country.
 
 {::include ./vantage_as.inc}
 {: #table_vantage title="All vantage AS"}
@@ -150,37 +153,40 @@ Future revision of this document will use the work of {{MLAT_PEERING}}. Readers 
 
 In the first phase among collaborating vantage points, packets always contained either a UDP payload or a TCP payload, the latter is sent with only the SYN flag set and with data as permitted by section 3.4 of {{!RFC793}} (2nd paragraph). A usual traceroute is done with only the UDP/TCP payload without any extension header with varying hop-limit in order to learn the traversed routers and ASs. Then, several UDP/TCP probes are sent with a set of extension headers:
 
-- hop-by-hop and destination options header containing:
-  * one PadN option for an extension header length of 8 octets,
-  * one unknown option with the "discard" bits for an extension header length of 8 octets,
-  * multiple PadN options for an extension header length of 256 octets,
-  * one unknown option (two sets: with "discard" and "skip" bits) for the destination options header length of 16, 32, 64, and 128 octets,
-  * one unknown option (with "skip" bits) for the destination options header length of 24, 32, 40, 48 octets,
-  * one unknown option (two sets: with "discard" and "skip" bits) for an extension header length of 256 and 512 octets.
+- hop-by-hop options header containing:
+  * one PadN option for a length of 8 octets
+  * one unknown option with the "discard" bits for a length of 8 octets
+  * one unknown option (two sets: with "discard" and "skip" bits) for a length of 256 and 512 octets
 
-- routing header with routing types from 0 to 6 inclusive;
+- destination options header containing:
+  * one PadN option for a length of 8 octets
+  * one unknown option with the "discard" bits for a length of 8 octets
+  * one unknown option (two sets: with "discard" and "skip" bits) for a length of 16, 32, 64, 128, 256, and 512 octets
+  * one unknown option (with "skip" bits) for a length of 24, 40, 48, and 56 octets
 
-- atomic fragment header (i.e., M-flag = 0 and offset = 0) of varying frame length 512, 1280, and 1500 octets;
+- routing header with routing types from 0 to 6 inclusive
 
-- non-atomic first fragment header (i.e., M-flag = 1 and offset = 0) of varying frame length 512, 1280, and 1500 octets;
+- fragment header of varying frame length 512, 1280, and 1500 octets:
+  * atomic fragment (i.e., M-flag = 0 and offset = 0)
+  * non-atomic first fragment (i.e., M-flag = 1 and offset = 0)
 
-- encapsulation security payload (ESP) header with dummy SPI followed by UDP/TCP header and a 38 octets payload;
+- encapsulation security payload (ESP) header with dummy SPI followed by UDP/TCP header and a 38 octets payload
 
-- authentication header (AH) with dummy SPI followed by UDP/TCP header and a 38 octets payload.
+- authentication header (AH) with dummy SPI followed by UDP/TCP header and a 38 octets payload
 
-In the above, length is the length of the extension header itself except for the fragmentation header where the length is the IP packet length (i.e., including the IPv6, and TCP/UDP headers + payload).
+In the above, length is the length of the extension header itself except for the fragmentation header where the length is the IP packet length (i.e., including the IPv6, and TCP/UDP headers + payload). Also, an unknown option means an option with an unassigned code in the IANA registry {{IANA_IPV6_PARAMS}}.
 
-For hop-by-hop and destination options headers, when required multiple PadN options were used in order to bypass some Linux kernels that consider a PadN larger than 8 bytes is an attack, see section 5.3 of {{?BCP220}}, even if multiple PadN options violates section 2.1.9.5 of {{?RFC4942}}.
+For hop-by-hop and destination options headers, the choice was made to use one unknown option instead of multiple consecutive PadN options in order to avoid packets from being discarded on the destination. Indeed, the Linux kernel does not accept consecutive Pad1 or PadN options if their total size exceeds 7 octets. Not only multiple PadN options violate section 2.1.9.5 of {{?RFC4942}}, but it is also considered as suspicious (see section 5.3 of {{?BCP220}}). Nevertheless, for comparative purposes, multiple PadN options were used for experiments of length 256 octets.
 
 In addition to the above extension headers, other probes were sent with next header field of IPv6 header set to:
 
-- 59, which is "no next header", especially whether extra octets after the no next header as section 4.7 {{!RFC8200}} requires that "those octets must be ignored and passed on unchanged if the packet is forwarded";
+- 59, which is "no next header", especially whether extra octets after the no next header as section 4.7 {{!RFC8200}} requires that "those octets must be ignored and passed on unchanged if the packet is forwarded"
 
-- 143, which is Ethernet payload (see section 10.1 of {{?RFC8986}}).
+- 143, which is Ethernet payload (see section 10.1 of {{?RFC8986}})
 
 # Results
 
-This section presents the current results out of phase 1 (collaborating vantage points) testing. About 11,400 packets were sent between all pairs of vantage points with a hop-limit between from 1 to the number of hops between the two vantage points and for all the extension headers described in {{tested_eh}}.
+This section presents the current results out of phase 1 (collaborating vantage points) testing. Probe packets were sent between all pairs of vantage points with a hop-limit from 1 to the number of hops between the two vantage points and for all the extension headers described in {{tested_eh}}.
 
 ## Routing Header
 
@@ -217,12 +223,12 @@ Other routing header types (1 == deprecated NIMROD {{?RFC1753}}, 2 == mobile IPv
 Many ASs drop packets containing either hop-by-hop options headers per {{table_drop_hbh}} below:
 
 | Option Type | Length |  %-age of packets reaching destination |
-| Skip | 8 | 5.8% |
+| Skip | 8 | 9.5% |
 | Discard | 8 | 0.0% |
-| Skip one large PadN | 256 | 1.9% |
-| Skip multiple PadN| 256 | 0.0% |
+| Skip | 256 | 2.9% |
+| Skip multiple PadN| 256 | 0.5% |
 | Discard | 256 | 0.0% |
-| Skip | 512 | 1.9% |
+| Skip | 512 | 1.6% |
 | Discard | 512 | 0.0% |
 {: #table_drop_hbh title="Hop-by-hop Transmission"}
 
@@ -238,8 +244,8 @@ Many ASs drop packets containing destination options headers per {{table_drop_do
 | 24  | No | 98.8% |
 | 32  | No | 94.8% |
 | 40  | No | 94.8% |
-| 48  | No | 94.8% |
-| 56  | No | 77.5% |
+| 48  | No | 94.9% |
+| 56  | No | 76.5% |
 | 64  | No | 43.8% |
 | 128 | No | 13.1% |
 | 256 | No | 5.5% |
@@ -247,7 +253,9 @@ Many ASs drop packets containing destination options headers per {{table_drop_do
 | 512 | No | 3.9% |
 {: #table_drop_do title="Destination Transmission"}
 
-The measurement did not find any impact of the discard/skip bits in the destination headers options, probably because the routers do not look inside the extension headers into the options. The use of a single large PadN or multiple 8-octet PadN options does not influence the result.
+**TODO** 56 (specifically) and 64 have variations between UDP and TCP: report it?
+
+The measurement did not find any impact of the discard/skip bits in the destination headers options, probably because the routers do not look inside the extension headers into the options.
 
 The size of the destination options header has a major impact on the drop probability. It appears that extension header larger than 24 octets already causes major drops. It may be because the 40 octets of the IPv6 header + the 24 octets of the extension header (total 64 octets) is still in the limits of some router hardware lookup mechanisms while the next measured size (extension header size of 32 octets for a total of 72 octets) is beyond the hardware limit and some AS has a policy to drop packets where the TCP/UDP ports are unknown...
 
