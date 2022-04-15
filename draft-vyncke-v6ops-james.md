@@ -50,6 +50,9 @@ author:
     email: justin.iurman@uliege.be
 
 normative:
+  IANA_IPV6_PARAMS:
+    title: Internet Protocol Version 6 (IPv6) Parameters, Destination Options and Hop-by-Hop Options
+    target: https://www.iana.org/assignments/ipv6-parameters/ipv6-parameters.xhtml#ipv6-parameters-2
 
 informative:
   TIER1:
@@ -150,33 +153,36 @@ Future revision of this document will use the work of {{MLAT_PEERING}}. Readers 
 
 In the first phase among collaborating vantage points, packets always contained either a UDP payload or a TCP payload, the latter is sent with only the SYN flag set and with data as permitted by section 3.4 of {{!RFC793}} (2nd paragraph). A usual traceroute is done with only the UDP/TCP payload without any extension header with varying hop-limit in order to learn the traversed routers and ASs. Then, several UDP/TCP probes are sent with a set of extension headers:
 
-- hop-by-hop and destination options header containing:
-  * one PadN option for an extension header length of 8 octets,
-  * one unknown option with the "discard" bits for an extension header length of 8 octets,
-  * multiple PadN options for an extension header length of 256 octets,
-  * one unknown option (two sets: with "discard" and "skip" bits) for the destination options header length of 16, 32, 64, and 128 octets,
-  * one unknown option (with "skip" bits) for the destination options header length of 24, 32, 40, 48 octets,
-  * one unknown option (two sets: with "discard" and "skip" bits) for an extension header length of 256 and 512 octets.
+- hop-by-hop options header containing:
+  * one PadN option for a length of 8 octets
+  * one unknown option with the "discard" bits for a length of 8 octets
+  * one unknown option (two sets: with "discard" and "skip" bits) for a length of 256 and 512 octets
 
-- routing header with routing types from 0 to 6 inclusive;
+- destination options header containing:
+  * one PadN option for a length of 8 octets
+  * one unknown option with the "discard" bits for a length of 8 octets
+  * one unknown option (two sets: with "discard" and "skip" bits) for a length of 16, 32, 64, 128, 256, and 512 octets
+  * one unknown option (with "skip" bits) for a length of 24, 40, 48, and 56 octets
 
-- atomic fragment header (i.e., M-flag = 0 and offset = 0) of varying frame length 512, 1280, and 1500 octets;
+- routing header with routing types from 0 to 6 inclusive
 
-- non-atomic first fragment header (i.e., M-flag = 1 and offset = 0) of varying frame length 512, 1280, and 1500 octets;
+- fragment header of varying frame length 512, 1280, and 1500 octets:
+  * atomic fragment (i.e., M-flag = 0 and offset = 0)
+  * non-atomic first fragment (i.e., M-flag = 1 and offset = 0)
 
-- encapsulation security payload (ESP) header with dummy SPI followed by UDP/TCP header and a 38 octets payload;
+- encapsulation security payload (ESP) header with dummy SPI followed by UDP/TCP header and a 38 octets payload
 
-- authentication header (AH) with dummy SPI followed by UDP/TCP header and a 38 octets payload.
+- authentication header (AH) with dummy SPI followed by UDP/TCP header and a 38 octets payload
 
-In the above, length is the length of the extension header itself except for the fragmentation header where the length is the IP packet length (i.e., including the IPv6, and TCP/UDP headers + payload).
+In the above, length is the length of the extension header itself except for the fragmentation header where the length is the IP packet length (i.e., including the IPv6, and TCP/UDP headers + payload). Also, an unknown option means an option with an unassigned code in the IANA registry {{IANA_IPV6_PARAMS}}.
 
-For hop-by-hop and destination options headers, when required multiple PadN options were used in order to bypass some Linux kernels that consider a PadN larger than 8 bytes is an attack, see section 5.3 of {{?BCP220}}, even if multiple PadN options violates section 2.1.9.5 of {{?RFC4942}}.
+For hop-by-hop and destination options headers, the choice was made to use one unknown option instead of multiple consecutive PadN options in order to avoid packets from being discarded on the destination. Indeed, the Linux kernel does not accept consecutive Pad1 or PadN options if their total size exceeds 7 octets. Not only multiple PadN options violate section 2.1.9.5 of {{?RFC4942}}, but it is also considered as suspicious (see section 5.3 of {{?BCP220}}). Nevertheless, for comparative purposes, multiple PadN options were used for experiments of length 256 octets.
 
 In addition to the above extension headers, other probes were sent with next header field of IPv6 header set to:
 
-- 59, which is "no next header", especially whether extra octets after the no next header as section 4.7 {{!RFC8200}} requires that "those octets must be ignored and passed on unchanged if the packet is forwarded";
+- 59, which is "no next header", especially whether extra octets after the no next header as section 4.7 {{!RFC8200}} requires that "those octets must be ignored and passed on unchanged if the packet is forwarded"
 
-- 143, which is Ethernet payload (see section 10.1 of {{?RFC8986}}).
+- 143, which is Ethernet payload (see section 10.1 of {{?RFC8986}})
 
 # Results
 
