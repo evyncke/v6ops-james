@@ -1,0 +1,7 @@
+|AS Number|AS description|
+|  1299|TWELVE99 Arelion, fka Telia Carrier, SE|
+|  4134|CHINANET-BACKBONE No.31,Jin-rong Street, CN|
+|  5511|OPENTRANSIT, FR|
+| 37684|ANGANI-AS, KE|
+| 58461|CT-HANGZHOU-IDC No.288,Fu-chun Road, CN|
+|328578|KEMNET-TECHNOLOGIES-AS, KE|

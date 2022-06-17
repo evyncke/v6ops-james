@@ -18,6 +18,5 @@
 |37684|Angani|KE|Nairobi|
 |37708|AfriNIC Corporate Network|MU|Ebène|
 |44684|Mythic Beasts |UK|Cambridge|
-|47853|Hostinger|US|Ashville, NC|
 |60011|MYTHIC-BEASTS-USA|US|Fremont, CA|
 |198644|GO6|SI|Ljubljana|

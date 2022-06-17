@@ -6,15 +6,17 @@
 | 2828 | XO-AS15, US | Regional Tier |
 | 2914 | NTT-LTD-2914, US | Tier-1 |
 | 3257 | GTT-BACKBONE GTT, US | Tier-1 |
+| 3320 | DTAG Internet service provider operations, DE | Tier-1 |
 | 3356 | LEVEL3, US | Tier-1 |
 | 3491 | BTN-ASN, US | Tier-1 |
+| 4134 | CHINANET-BACKBONE No.31,Jin-rong Street, CN | Regional Tier |
 | 4637 | ASN-TELSTRA-GLOBAL Telstra Global, HK | Regional Tier |
 | 4755 | TATACOMM-AS TATA Communications formerly VSNL is Leading ISP, IN |  |
 | 4788 | TMNET-AS-AP TM Net, Internet Service Provider, MY |  |
 | 5511 | OPENTRANSIT, FR | Tier-1 |
 | 5603 | SIOL-NET Telekom Slovenije d.d., SI |  |
 | 6453 | AS6453, US | Tier-1 |
-| 6461 | ZAYO-6461 (LONAP) | Tier-1 |
+| 6461 | ZAYO-6461 | Tier-1 |
 | 6762 | SEABONE-NET TELECOM ITALIA SPARKLE S.p.A., IT | Tier-1 |
 | 6895 | ESPANIX Neutral Interconect Exchange for Spain, ES |  |
 | 6939 | HURRICANE, US | Regional Tier |
@@ -32,10 +34,11 @@
 | 33764 | AFRINIC-ZA-JNB-AS, MU |  |
 | 34779 | T-2-AS AS set propagated by T-2 d.o.o., SI |  |
 | 37100 | SEACOM-AS, MU |  |
-| 37271 | Workonline (LONAP), ZA |  |
+| 37271 | Workonline |  |
 | 37684 | ANGANI-AS, KE |  |
 | 37708 | AFRINIC-MAIN, MU |  |
 | 44684 | MYTHIC Mythic Beasts Ltd, GB |  |
+| 58461 | CT-HANGZHOU-IDC No.288,Fu-chun Road, CN |  |
 | 60011 | MYTHIC-BEASTS-USA, GB |  |
 | 198644 | GO6, SI |  |
 | 211722 | Nullroute |  |
