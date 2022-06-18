@@ -5,9 +5,9 @@
 IPv6 Operations                                                É. Vyncke
 Internet-Draft                                                     Cisco
 Intended status: Informational                                   R. Léas
-Expires: 17 October 2022                                       J. Iurman
+Expires: 20 December 2022                                      J. Iurman
                                                      Université de Liège
-                                                           15 April 2022
+                                                            18 June 2022
 
 
    Just Another Measurement of Extension header Survivability (JAMES)
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 October 2022.
+   This Internet-Draft will expire on 20 December 2022.
 
 Copyright Notice
 
@@ -182,8 +182,6 @@ Table of Contents
      +--------+-------------------+--------------+-------------------+
      | 44684  | Mythic Beasts     | UK           | Cambridge         |
      +--------+-------------------+--------------+-------------------+
-     | 47853  | Hostinger         | US           | Ashville, NC      |
-     +--------+-------------------+--------------+-------------------+
      | 60011  | MYTHIC-BEASTS-USA | US           | Fremont, CA       |
      +--------+-------------------+--------------+-------------------+
      | 198644 | GO6               | SI           | Ljubljana         |
@@ -214,9 +212,15 @@ Table of Contents
     +-----------+-----------------------------------------+----------+
     | 3257      | GTT-BACKBONE GTT, US                    | Tier-1   |
     +-----------+-----------------------------------------+----------+
+    | 3320      | DTAG Internet service provider          | Tier-1   |
+    |           | operations, DE                          |          |
+    +-----------+-----------------------------------------+----------+
     | 3356      | LEVEL3, US                              | Tier-1   |
     +-----------+-----------------------------------------+----------+
     | 3491      | BTN-ASN, US                             | Tier-1   |
+    +-----------+-----------------------------------------+----------+
+    | 4134      | CHINANET-BACKBONE No.31,Jin-rong        | Regional |
+    |           | Street, CN                              | Tier     |
     +-----------+-----------------------------------------+----------+
     | 4637      | ASN-TELSTRA-GLOBAL Telstra Global, HK   | Regional |
     |           |                                         | Tier     |
@@ -233,7 +237,7 @@ Table of Contents
     +-----------+-----------------------------------------+----------+
     | 6453      | AS6453, US                              | Tier-1   |
     +-----------+-----------------------------------------+----------+
-    | 6461      | ZAYO-6461 (LONAP)                       | Tier-1   |
+    | 6461      | ZAYO-6461                               | Tier-1   |
     +-----------+-----------------------------------------+----------+
     | 6762      | SEABONE-NET TELECOM ITALIA SPARKLE      | Tier-1   |
     |           | S.p.A., IT                              |          |
@@ -273,13 +277,15 @@ Table of Contents
     +-----------+-----------------------------------------+----------+
     | 37100     | SEACOM-AS, MU                           |          |
     +-----------+-----------------------------------------+----------+
-    | 37271     | Workonline (LONAP), ZA                  |          |
+    | 37271     | Workonline                              |          |
     +-----------+-----------------------------------------+----------+
     | 37684     | ANGANI-AS, KE                           |          |
     +-----------+-----------------------------------------+----------+
     | 37708     | AFRINIC-MAIN, MU                        |          |
     +-----------+-----------------------------------------+----------+
     | 44684     | MYTHIC Mythic Beasts Ltd, GB            |          |
+    +-----------+-----------------------------------------+----------+
+    | 58461     | CT-HANGZHOU-IDC No.288,Fu-chun Road, CN |          |
     +-----------+-----------------------------------------+----------+
     | 60011     | MYTHIC-BEASTS-USA, GB                   |          |
     +-----------+-----------------------------------------+----------+
@@ -402,7 +408,8 @@ Table of Contents
    multiple PadN options violate section 2.1.9.5 of [RFC4942], but it is
    also considered as suspicious (see section 5.3 of [BCP220]).
    Nevertheless, for comparative purposes, multiple PadN options were
-   used for experiments of length 256 octets.
+   used for experiments of length 256 octets.  In that very specific
+   case, drops on the destination are not considered as drops.
 
    In addition to the above extension headers, other probes were sent
    with next header field of IPv6 header set to:
@@ -426,226 +433,263 @@ Table of Contents
 
    Table 3 lists all routing header types and the percentage of
    experiments that were successful, i.e., packets with routing header
-   reaching their destination:
+   reaching their destination, both for UDP and TCP:
 
-      +=====================+=======================================+
-      | Routing Header Type | %-age of packets reaching destination |
-      +=====================+=======================================+
-      | 0                   | 71.6%                                 |
-      +---------------------+---------------------------------------+
-      | 1                   | 88.7%                                 |
-      +---------------------+---------------------------------------+
-      | 2                   | 98.7%                                 |
-      +---------------------+---------------------------------------+
-      | 3                   | 99.0%                                 |
-      +---------------------+---------------------------------------+
-      | 4                   | 78.3%                                 |
-      +---------------------+---------------------------------------+
-      | 5                   | 98.9%                                 |
-      +---------------------+---------------------------------------+
-      | 6                   | 98.8%                                 |
-      +---------------------+---------------------------------------+
+                  +=====================+=======+=======+
+                  | Routing Header Type | UDP   | TCP   |
+                  +=====================+=======+=======+
+                  | 0                   | 74.3% | 71.2% |
+                  +---------------------+-------+-------+
+                  | 1                   | 88.3% | 81.4% |
+                  +---------------------+-------+-------+
+                  | 2                   | 97.4% | 90.4% |
+                  +---------------------+-------+-------+
+                  | 3                   | 97.6% | 91.3% |
+                  +---------------------+-------+-------+
+                  | 4                   | 78.8% | 72.6% |
+                  +---------------------+-------+-------+
+                  | 5                   | 97.4% | 90.9% |
+                  +---------------------+-------+-------+
+                  | 6                   | 97.4% | 90.0% |
+                  +---------------------+-------+-------+
 
-               Table 3: Per Routing Header Types Transmission
+                     Table 3: Per Routing Header Types
+                                Transmission
 
-   Table 4 lists the few ASs that drop packets with the routing header
-   type 0 (the original source routing header, which is now deprecated).
+   Table 4 and Table 5 respectively list ASs that drop packets with the
+   routing header type 0 (the original source routing header, which is
+   now deprecated) and packets with the routing header type 1 (NIMROD
+   [RFC1753], which is now deprecated).
 
-      +===========+================================================+
-      | AS Number | AS description                                 |
-      +===========+================================================+
-      | 4637      | ASN-TELSTRA-GLOBAL Telstra Global, HK          |
-      +-----------+------------------------------------------------+
-      | 6939      | HURRICANE, US                                  |
-      +-----------+------------------------------------------------+
-      | 7195      | EDGEUNO (DE-CIX Frankfurt)                     |
-      +-----------+------------------------------------------------+
-      | 9498      | BBIL-AP BHARTI Airtel Ltd. (Equinix Hong Kong) |
-      +-----------+------------------------------------------------+
-      | 14061     | DIGITALOCEAN (DE-CIX Frankfurt)                |
-      +-----------+------------------------------------------------+
-      | 16276     | OVH                                            |
-      +-----------+------------------------------------------------+
-      | 37684     | ANGANI-AS, KE                                  |
-      +-----------+------------------------------------------------+
-      | 328578    | KEMNET-TECHNOLOGIES-AS, KE                     |
-      +-----------+------------------------------------------------+
+    +===========+====================================================+
+    | AS Number | AS description                                     |
+    +===========+====================================================+
+    | 1299      | TWELVE99 Arelion, fka Telia Carrier, SE            |
+    +-----------+----------------------------------------------------+
+    | 5511      | OPENTRANSIT, FR                                    |
+    +-----------+----------------------------------------------------+
+    | 6895      | ESPANIX Neutral Interconect Exchange for Spain, ES |
+    +-----------+----------------------------------------------------+
+    | 6939      | HURRICANE, US                                      |
+    +-----------+----------------------------------------------------+
+    | 7195      | EDGEUNO (DE-CIX Frankfurt)                         |
+    +-----------+----------------------------------------------------+
+    | 9498      | BBIL-AP BHARTI Airtel Ltd. (Equinix Hong Kong)     |
+    +-----------+----------------------------------------------------+
+    | 14061     | DIGITALOCEAN (DE-CIX Frankfurt)                    |
+    +-----------+----------------------------------------------------+
+    | 16276     | OVH                                                |
+    +-----------+----------------------------------------------------+
+    | 37684     | ANGANI-AS, KE                                      |
+    +-----------+----------------------------------------------------+
+    | 58461     | CT-HANGZHOU-IDC No.288,Fu-chun Road, CN            |
+    +-----------+----------------------------------------------------+
+    | 328578    | KEMNET-TECHNOLOGIES-AS, KE                         |
+    +-----------+----------------------------------------------------+
 
-                Table 4: AS Dropping Routing Header Type 0
+               Table 4: ASs dropping Routing Header Type 0
 
-   It is possibly due to a strict implementation of [RFC5095] but it is
-   expected that no packet with routing header type 0 would be
-   transmitted anymore.  So, this is not surprising.
+        +===========+=============================================+
+        | AS Number | AS description                              |
+        +===========+=============================================+
+        | 1299      | TWELVE99 Arelion, fka Telia Carrier, SE     |
+        +-----------+---------------------------------------------+
+        | 4134      | CHINANET-BACKBONE No.31,Jin-rong Street, CN |
+        +-----------+---------------------------------------------+
+        | 5511      | OPENTRANSIT, FR                             |
+        +-----------+---------------------------------------------+
+        | 37684     | ANGANI-AS, KE                               |
+        +-----------+---------------------------------------------+
+        | 58461     | CT-HANGZHOU-IDC No.288,Fu-chun Road, CN     |
+        +-----------+---------------------------------------------+
+        | 328578    | KEMNET-TECHNOLOGIES-AS, KE                  |
+        +-----------+---------------------------------------------+
 
-   Table 5 lists the few ASs that drop packets with the routing header
-   type 4 (Segment Routing Header [RFC8754]).
+                Table 5: ASs dropping Routing Header Type 1
 
-                      +===========+================+
-                      | AS Number | AS description |
-                      +===========+================+
-                      | 16276     | OVH, FR        |
-                      +-----------+----------------+
+   Regarding the routing type 0, it is possibly due to a strict
+   implementation of [RFC5095] but it is expected that no packet with
+   such routing type would be transmitted anymore.  So, this is not
+   surprising.  The same reasoning could be applied to the routing type
+   1.
 
-                           Table 5: AS Dropping
-                          Routing Header Type 0
+   Table 6 lists ASs that drop packets with the routing header type 4
+   (Segment Routing Header [RFC8754]).
+
+          +===========+=========================================+
+          | AS Number | AS description                          |
+          +===========+=========================================+
+          | 1299      | TWELVE99 Arelion, fka Telia Carrier, SE |
+          +-----------+-----------------------------------------+
+          | 4637      | ASN-TELSTRA-GLOBAL Telstra Global, HK   |
+          +-----------+-----------------------------------------+
+          | 5511      | OPENTRANSIT, FR                         |
+          +-----------+-----------------------------------------+
+          | 6939      | HURRICANE, US                           |
+          +-----------+-----------------------------------------+
+          | 7195      | EDGEUNO SAS, CO                         |
+          +-----------+-----------------------------------------+
+          | 14061     | DIGITALOCEAN-ASN, US                    |
+          +-----------+-----------------------------------------+
+          | 16276     | OVH, FR                                 |
+          +-----------+-----------------------------------------+
+          | 37100     | SEACOM-AS, MU                           |
+          +-----------+-----------------------------------------+
+          | 58461     | CT-HANGZHOU-IDC No.288,Fu-chun Road, CN |
+          +-----------+-----------------------------------------+
+
+                Table 6: ASs dropping Routing Header Type 4
 
    This drop of SRH was to be expected as SRv6 is specified to run only
    in a limited domain.
 
-   Other routing header types (1 == deprecated NIMROD [RFC1753], 2 ==
-   mobile IPv6 [RFC6275], 3 == RPL [RFC6554], and even 5 == CRH-16 and 6
-   == CRH-32[I-D.draft-bonica-6man-comp-rtg-hdr]) can be transmitted
-   over the global Internet without being dropped (assuming that the
-   0.5% of dropped packets are within the measurement error).
+   Other routing header types (2 == mobile IPv6 [RFC6275], 3 == RPL
+   [RFC6554], and even 5 == CRH-16 and 6 == CRH-
+   32[I-D.draft-bonica-6man-comp-rtg-hdr]) can be transmitted over the
+   global Internet without being dropped (assuming that the 2.5% of
+   dropped packets are within the measurement error).  At least, this is
+   true for UDP.  We still need to investigate the differences for TCP
+   equivalent transmissions.
 
 4.2.  Hop-by-Hop Options Header
 
-   Many ASs drop packets containing either hop-by-hop options headers
-   per Table 6 below:
+   Table 7 lists all experiments (types and lengths) along with their
+   success percentages, i.e., packets with a hop-by-hop header reaching
+   their destination, both for UDP and TCP:
 
-    +===============+========+=======================================+
-    | Option Type   | Length | %-age of packets reaching destination |
-    +===============+========+=======================================+
-    | Skip          | 8      | 9.5%                                  |
-    +---------------+--------+---------------------------------------+
-    | Discard       | 8      | 0.0%                                  |
-    +---------------+--------+---------------------------------------+
-    | Skip          | 256    | 2.9%                                  |
-    +---------------+--------+---------------------------------------+
-    | Skip multiple | 256    | 0.5%                                  |
-    | PadN          |        |                                       |
-    +---------------+--------+---------------------------------------+
-    | Discard       | 256    | 0.0%                                  |
-    +---------------+--------+---------------------------------------+
-    | Skip          | 512    | 1.6%                                  |
-    +---------------+--------+---------------------------------------+
-    | Discard       | 512    | 0.0%                                  |
-    +---------------+--------+---------------------------------------+
+              +==============+================+======+======+
+              | Option Type  | Length (bytes) | UDP  | TCP  |
+              +==============+================+======+======+
+              | Skip         | 8              | 8.6% | 9.1% |
+              +--------------+----------------+------+------+
+              | Discard      | 8              | 0.0% | 0.0% |
+              +--------------+----------------+------+------+
+              | Skip         | 256            | 2.4% | 2.4% |
+              +--------------+----------------+------+------+
+              | Skip w/ PadN | 256            | 0.5% | 0.6% |
+              +--------------+----------------+------+------+
+              | Discard      | 256            | 0.0% | 0.0% |
+              +--------------+----------------+------+------+
+              | Skip         | 512            | 1.4% | 1.5% |
+              +--------------+----------------+------+------+
+              | Discard      | 512            | 0.0% | 0.0% |
+              +--------------+----------------+------+------+
 
-                     Table 6: Hop-by-hop Transmission
+                  Table 7: Hop-by-hop Header Transmission
 
    It appears that hop-by-hop options headers cannot reliably traverse
    the global Internet; only small headers with 'skipable' options have
    some chances.  If the unknown hop-by-hop option has the 'discard'
-   bits, it is dropped per specification.
+   bits, it is dropped per specification, although we observed in some
+   cases that such packets were not necessarily dropped directly by the
+   very first hop.  Globally, there are no notable differences between
+   UDP and TCP.
 
 4.3.  Destination Options Header
 
-   Many ASs drop packets containing destination options headers per
-   Table 7:
+   Table 8 lists all lengths that have been tested along with their
+   success percentages, i.e., packets with a destination header reaching
+   their destination, both for UDP and TCP:
 
-    +========+===============+=======================================+
-    | Length | Multiple PadN | %-age of packets reaching destination |
-    +========+===============+=======================================+
-    | 8      | No            | 99.1%                                 |
-    +--------+---------------+---------------------------------------+
-    | 16     | No            | 99.1%                                 |
-    +--------+---------------+---------------------------------------+
-    | 24     | No            | 98.8%                                 |
-    +--------+---------------+---------------------------------------+
-    | 32     | No            | 94.8%                                 |
-    +--------+---------------+---------------------------------------+
-    | 40     | No            | 94.8%                                 |
-    +--------+---------------+---------------------------------------+
-    | 48     | No            | 94.9%                                 |
-    +--------+---------------+---------------------------------------+
-    | 56     | No            | 76.5%                                 |
-    +--------+---------------+---------------------------------------+
-    | 64     | No            | 43.8%                                 |
-    +--------+---------------+---------------------------------------+
-    | 128    | No            | 13.1%                                 |
-    +--------+---------------+---------------------------------------+
-    | 256    | No            | 5.5%                                  |
-    +--------+---------------+---------------------------------------+
-    | 256    | Yes           | 5.5%                                  |
-    +--------+---------------+---------------------------------------+
-    | 512    | No            | 3.9%                                  |
-    +--------+---------------+---------------------------------------+
+                    +================+=======+=======+
+                    | Length (bytes) | UDP   | TCP   |
+                    +================+=======+=======+
+                    | 8              | 97.8% | 94.3% |
+                    +----------------+-------+-------+
+                    | 16             | 97.7% | 90.5% |
+                    +----------------+-------+-------+
+                    | 24             | 97.6% | 89.8% |
+                    +----------------+-------+-------+
+                    | 32             | 93.5% | 86.2% |
+                    +----------------+-------+-------+
+                    | 40             | 93.9% | 86.2% |
+                    +----------------+-------+-------+
+                    | 48             | 93.7% | 86.1% |
+                    +----------------+-------+-------+
+                    | 56             | 93.8% | 52.7% |
+                    +----------------+-------+-------+
+                    | 64             | 45.9% | 37.8% |
+                    +----------------+-------+-------+
+                    | 128            | 10.9% | 10.9% |
+                    +----------------+-------+-------+
+                    | 256            | 4.3%  | 4.3%  |
+                    +----------------+-------+-------+
+                    | 256 w/ PadN    | 4.3%  | 4.3%  |
+                    +----------------+-------+-------+
+                    | 512            | 3.1%  | 3.1%  |
+                    +----------------+-------+-------+
 
-                    Table 7: Destination Transmission
+                       Table 8: Destination Header
+                               Transmission
 
-   *TODO* 56 (specifically) and 64 have variations between UDP and TCP:
-   report it?
-
-   The measurement did not find any impact of the discard/skip bits in
-   the destination headers options, probably because the routers do not
-   look inside the extension headers into the options.
+   The measurement revealed no difference with the discard bits, which
+   tends to show that routers do not look inside the destination header,
+   as expected.
 
    The size of the destination options header has a major impact on the
-   drop probability.  It appears that extension header larger than 24
-   octets already causes major drops.  It may be because the 40 octets
-   of the IPv6 header + the 24 octets of the extension header (total 64
-   octets) is still in the limits of some router hardware lookup
-   mechanisms while the next measured size (extension header size of 32
-   octets for a total of 72 octets) is beyond the hardware limit and
-   some AS has a policy to drop packets where the TCP/UDP ports are
-   unknown...
+   drop probability.  It appears that destination headers larger than 24
+   octets already cause drops.  It may be because the 40 octets of the
+   IPv6 header + the 24 octets of the extension header (total 64 octets)
+   is still in the limits of some router hardware lookup mechanisms
+   while the next measured size (extension header size of 32 octets for
+   a total of 72 octets) is beyond the hardware limit and some ASs have
+   a policy to drop packets where the TCP/UDP ports are unknown.  A
+   major drop also occurs once the size reaches 64 bytes for UDP while,
+   surprisingly, it happens at 56 bytes for TCP.  In either case, the
+   chances of surviving are approximately halved.  We still need to
+   investigate the differences for TCP equivalent transmissions.
 
 4.4.  Fragmentation Header
 
    The propagation of two kinds of fragmentation headers was analysed:
    atomic fragment (offset == 0 and M-flag == 0) and plain first
-   fragment (offset == 0 and M-flag == 1).  The Table 8 displays the
+   fragment (offset == 0 and M-flag == 1).  The Table 9 displays the
    propagation differences.
 
-          +============+=======================================+
-          | M-flag     | %-age of packets reaching destination |
-          +============+=======================================+
-          | 0 (atomic) | 54.5%                                 |
-          +------------+---------------------------------------+
-          | 1          | 97.0%                                 |
-          +------------+---------------------------------------+
+                      +============+=======+=======+
+                      | M-flag     | UDP   | TCP   |
+                      +============+=======+=======+
+                      | 0 (atomic) | 55.8% | 49.8% |
+                      +------------+-------+-------+
+                      | 1          | 89.2% | 87.6% |
+                      +------------+-------+-------+
 
-                   Table 8: IPv6 Fragments Transmission
+                         Table 9: IPv6 Fragments
+                               Transmission
 
-   The size of the overall IP packets (512, 1280, and 1500 octets) has
-   only a marginal impact on the propagation (not shown on the table).
-
-   *TODO* two dimensional matrix as the frag size has an impact
+   The size of the overall IPv6 packets (512, 1280, and 1500 octets) has
+   no major impact on the propagation.
 
 4.5.  No extension headers drop at all
 
-   *TODO* results are really inconsistent due to AS attribution :-(
+   Table 10 lists ASs that do not drop transit traffic with extension
+   headers and therefore follow the recommendations of
+   [I-D.draft-ietf-opsec-ipv6-eh-filtering]:
 
-   Table 9 lists some ASs that do not drop transit traffic (except for
-   routing header type 0) and follow the recommendations of
-   [I-D.draft-ietf-opsec-ipv6-eh-filtering].  This list includes tier-1
-   transit providers (using the "regional" tag per [TIER1]):
+          +===========+========================================+
+          | AS Number | AS Description                         |
+          +===========+========================================+
+          | 267       | NETHER-NET, US                         |
+          +-----------+----------------------------------------+
+          | 2497      | IIJ Internet Initiative Japan Inc., JP |
+          +-----------+----------------------------------------+
+          | 14103     | ACDNET-ASN1, US                        |
+          +-----------+----------------------------------------+
+          | 21283     | A1SI-AS A1 Slovenija, SI               |
+          +-----------+----------------------------------------+
+          | 33764     | AFRINIC-ZA-JNB-AS, MU                  |
+          +-----------+----------------------------------------+
+          | 37271     | Workonline                             |
+          +-----------+----------------------------------------+
+          | 37708     | AFRINIC-MAIN, MU                       |
+          +-----------+----------------------------------------+
+          | 60011     | MYTHIC-BEASTS-USA, GB                  |
+          +-----------+----------------------------------------+
+          | 198644    | GO6, SI                                |
+          +-----------+----------------------------------------+
 
-   +===========+=======================================+===============+
-   | AS Number | AS Description                        | Comment       |
-   +===========+=======================================+===============+
-   | 4637      | ASN-TELSTRA-GLOBAL Telstra Global, HK | Regional      |
-   |           |                                       | Tier          |
-   +-----------+---------------------------------------+---------------+
-   | 4755      | TATACOMM-AS TATA Communications       |               |
-   |           | formerly VSNL is Leading ISP, IN      |               |
-   +-----------+---------------------------------------+---------------+
-   | 21283     | A1SI-AS A1 Slovenija, SI              |               |
-   +-----------+---------------------------------------+---------------+
-   | 60011     | MYTHIC-BEASTS-USA, GB                 |               |
-   +-----------+---------------------------------------+---------------+
-
-          Table 9: ASs Not Dropping Packets with Extension Headers
-
-   Some ASs also drop only large (more than 8 octets) destination
-   options headers, see Table 10:
-
-          +===========+====================+===================+
-          | AS Number | AS Description     | Largest Forwarded |
-          |           |                    | Dest.Opt.  Size   |
-          +===========+====================+===================+
-          | 6453      | Tata               |  8                |
-          |           | Communication      |                   |
-          +-----------+--------------------+-------------------+
-          | 1299      | TWELVE99 Twelve99, | 8                 |
-          |           | Telia Carrier, SE  |                   |
-          +-----------+--------------------+-------------------+
-          | 174       | COGENT-174, US     | 8                 |
-          +-----------+--------------------+-------------------+
-
-              Table 10: ASs Only Dropping Packets with Large
-                       Destination Options Headers
+            Table 10: ASs not dropping packets with Extension
+                                 Headers
 
 4.6.  Other Next Headers
 
@@ -653,39 +697,43 @@ Table of Contents
    use of IPv6 as well as AH and ESP.  Table 11 indicates the percentage
    of packets reaching the destination.
 
-      +=====================+=======================================+
-      | Next Header         | %-age of packets reaching destination |
-      +=====================+=======================================+
-      | NoNextHeader (59)   | 99.2%                                 |
-      +---------------------+---------------------------------------+
-      | Ethernet (143)      | 99.1%                                 |
-      +---------------------+---------------------------------------+
-      | Authentication (AH) | 98.8%                                 |
-      +---------------------+---------------------------------------+
-      | ESP                 | 98.8%                                 |
-      +---------------------+---------------------------------------+
+                  +=====================+==============+
+                  | Next Header         | Transmission |
+                  +=====================+==============+
+                  | NoNextHeader (59)   | 98.2%        |
+                  +---------------------+--------------+
+                  | Ethernet (143)      | 98.3%        |
+                  +---------------------+--------------+
+                  | Authentication (AH) | 98.1%        |
+                  +---------------------+--------------+
+                  | ESP                 | 98.3%        |
+                  +---------------------+--------------+
 
-               Table 11: Transmission of Special IP Protocols
+                    Table 11: Transmission of Special
+                               IP Protocols
 
    The above indicates that those IP protocols can be transmitted over
-   the global Internet without being dropped (assuming that the 0.3-0.8%
-   of dropped packets are within the measurement error).
+   the global Internet without being dropped (assuming that the 2% of
+   dropped packets are within the measurement error).  Globally, there
+   are no notable differences between UDP and TCP, for cases where it
+   applies.
 
 5.  Summary of the collaborating parties measurements
 
    While the analysis has areas of improvement (geographical
    distribution and impact on latency), it appears that:
 
-   *  AH, ESP, and non-atomic fragmentation headers can traverse the
-      Internet;
+   *  AH, ESP, and non-atomic fragmentation headers (to some extent) can
+      traverse the Internet;
 
-   *  only routing headers types 0 and 4 experiment problems over the
+   *  only routing headers types 0, 1 and 4 experiment problems over the
       Internet, other types have no problems;
 
-   *  hop-by-hop options headers do not traverse the Internet;
+   *  hop-by-hop options headers do not traverse the Internet, whatever
+      the size;
 
    *  destination options headers are not reliable enough when it
-      exceeds 16 octets.
+      exceeds 24 octets.
 
    Of course, the next phase of measurement with non-collaborating
    parties will probably give another view.
@@ -738,9 +786,8 @@ Table of Contents
               Bonica, R., Kamite, Y., Alston, A., Henriques, D., and L.
               Jalil, "The IPv6 Compact Routing Header (CRH)", Work in
               Progress, Internet-Draft, draft-bonica-6man-comp-rtg-hdr-
-              27, 15 November 2021,
-              <https://datatracker.ietf.org/doc/html/draft-bonica-6man-
-              comp-rtg-hdr-27>.
+              28, 18 May 2022, <https://datatracker.ietf.org/doc/html/
+              draft-bonica-6man-comp-rtg-hdr-28>.
 
    [I-D.draft-ietf-opsawg-pcap]
               Harris, G. and M. C. Richardson, "PCAP Capture File
@@ -753,9 +800,9 @@ Table of Contents
               Gont, F. and W. (. Liu, "Recommendations on the Filtering
               of IPv6 Packets Containing IPv6 Extension Headers at
               Transit Routers", Work in Progress, Internet-Draft, draft-
-              ietf-opsec-ipv6-eh-filtering-08, 3 June 2021,
+              ietf-opsec-ipv6-eh-filtering-10, 3 May 2022,
               <https://datatracker.ietf.org/doc/html/draft-ietf-opsec-
-              ipv6-eh-filtering-08>.
+              ipv6-eh-filtering-10>.
 
    [I-D.draft-vyncke-opsec-probe-attribution]
               Vyncke, É., Donnet, B., and J. Iurman, "Attribution of
