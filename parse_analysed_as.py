@@ -13,8 +13,10 @@ def get_asn(a):
 
 # Input file is not really JSON...
 raw_json_string = '[\n' + open('analysed_as.json').read().replace("'", '"').replace('}', '},')
-raw_json_string = raw_json_string[:-1] + ']\n'
-raw_json_string = re.sub(r' \d+: ', '', raw_json_string)
+final = -1 if raw_json_string[:-1] == ',' else -2 #take care of the last \n if any
+raw_json_string = raw_json_string[:final] + ']\n'
+raw_json_string = re.sub(r'\d+: ', '', raw_json_string)
+
 all_as = json.loads(raw_json_string)
 all_as.sort(key = get_asn)
 print('|AS Number|AS Description|Comment|')
