@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2022-06-16T01:36:43.744994+00:00",
+  "timestamp": "2022-06-19T01:42:52.817962+00:00",
   "repo": "evyncke/v6ops-james",
   "labels": [
     {
@@ -197,6 +197,34 @@
           "updatedAt": "2022-04-15T21:25:48Z"
         }
       ],
+      "reviews": []
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOG2oES8453F_k",
+      "title": "Include very last results",
+      "url": "https://github.com/evyncke/v6ops-james/pull/5",
+      "state": "MERGED",
+      "author": "IurmanJ",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "New version that includes very last results",
+      "createdAt": "2022-06-17T15:28:27Z",
+      "updatedAt": "2022-06-18T14:22:24Z",
+      "baseRepository": "evyncke/v6ops-james",
+      "baseRefName": "main",
+      "baseRefOid": "0611a6e2c180ae9165df251513e147c975c00e90",
+      "headRepository": "IurmanJ/v6ops-james",
+      "headRefName": "v2",
+      "headRefOid": "b90cf26d77d916605448ec8aa2e71ab5035e0447",
+      "closedAt": "2022-06-18T14:22:24Z",
+      "mergedAt": "2022-06-18T14:22:24Z",
+      "mergedBy": "evyncke",
+      "mergeCommit": {
+        "oid": "a0a434a658e59d2640e5613d40267ad4da8481af"
+      },
+      "comments": [],
       "reviews": []
     }
   ]
