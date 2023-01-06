@@ -1,8 +1,8 @@
 |ASN|AS Name|Country code|Location|
 |267|NETHER-NET|US|Southfield, MI|
 |3764|AFRINIC-Ops|ZA|Johanesburg|
-|4134|Chine Telecom|CN|Beijink ?|
-|7195|Edge Uno|AG|Buenos Aires|
+|4134|Chine Telecom|CN|Beijing|
+|7195|Edge Uno|AR|Buenos Aires|
 |12414|NL-SOLCON SOLCON|NL|Amsterdam|
 |14061|Digital Ocean|CA|Toronto, ON|
 |14061|Digital Ocean|USA|New York City, NY|
