@@ -1,0 +1,360 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2022-08-04T01:43:49.415867+00:00",
+  "repo": "evyncke/v6ops-james",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 6,
+      "id": "I_kwDOG2oES85PEJf9",
+      "title": "Add reference to RFC 9098",
+      "url": "https://github.com/evyncke/v6ops-james/issues/6",
+      "state": "OPEN",
+      "author": "IurmanJ",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "On 28/07/2022, 03:18, \"Laurent Schumacher (UNamur)\" [<laurent.schumacher@unamur.be>](mailto:laurent.schumacher@unamur.be) wrote:\r\n> \r\n>     Bonjour  \u00c9ric,\r\n> \r\n>     draft-vyncke-v6ops-james ne gagnerait-il pas \u00e0 faire r\u00e9f\u00e9rence au RFC \r\n>     9098 (Operational Implications of IPv6 Packets with Extension Headers) ?\r\n> \r\n>     A+,\r\n>     LS",
+      "createdAt": "2022-08-02T23:04:45Z",
+      "updatedAt": "2022-08-02T23:29:47Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 7,
+      "id": "I_kwDOG2oES85PEKoX",
+      "title": "Investigate vanilla IPv6 ~2% drop (or out of scope?)",
+      "url": "https://github.com/evyncke/v6ops-james/issues/7",
+      "state": "OPEN",
+      "author": "IurmanJ",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "On 7/11/22 23:25, Xipengxiao wrote:\r\n> Hi Justin, Eric,\r\n>\r\n> I read the draft and I think it\u2019s a good one.  A few questions and comments:\r\n>\r\n>  1. In the draft you stated twice that \u201cassuming that the 2% of dropped\r\n>     packets are within the measurement error\u201d:  Is it really measurement\r\n>     error, or is it a polite way to say that 2% packet loss is common\r\n>     for IPv6?  (BTW, this would be somewhat consistent with APNIC\u2019s IPv6\r\n>     packet loss rate (PLR) measurement).  To find this out, maybe you\r\n>     can do some measurement with IPv4 (or IPv6 without EH) to see if\r\n\r\nIt'd indeed be a polite way to say what you mentioned. We can assume so because (a) we already tried with IPv6-without-EH (same thing was observed); and (b) these measurements are based on cooperative nodes only for now, which is to say that we were able to capture traffic received on destinations and make sure packets were received or lost (without only relying on the sender and ICMP responses received).\r\n\r\n>     packet loss rate can go to 0%).  The reason for my question is, if\r\n>     2% packet loss rate is common for IPv6, it\u2019s worth digging why and\r\n>     trying to improve.\r\n\r\n+1, it'd probably be worth it. \r\n\r\n[...]\r\n\r\n>  4. Is it possible to use the test bed to measure the performance (i.e.\r\n>     packet loss rate PLR and latency) difference between IPv6 and IPv4?     I think that this may reveal some sub-optimal operations issues for\r\n>     IPv6 so that we can improve.\r\n\r\nYes, we could consider doing that. ",
+      "createdAt": "2022-08-02T23:12:33Z",
+      "updatedAt": "2022-08-02T23:28:48Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 8,
+      "id": "I_kwDOG2oES85PEK0J",
+      "title": "Clarify Frag Headers section",
+      "url": "https://github.com/evyncke/v6ops-james/issues/8",
+      "state": "OPEN",
+      "author": "IurmanJ",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "On 7/11/22 23:25, Xipengxiao wrote: \r\n>  3. In Section 4.4 for Fragmentation Header, should the success rate for\r\n>     \u201cAtomic\u201d be 0% for both UDP & TCP?  See the picture below.  Does\r\n>     this mean that some operators are not filtering out atomic\r\n>     fragmentation properly?\r\n\r\nWell, yes and no. I think we need to update this section to be clearer. In fact, the reason for having only half of atomic fragments going through is that the other half is filtered by some ASs, i.e., removed from packets, while packets are reaching their destinations no matter what. Note that we did not observe such filtering for non-atomic fragments. So, having 0% going through would not be correct IMO, as fragments headers should be handled by destinations, not by routers. On the other hand, who knows why there is a difference between how atomic and non-atomic fragments are treated by routers. We'll investigate as well. ",
+      "createdAt": "2022-08-02T23:14:04Z",
+      "updatedAt": "2022-08-02T23:31:39Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "IurmanJ",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "On 7/26/22 17:26, Fernando Gont wrote: \r\n> 3) Section 3.3.:\r\n>>    *  fragment header of varying frame length 512, 1280, and 1500\r\n>>       octets:\r\n>>\r\n>>       -  atomic fragment (i.e., M-flag = 0 and offset = 0)\r\n>>\r\n>>       -  non-atomic first fragment (i.e., M-flag = 1 and offset = 0)\r\n>\r\n> At the time of this writing, it's probably more important to test for non-first fragments, than for atomic fragments (atomic fragments are deprecated anyway, so...)\r\n\r\nAck. \r\n\r\n[...]\r\n\r\n> 4) Section 3.3:\r\n>>    *  encapsulation security payload (ESP) header with dummy SPI\r\n>>       followed by UDP/TCP header and a 38 octets payload\r\n>>\r\n>>    *  authentication header (AH) with dummy SPI followed by UDP/TCP\r\n>>       header and a 38 octets payload\r\n>\r\n> Any rationale for the payload size?\r\n\r\nI don't remember exactly, to be honest. I'd say the student used a 38-octet payload just because he was inserting his email address and the experiment ID, aligned to a 8-octet boundary. I'll make sure of this, thanks for pointing it out. ",
+          "createdAt": "2022-08-02T23:31:20Z",
+          "updatedAt": "2022-08-02T23:31:39Z"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "id": "I_kwDOG2oES85PELFy",
+      "title": "Typos, nits",
+      "url": "https://github.com/evyncke/v6ops-james/issues/9",
+      "state": "OPEN",
+      "author": "IurmanJ",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "On 7/11/22 23:25, Xipengxiao wrote: \r\n> Also 2 minor editorial things:\r\n>\r\n>  5. Section 3.1, \u201cBeijink ?\u201d\r\n\r\nGood catch, thanks.\r\n\r\n>  6. Section 3.2.1, \u201c\u2026 using link-local per [RFC7704])\u201d:  RFC7704 is \u201cAn\r\n>     IETF with Much Diversity and Professional Conduct\u201d.  The word\r\n>     \u201clink-local\u201d did not appear a single time in it.  Not sure if you\r\n>     really want to reference 7704.\r\n\r\nWe'll correct this. ",
+      "createdAt": "2022-08-02T23:16:11Z",
+      "updatedAt": "2022-08-02T23:32:13Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "IurmanJ",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "On 7/26/22 17:26, Fernando Gont wrote: \r\n> **** Editorial comments: ****\r\n>\r\n> Section 2:\r\n>>       extension headers are slower than plain IP6 packets\r\n>\r\n> s/IP6/IPv6/\r\n>\r\n>\r\n> Section 3.1:\r\n>\r\n>>      | 7195   | Edge Uno          | AG           | Buenos Aires      |\r\n>\r\n> s/AG/AR/\r\n\r\nGood catch (for both), thx! ",
+          "createdAt": "2022-08-02T23:32:13Z",
+          "updatedAt": "2022-08-02T23:32:13Z"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "id": "I_kwDOG2oES85PELxS",
+      "title": "drop rate UDP vs TCP: explanations?",
+      "url": "https://github.com/evyncke/v6ops-james/issues/10",
+      "state": "OPEN",
+      "author": "IurmanJ",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "On 7/26/22 17:26, Fernando Gont wrote:\r\n> Hi Eric and co-authors!\r\n>\r\n> First of all, thanks for writing this I-D, sharing the code, etc!\r\n>\r\n>\r\n> **** Some technical comments: ****\r\n>\r\n> 1) As noted during the meeting, in line with RFC9098, the drop rate is a function of the total IPv6 header chain. That's why, for a given length of an EH, the drop rate is different for UDP than for TCP (8-bytes vs 20-byte header).\r\n\r\nGot it. We'll check that out, it could indeed very well be the reason why. But, talking about it, I think I remember some cases where we did not see such difference, so we'll dig deeper anyway. ",
+      "createdAt": "2022-08-02T23:18:38Z",
+      "updatedAt": "2022-08-02T23:26:06Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 11,
+      "id": "I_kwDOG2oES85PEMQj",
+      "title": "RHs: vary the size as well?",
+      "url": "https://github.com/evyncke/v6ops-james/issues/11",
+      "state": "OPEN",
+      "author": "IurmanJ",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "On 7/26/22 17:26, Fernando Gont wrote:\r\n> 2) Regarding the results for Routing Headers, I think they associated measurements should be performed for different RH sizes -- since my expectation is that the same principle applies to Routing Headers: the longer the IPv6 header chain, the higher the drop rate. SO my expectation is that once the RH is 64-bytes long or so, these headers also become unusuable on the public Internet.\r\n\r\nThx for the suggestion, we'll check that too. \r\n\r\n[...]\r\n\r\n> 5) Section 5 says:\r\n>>\r\n>>    *  only routing headers types 0, 1 and 4 experiment problems over the\r\n>>       Internet, other types have no problems;\r\n>\r\n> As per the above, this really needs to be measured for different RH sizes. My expectation is that you'll get similar results as for e.g. Destination Options header. \r\n\r\nWill do. ",
+      "createdAt": "2022-08-02T23:19:31Z",
+      "updatedAt": "2022-08-02T23:25:27Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 12,
+      "id": "I_kwDOG2oES85PEOpq",
+      "title": "probe-attribution *combined with* reverse DNS mapping (both)?",
+      "url": "https://github.com/evyncke/v6ops-james/issues/12",
+      "state": "OPEN",
+      "author": "IurmanJ",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "On 7/26/22 17:26, Fernando Gont wrote: \r\n> 6) Section 6 says:\r\n>>    [I-D.draft-vyncke-opsec-probe-attribution] to allow external parties\r\n>>    to identify the source of the probes if required.\r\n>\r\n> My approach here is to configure the reverse DNS mapping for the probing (source address), and host a web page on that domain/site to eplain what you are doing. e.g., people might not be aware about your suggested encoding. Also, when e.g. SYN-scanning, you might not even be able to encode the info you want to encode.\r\n\r\nYour approach, which of course is the usual one, is also a possibility referenced in [I-D.draft-vyncke-opsec-probe-attribution]. What we proposed in that draft is to provide other possibilities too (in-band alternatives, actually), depending on the situation (encapsulation protocol, L3 or L4, etc). ",
+      "createdAt": "2022-08-02T23:35:08Z",
+      "updatedAt": "2022-08-02T23:35:08Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOG2oES840l8cq",
+      "title": "Typo",
+      "url": "https://github.com/evyncke/v6ops-james/pull/1",
+      "state": "MERGED",
+      "author": "IurmanJ",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Typo\r\n\r\nSigned-off-by: Justin Iurman <justin.iurman@uliege.be>",
+      "createdAt": "2022-03-17T11:30:49Z",
+      "updatedAt": "2022-03-17T12:11:03Z",
+      "baseRepository": "evyncke/v6ops-james",
+      "baseRefName": "main",
+      "baseRefOid": "7bddaf181ab4f82dbe432de4f25e7b42575f5411",
+      "headRepository": "IurmanJ/v6ops-james",
+      "headRefName": "revision-01",
+      "headRefOid": "b6a41a1a72eaf1828959022a3128479bfb721455",
+      "closedAt": "2022-03-17T11:58:19Z",
+      "mergedAt": "2022-03-17T11:58:19Z",
+      "mergedBy": "evyncke",
+      "mergeCommit": {
+        "oid": "c363212a1dcaf2452ac572ca7ad8cb975a3b8055"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOG2oES842a7jt",
+          "commit": {
+            "abbreviatedOid": "b6a41a1"
+          },
+          "author": "evyncke",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2022-03-17T11:57:48Z",
+          "updatedAt": "2022-03-17T11:57:48Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDOG2oES840sJqE",
+      "title": "Add size 128 + typo",
+      "url": "https://github.com/evyncke/v6ops-james/pull/2",
+      "state": "MERGED",
+      "author": "IurmanJ",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Add size 128 for Dest + fix typo\r\n\r\nSigned-off-by: Justin Iurman <justin.iurman@uliege.be>",
+      "createdAt": "2022-03-19T14:37:34Z",
+      "updatedAt": "2022-03-19T14:56:12Z",
+      "baseRepository": "evyncke/v6ops-james",
+      "baseRefName": "main",
+      "baseRefOid": "bc5de8e3844b4c51d70af41eeba89739b535d110",
+      "headRepository": "IurmanJ/v6ops-james",
+      "headRefName": "revision-01",
+      "headRefOid": "d86e9115b4d4383fafc86b719592d4e2874e3b9c",
+      "closedAt": "2022-03-19T14:46:33Z",
+      "mergedAt": "2022-03-19T14:46:33Z",
+      "mergedBy": "evyncke",
+      "mergeCommit": {
+        "oid": "90ce13610db237e08ab087abdab3e4593725eca3"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOG2oES842iezO",
+          "commit": {
+            "abbreviatedOid": "d86e911"
+          },
+          "author": "evyncke",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2022-03-19T14:46:20Z",
+          "updatedAt": "2022-03-19T14:46:20Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOG2oES841pSIa",
+      "title": "Typo",
+      "url": "https://github.com/evyncke/v6ops-james/pull/3",
+      "state": "MERGED",
+      "author": "IurmanJ",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "s/Hop-by-hop/Destination/ for the table title in Destination Options\r\nsection\r\n\r\nSigned-off-by: Justin Iurman <justin.iurman@uliege.be>",
+      "createdAt": "2022-04-05T10:11:26Z",
+      "updatedAt": "2022-04-05T13:50:32Z",
+      "baseRepository": "evyncke/v6ops-james",
+      "baseRefName": "main",
+      "baseRefOid": "02b4a2b433fe0f8bb6584f2aa864caa291e9d606",
+      "headRepository": "IurmanJ/v6ops-james",
+      "headRefName": "for-v2",
+      "headRefOid": "f767da560bd1d26d3989243bb6796515a9a8ccf8",
+      "closedAt": "2022-04-05T11:01:26Z",
+      "mergedAt": "2022-04-05T11:01:26Z",
+      "mergedBy": "evyncke",
+      "mergeCommit": {
+        "oid": "0d85e663cfc6a5d23a4acd5395d88b70d34cfc57"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDOG2oES842TcP3",
+      "title": "Proposal for padding, tests, results",
+      "url": "https://github.com/evyncke/v6ops-james/pull/4",
+      "state": "MERGED",
+      "author": "IurmanJ",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2022-04-15T19:36:38Z",
+      "updatedAt": "2022-06-06T13:50:01Z",
+      "baseRepository": "evyncke/v6ops-james",
+      "baseRefName": "main",
+      "baseRefOid": "5252bda7870410c836f5f3fd6e1fdadbafa05086",
+      "headRepository": "IurmanJ/v6ops-james",
+      "headRefName": "for-v2",
+      "headRefOid": "b6e013ba95151f24ee0ba100ffdfd972ebf33eb7",
+      "closedAt": "2022-04-15T21:25:41Z",
+      "mergedAt": "2022-04-15T21:25:41Z",
+      "mergedBy": "evyncke",
+      "mergeCommit": {
+        "oid": "0611a6e2c180ae9165df251513e147c975c00e90"
+      },
+      "comments": [
+        {
+          "author": "evyncke",
+          "authorAssociation": "OWNER",
+          "body": "Thank you",
+          "createdAt": "2022-04-15T21:25:48Z",
+          "updatedAt": "2022-04-15T21:25:48Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOG2oES8453F_k",
+      "title": "Include very last results",
+      "url": "https://github.com/evyncke/v6ops-james/pull/5",
+      "state": "MERGED",
+      "author": "IurmanJ",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "New version that includes very last results",
+      "createdAt": "2022-06-17T15:28:27Z",
+      "updatedAt": "2022-06-20T11:22:45Z",
+      "baseRepository": "evyncke/v6ops-james",
+      "baseRefName": "main",
+      "baseRefOid": "0611a6e2c180ae9165df251513e147c975c00e90",
+      "headRepository": "IurmanJ/v6ops-james",
+      "headRefName": "v2",
+      "headRefOid": "b90cf26d77d916605448ec8aa2e71ab5035e0447",
+      "closedAt": "2022-06-18T14:22:24Z",
+      "mergedAt": "2022-06-18T14:22:24Z",
+      "mergedBy": "evyncke",
+      "mergeCommit": {
+        "oid": "a0a434a658e59d2640e5613d40267ad4da8481af"
+      },
+      "comments": [],
+      "reviews": []
+    }
+  ]
+}
