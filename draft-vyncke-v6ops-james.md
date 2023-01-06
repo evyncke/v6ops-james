@@ -97,7 +97,7 @@ In 2016, RFC7872 has measured the drop of packets with IPv6 extension headers. T
 
 # Introduction
 
-In 2016, {{?RFC7872}} has measured the drop of packets with IPv6 extension headers on their transit over the global Internet. This document presents a slightly different methodology with more recent results. Since then, {{?I-D.draft-ietf-opsec-ipv6-eh-filtering}} has provided some recommendations for filtering transit traffic, so there may be some changes in providers policies.
+In 2016, {{?RFC7872}} has measured the drop of packets with IPv6 extension headers on their transit over the global Internet. This document presents a slightly different methodology with more recent results. Since then, {{?I-D.draft-ietf-opsec-ipv6-eh-filtering}} has provided some recommendations for filtering transit traffic, so there may be some changes in providers policies. Also, {{?RFC9098}} raises awareness about the operational and security implications of IPv6 extension headers and present reasons why some networks would drop them intentionally.
 
 It is still work in progress, but the authors wanted to present some results at IETF-113 (March 2022). The code is open source and is available at {{GITHUB}}.
 
