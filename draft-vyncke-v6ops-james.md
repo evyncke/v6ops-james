@@ -97,7 +97,7 @@ In 2016, RFC7872 has measured the drop of packets with IPv6 extension headers. T
 
 # Introduction
 
-In 2016, {{?RFC7872}} has measured the drop of packets with IPv6 extension headers on their transit over the global Internet. This document presents a slightly different methodology with more recent results. Since then, {{?I-D.draft-ietf-opsec-ipv6-eh-filtering}} has provided some recommendations for filtering transit traffic, so there may be some changes in providers policies. Also, {{?RFC9098}} raises awareness about the operational and security implications of IPv6 extension headers and present reasons why some networks would drop them intentionally.
+In 2016, {{?RFC7872}} has measured the drop of packets with IPv6 extension headers on their transit over the global Internet. This document presents a slightly different methodology with more recent results. Since then, {{?RFC9288}} has provided some recommendations for filtering transit traffic, so there may be some changes in providers policies. Also, {{?RFC9098}} raises awareness about the operational and security implications of IPv6 extension headers and present reasons why some networks would drop them intentionally.
 
 It is still work in progress, but the authors wanted to present some results at IETF-113 (March 2022). The code is open source and is available at {{GITHUB}}.
 
@@ -151,7 +151,7 @@ Future revision of this document will use the work of {{MLAT_PEERING}}. Readers 
 
 ## Tested Extension Headers {#tested_eh}
 
-In the first phase among collaborating vantage points, packets always contained either a UDP payload or a TCP payload, the latter is sent with only the SYN flag set and with data as permitted by section 3.4 of {{!RFC793}} (2nd paragraph). A usual traceroute is done with only the UDP/TCP payload without any extension header with varying hop-limit in order to learn the traversed routers and ASs. Then, several UDP/TCP probes are sent with a set of extension headers:
+In the first phase among collaborating vantage points, packets always contained either a UDP payload or a TCP payload, the latter is sent with only the SYN flag set and with data as permitted by section 3.5 of {{!RFC9293}} (2nd paragraph). A usual traceroute is done with only the UDP/TCP payload without any extension header with varying hop-limit in order to learn the traversed routers and ASs. Then, several UDP/TCP probes are sent with a set of extension headers:
 
 - hop-by-hop options header containing:
   * one PadN option for a length of 8 octets
@@ -273,7 +273,7 @@ The size of the overall IPv6 packets (512, 1280, and 1500 octets) has no major i
 
 ## No extension headers drop at all
 
-{{table_no_drop}} lists ASs that do not drop transit traffic with extension headers and therefore follow the recommendations of {{?I-D.draft-ietf-opsec-ipv6-eh-filtering}}:
+{{table_no_drop}} lists ASs that do not drop transit traffic with extension headers and therefore follow the recommendations of {{?RFC9288}}:
 
 {::include ./no_drop.inc}
 {: #table_no_drop title="ASs not dropping packets with Extension Headers"}
