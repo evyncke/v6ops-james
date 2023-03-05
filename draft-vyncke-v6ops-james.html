@@ -11,12 +11,12 @@
 <meta content="
        In 2016, RFC7872 has measured the drop of packets with IPv6 extension headers. This document presents a slightly different methodology with more recent results. It is still work in progress. 
     " name="description">
-<meta content="xml2rfc 3.15.3" name="generator">
+<meta content="xml2rfc 3.16.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-vyncke-v6ops-james-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.15.3
-    Python 3.10.9
+  xml2rfc 3.16.0
+    Python 3.10.10
     appdirs 1.4.4
     ConfigArgParse 1.5.3
     google-i18n-address 2.5.2
@@ -30,7 +30,7 @@
     requests 2.28.1
     setuptools 65.6.0
     six 1.16.0
-    wcwidth 0.2.5
+    wcwidth 0.2.6
 -->
 <link href="draft-vyncke-v6ops-james.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -361,7 +361,7 @@ ul.empty li, .ulEmpty li {
   margin-top: 0.5em;
 }
 :is(ul, ol).compact, .ulCompact, .olCompact {
-  line-height: 100%;
+  line-height: 1;
   margin: 0 0 0 2em;
 }
 
@@ -371,10 +371,13 @@ dl {
   --indent: 3ch;
   /* --indent: attr(indent ch); not supported in any browser, but we can dream */
 }
+dl.olPercent {
+  --indent: 5ch;
+}
 dl > dt {
   float: left;
-  margin-right: 1em;
-  min-width: 12ch;
+  margin-right: 2ch;
+  min-width: 8ch;
 }
 dl.dlNewline > dt {
   float: none;
@@ -383,6 +386,9 @@ dl > dd {
   margin-bottom: .8em;
   margin-left: var(--indent) !important; /* stupid element overrides */
   min-height: 2ex;
+}
+dl.olPercent > dt {
+  min-width: calc(var(--indent) - 2ch);
 }
 :is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0;
@@ -405,11 +411,11 @@ dl > dd > dl {
 a, a[href].selfRef:hover {
   text-decoration: none;
 }
-a[href].selfRef {
-  color: var(--text-color);
-}
 a[href] {
   color: var(--link-color);
+}
+a[href].selfRef, .iref + a[href].internal {
+  color: var(--text-color);
 }
 a[href]:hover {
   text-decoration: underline;
@@ -583,10 +589,14 @@ hr {
 .bcp14 {
   font-variant: small-caps;
   font-weight: 600;
-  font-size: 14.5px;
+  font-size: var(--small-font-size);
 }
 .role {
   font-variant: all-small-caps;
+}
+sub, sup {
+  line-height: 1;
+  font-size: 80%;
 }
 
 /* info block */
@@ -1039,11 +1049,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">JAMES</td>
-<td class="right">January 2023</td>
+<td class="right">March 2023</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Vyncke, et al.</td>
-<td class="center">Expires 10 July 2023</td>
+<td class="center">Expires 6 September 2023</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1056,12 +1066,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-vyncke-v6ops-james-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-01-06" class="published">6 January 2023</time>
+<time datetime="2023-03-05" class="published">5 March 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-07-10">10 July 2023</time></dd>
+<dd class="expires"><time datetime="2023-09-06">6 September 2023</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1119,7 +1129,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 10 July 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 6 September 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1231,7 +1241,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">In 2016, <span>[<a href="#RFC7872" class="cite xref">RFC7872</a>]</span> has measured the drop of packets with IPv6 extension headers on their transit over the global Internet. This document presents a slightly different methodology with more recent results. Since then, <span>[<a href="#I-D.draft-ietf-opsec-ipv6-eh-filtering" class="cite xref">I-D.draft-ietf-opsec-ipv6-eh-filtering</a>]</span> has provided some recommendations for filtering transit traffic, so there may be some changes in providers policies. Also, <span>[<a href="#RFC9098" class="cite xref">RFC9098</a>]</span> raises awareness about the operational and security implications of IPv6 extension headers and present reasons why some networks would drop them intentionally.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-1">In 2016, <span>[<a href="#RFC7872" class="cite xref">RFC7872</a>]</span> has measured the drop of packets with IPv6 extension headers on their transit over the global Internet. This document presents a slightly different methodology with more recent results. Since then, <span>[<a href="#RFC9288" class="cite xref">RFC9288</a>]</span> has provided some recommendations for filtering transit traffic, so there may be some changes in providers policies. Also, <span>[<a href="#RFC9098" class="cite xref">RFC9098</a>]</span> raises awareness about the operational and security implications of IPv6 extension headers and present reasons why some networks would drop them intentionally.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">It is still work in progress, but the authors wanted to present some results at IETF-113 (March 2022). The code is open source and is available at <span>[<a href="#GITHUB" class="cite xref">GITHUB</a>]</span>.<a href="#section-1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1680,7 +1690,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         <h3 id="name-tested-extension-headers">
 <a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-tested-extension-headers" class="section-name selfRef">Tested Extension Headers</a>
         </h3>
-<p id="section-3.3-1">In the first phase among collaborating vantage points, packets always contained either a UDP payload or a TCP payload, the latter is sent with only the SYN flag set and with data as permitted by section 3.4 of <span>[<a href="#RFC793" class="cite xref">RFC793</a>]</span> (2nd paragraph). A usual traceroute is done with only the UDP/TCP payload without any extension header with varying hop-limit in order to learn the traversed routers and ASs. Then, several UDP/TCP probes are sent with a set of extension headers:<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+<p id="section-3.3-1">In the first phase among collaborating vantage points, packets always contained either a UDP payload or a TCP payload, the latter is sent with only the SYN flag set and with data as permitted by section 3.5 of <span>[<a href="#RFC9293" class="cite xref">RFC9293</a>]</span> (2nd paragraph). A usual traceroute is done with only the UDP/TCP payload without any extension header with varying hop-limit in order to learn the traversed routers and ASs. Then, several UDP/TCP probes are sent with a set of extension headers:<a href="#section-3.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.3-2.1">
             <p id="section-3.3-2.1.1">hop-by-hop options header containing:<a href="#section-3.3-2.1.1" class="pilcrow">¶</a></p>
@@ -2155,7 +2165,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         <h3 id="name-no-extension-headers-drop-a">
 <a href="#section-4.5" class="section-number selfRef">4.5. </a><a href="#name-no-extension-headers-drop-a" class="section-name selfRef">No extension headers drop at all</a>
         </h3>
-<p id="section-4.5-1"><a href="#table_no_drop" class="auto internal xref">Table 10</a> lists ASs that do not drop transit traffic with extension headers and therefore follow the recommendations of <span>[<a href="#I-D.draft-ietf-opsec-ipv6-eh-filtering" class="cite xref">I-D.draft-ietf-opsec-ipv6-eh-filtering</a>]</span>:<a href="#section-4.5-1" class="pilcrow">¶</a></p>
+<p id="section-4.5-1"><a href="#table_no_drop" class="auto internal xref">Table 10</a> lists ASs that do not drop transit traffic with extension headers and therefore follow the recommendations of <span>[<a href="#RFC9288" class="cite xref">RFC9288</a>]</span>:<a href="#section-4.5-1" class="pilcrow">¶</a></p>
 <span id="name-ass-not-dropping-packets-wi"></span><div id="table_no_drop">
 <table class="center" id="table-10">
           <caption>
@@ -2301,13 +2311,13 @@ svg :is([fill="white"], [fill^="#fff"]) {
         <dd>
 <span class="refTitle">"Internet Protocol Version 6 (IPv6) Parameters, Destination Options and Hop-by-Hop Options"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iana.org/assignments/ipv6-parameters/ipv6-parameters.xhtml#ipv6-parameters-2">https://www.iana.org/assignments/ipv6-parameters/ipv6-parameters.xhtml#ipv6-parameters-2</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC793">[RFC793]</dt>
-        <dd>
-<span class="refAuthor">Postel, J.</span>, <span class="refTitle">"Transmission Control Protocol"</span>, <span class="seriesInfo">RFC 793</span>, <span class="seriesInfo">DOI 10.17487/RFC0793</span>, <time datetime="1981-09" class="refDate">September 1981</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc793">https://www.rfc-editor.org/rfc/rfc793</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC8200">[RFC8200]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Deering, S.</span> and <span class="refAuthor">R. Hinden</span>, <span class="refTitle">"Internet Protocol, Version 6 (IPv6) Specification"</span>, <span class="seriesInfo">STD 86</span>, <span class="seriesInfo">RFC 8200</span>, <span class="seriesInfo">DOI 10.17487/RFC8200</span>, <time datetime="2017-07" class="refDate">July 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8200">https://www.rfc-editor.org/rfc/rfc8200</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9293">[RFC9293]</dt>
+      <dd>
+<span class="refAuthor">Eddy, W., Ed.</span>, <span class="refTitle">"Transmission Control Protocol (TCP)"</span>, <span class="seriesInfo">STD 7</span>, <span class="seriesInfo">RFC 9293</span>, <span class="seriesInfo">DOI 10.17487/RFC9293</span>, <time datetime="2022-08" class="refDate">August 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9293">https://www.rfc-editor.org/rfc/rfc9293</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -2323,8 +2333,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dt id="BCP220">[BCP220]</dt>
         <dd>
 <div class="refInstance" id="RFC8504">
-            <span class="refAuthor">Chown, T.</span>, <span class="refAuthor">Loughney, J.</span>, <span class="refAuthor">Winters, T.</span>, and <span class="refAuthor">RFC Publisher</span>, <span class="refTitle">"IPv6 Node Requirements"</span>, <span class="seriesInfo">BCP 220</span>, <span class="seriesInfo">RFC 8504</span>, <time datetime="2019-01" class="refDate">January 2019</time>. </div>
-<span>&lt;<a href="https://www.rfc-editor.org/info/bcp220">https://www.rfc-editor.org/info/bcp220</a>&gt;</span>
+            <span class="refAuthor">Chown, T.</span>, <span class="refAuthor">Loughney, J.</span>, and <span class="refAuthor">T. Winters</span>, <span class="refTitle">"IPv6 Node Requirements"</span>, <span class="seriesInfo">BCP 220</span>, <span class="seriesInfo">RFC 8504</span>, <time datetime="2019-01" class="refDate">January 2019</time>. </div>
 </dd>
 <dd class="break"></dd>
 <dt id="GITHUB">[GITHUB]</dt>
@@ -2337,11 +2346,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="break"></dd>
 <dt id="I-D.draft-ietf-opsawg-pcap">[I-D.draft-ietf-opsawg-pcap]</dt>
         <dd>
-<span class="refAuthor">Harris, G.</span> and <span class="refAuthor">M. Richardson</span>, <span class="refTitle">"PCAP Capture File Format"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-opsawg-pcap-01</span>, <time datetime="2022-07-29" class="refDate">29 July 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-pcap-01">https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-pcap-01</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="I-D.draft-ietf-opsec-ipv6-eh-filtering">[I-D.draft-ietf-opsec-ipv6-eh-filtering]</dt>
-        <dd>
-<span class="refAuthor">Gont, F.</span> and <span class="refAuthor">W. S. LIU</span>, <span class="refTitle">"Recommendations on the Filtering of IPv6 Packets Containing IPv6 Extension Headers at Transit Routers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-opsec-ipv6-eh-filtering-10</span>, <time datetime="2022-05-03" class="refDate">3 May 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-opsec-ipv6-eh-filtering-10">https://datatracker.ietf.org/doc/html/draft-ietf-opsec-ipv6-eh-filtering-10</a>&gt;</span>. </dd>
+<span class="refAuthor">Harris, G.</span> and <span class="refAuthor">M. Richardson</span>, <span class="refTitle">"PCAP Capture File Format"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-opsawg-pcap-02</span>, <time datetime="2023-01-29" class="refDate">29 January 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-pcap-02">https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-pcap-02</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.draft-vyncke-opsec-probe-attribution">[I-D.draft-vyncke-opsec-probe-attribution]</dt>
         <dd>
@@ -2391,6 +2396,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
         <dd>
 <span class="refAuthor">Gont, F.</span>, <span class="refAuthor">Hilliard, N.</span>, <span class="refAuthor">Doering, G.</span>, <span class="refAuthor">Kumari, W.</span>, <span class="refAuthor">Huston, G.</span>, and <span class="refAuthor">W. Liu</span>, <span class="refTitle">"Operational Implications of IPv6 Packets with Extension Headers"</span>, <span class="seriesInfo">RFC 9098</span>, <span class="seriesInfo">DOI 10.17487/RFC9098</span>, <time datetime="2021-09" class="refDate">September 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9098">https://www.rfc-editor.org/rfc/rfc9098</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC9288">[RFC9288]</dt>
+        <dd>
+<span class="refAuthor">Gont, F.</span> and <span class="refAuthor">W. Liu</span>, <span class="refTitle">"Recommendations on the Filtering of IPv6 Packets Containing IPv6 Extension Headers at Transit Routers"</span>, <span class="seriesInfo">RFC 9288</span>, <span class="seriesInfo">DOI 10.17487/RFC9288</span>, <time datetime="2022-08" class="refDate">August 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9288">https://www.rfc-editor.org/rfc/rfc9288</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="TIER1">[TIER1]</dt>
       <dd>
 <span class="refTitle">"Tier 1 network"</span>, <span>n.d.</span>, <span>&lt;<a href="https://en.wikipedia.org/wiki/Tier_1_network">https://en.wikipedia.org/wiki/Tier_1_network</a>&gt;</span>. </dd>
@@ -2404,7 +2413,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
 <p id="appendix-A-1">The authors want to thank AfriNIC, Angani, China Telecom, Jared Mauch, Sander Steffann, XiPeng Xiao, and Jan Zorz for allowing the free use of their labs. Other thanks to Ben Campbell and Fernando Gont who indicated a nice IPv6 hosting provider in Africa and South America.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
-<p id="appendix-A-2">Special thanks as well to Professor Benoit Donnet for his support and advices. This document would not have existed without his support.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
+<p id="appendix-A-2">Special thanks as well to Professor Benoît Donnet for his support and advices. This document would not have existed without his support.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">

@@ -5,9 +5,9 @@
 IPv6 Operations                                                É. Vyncke
 Internet-Draft                                                     Cisco
 Intended status: Informational                                   R. Léas
-Expires: 10 July 2023                                          J. Iurman
+Expires: 6 September 2023                                      J. Iurman
                                                      Université de Liège
-                                                          6 January 2023
+                                                            5 March 2023
 
 
    Just Another Measurement of Extension header Survivability (JAMES)
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 July 2023.
+   This Internet-Draft will expire on 6 September 2023.
 
 Copyright Notice
 
@@ -97,12 +97,11 @@ Table of Contents
    In 2016, [RFC7872] has measured the drop of packets with IPv6
    extension headers on their transit over the global Internet.  This
    document presents a slightly different methodology with more recent
-   results.  Since then, [I-D.draft-ietf-opsec-ipv6-eh-filtering] has
-   provided some recommendations for filtering transit traffic, so there
-   may be some changes in providers policies.  Also, [RFC9098] raises
-   awareness about the operational and security implications of IPv6
-   extension headers and present reasons why some networks would drop
-   them intentionally.
+   results.  Since then, [RFC9288] has provided some recommendations for
+   filtering transit traffic, so there may be some changes in providers
+   policies.  Also, [RFC9098] raises awareness about the operational and
+   security implications of IPv6 extension headers and present reasons
+   why some networks would drop them intentionally.
 
    It is still work in progress, but the authors wanted to present some
    results at IETF-113 (March 2022).  The code is open source and is
@@ -354,8 +353,8 @@ Table of Contents
 
    In the first phase among collaborating vantage points, packets always
    contained either a UDP payload or a TCP payload, the latter is sent
-   with only the SYN flag set and with data as permitted by section 3.4
-   of [RFC793] (2nd paragraph).  A usual traceroute is done with only
+   with only the SYN flag set and with data as permitted by section 3.5
+   of [RFC9293] (2nd paragraph).  A usual traceroute is done with only
    the UDP/TCP payload without any extension header with varying hop-
    limit in order to learn the traversed routers and ASs.  Then, several
    UDP/TCP probes are sent with a set of extension headers:
@@ -667,8 +666,7 @@ Table of Contents
 4.5.  No extension headers drop at all
 
    Table 10 lists ASs that do not drop transit traffic with extension
-   headers and therefore follow the recommendations of
-   [I-D.draft-ietf-opsec-ipv6-eh-filtering]:
+   headers and therefore follow the recommendations of [RFC9288]:
 
           +===========+========================================+
           | AS Number | AS Description                         |
@@ -764,24 +762,22 @@ Table of Contents
               <https://www.iana.org/assignments/ipv6-parameters/
               ipv6-parameters.xhtml#ipv6-parameters-2>.
 
-   [RFC793]   Postel, J., "Transmission Control Protocol", RFC 793,
-              DOI 10.17487/RFC0793, September 1981,
-              <https://www.rfc-editor.org/rfc/rfc793>.
-
    [RFC8200]  Deering, S. and R. Hinden, "Internet Protocol, Version 6
               (IPv6) Specification", STD 86, RFC 8200,
               DOI 10.17487/RFC8200, July 2017,
               <https://www.rfc-editor.org/rfc/rfc8200>.
+
+   [RFC9293]  Eddy, W., Ed., "Transmission Control Protocol (TCP)",
+              STD 7, RFC 9293, DOI 10.17487/RFC9293, August 2022,
+              <https://www.rfc-editor.org/rfc/rfc9293>.
 
 8.2.  Informative References
 
    [ALEXA]    "The top 500 sites on the web", n.d.,
               <https://www.alexa.com/topsites>.
 
-   [BCP220]   Chown, T., Loughney, J., Winters, T., and RFC Publisher,
-              "IPv6 Node Requirements", BCP 220, RFC 8504, January 2019.
-
-              <https://www.rfc-editor.org/info/bcp220>
+   [BCP220]   Chown, T., Loughney, J., and T. Winters, "IPv6 Node
+              Requirements", BCP 220, RFC 8504, January 2019.
 
    [GITHUB]   Léas, R., "james", n.d.,
               <https://gitlab.uliege.be/Benoit.Donnet/james>.
@@ -797,16 +793,9 @@ Table of Contents
    [I-D.draft-ietf-opsawg-pcap]
               Harris, G. and M. Richardson, "PCAP Capture File Format",
               Work in Progress, Internet-Draft, draft-ietf-opsawg-pcap-
-              01, 29 July 2022, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-opsawg-pcap-01>.
-
-   [I-D.draft-ietf-opsec-ipv6-eh-filtering]
-              Gont, F. and W. S. LIU, "Recommendations on the Filtering
-              of IPv6 Packets Containing IPv6 Extension Headers at
-              Transit Routers", Work in Progress, Internet-Draft, draft-
-              ietf-opsec-ipv6-eh-filtering-10, 3 May 2022,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-opsec-
-              ipv6-eh-filtering-10>.
+              02, 29 January 2023,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-
+              pcap-02>.
 
    [I-D.draft-vyncke-opsec-probe-attribution]
               Vyncke, E., Donnet, B., and J. Iurman, "Attribution of
@@ -874,6 +863,11 @@ Table of Contents
               with Extension Headers", RFC 9098, DOI 10.17487/RFC9098,
               September 2021, <https://www.rfc-editor.org/rfc/rfc9098>.
 
+   [RFC9288]  Gont, F. and W. Liu, "Recommendations on the Filtering of
+              IPv6 Packets Containing IPv6 Extension Headers at Transit
+              Routers", RFC 9288, DOI 10.17487/RFC9288, August 2022,
+              <https://www.rfc-editor.org/rfc/rfc9288>.
+
    [TIER1]    "Tier 1 network", n.d.,
               <https://en.wikipedia.org/wiki/Tier_1_network>.
 
@@ -885,7 +879,7 @@ Acknowledgments
    Gont who indicated a nice IPv6 hosting provider in Africa and South
    America.
 
-   Special thanks as well to Professor Benoit Donnet for his support and
+   Special thanks as well to Professor Benoît Donnet for his support and
    advices.  This document would not have existed without his support.
 
 Authors' Addresses
